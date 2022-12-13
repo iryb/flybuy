@@ -1,10 +1,7 @@
-import React from 'react';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { Layout } from './components/layout/Layout';
-import { Home } from './pages/home/Home';
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Layout } from "./components/layout/Layout";
+import { Home } from "./pages/home/Home";
 
 const router = createBrowserRouter([
   {
@@ -13,13 +10,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
       },
-    ]
+    ],
   },
 ]);
 
-function App() {
+function App(): React.ReactElement {
   return (
     <div className="App">
       <RouterProvider router={router} />
