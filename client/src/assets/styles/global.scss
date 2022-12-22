@@ -1,0 +1,16 @@
+@import "./variables.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  transition: all 300ms;
+}
