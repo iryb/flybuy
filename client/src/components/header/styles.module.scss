@@ -1,0 +1,77 @@
+@import "../../assets/styles/variables.scss";
+
+.toolbar {
+  justify-content: space-between;
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .centerCol {
+    width: 33.33%;
+    text-align: center;
+  }
+
+  .leftCol,
+  .rightCol {
+    width: 33.33%;
+    display: flex;
+    align-items: center;
+  }
+
+  .rightCol {
+    @media (max-width: $screen-md) {
+      justify-content: flex-end;
+    }
+  }
+
+  .siteLogo {
+    text-decoration: none;
+  }
+
+  .siteLogoText {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: white;
+    @media (min-width: $screen-md) {
+      font-size: 40px;
+      letter-spacing: 5px;
+    }
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.currency {
+  display: flex;
+  align-items: center;
+  margin-right: 25px;
+}
+
+.icons {
+  display: flex;
+  margin-left: 25px;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart {
+  position: relative;
+  span {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    text-align: center;
+    background-color: red;
+    font-size: 12px;
+  }
+}
