@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
 import {
   AppBar,
+  Badge,
   Box,
   Container,
   Divider,
@@ -19,8 +20,13 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { setIsCartOpen } from "../../store/cart/slice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 export const Header = (): React.ReactElement => {
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.cart);
+
   const leftMenuPages = [
     {
       label: "Men",
@@ -157,10 +163,14 @@ export const Header = (): React.ReactElement => {
                 <PersonOutlineIcon />
               </Box>
               <FavoriteBorderIcon />
-              <div className={styles.cart}>
-                <ShoppingBasketIcon />
-                <span>0</span>
-              </div>
+              <IconButton
+                onClick={() => dispatch(setIsCartOpen())}
+                sx={{ color: "white" }}
+              >
+                <Badge badgeContent={cart.length} color="error">
+                  <ShoppingBasketIcon />
+                </Badge>
+              </IconButton>
             </div>
           </div>
         </Toolbar>

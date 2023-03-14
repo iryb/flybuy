@@ -8,6 +8,9 @@ export const theme = createTheme({
     secondary: {
       main: "#f8f1ed",
     },
+    error: {
+      main: "#d32f2f",
+    },
   },
   typography: {
     fontFamily: "Poppins, Arial",
