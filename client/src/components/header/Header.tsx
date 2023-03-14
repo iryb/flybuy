@@ -20,8 +20,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { setIsCartOpen } from "../../store/cart/slice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setIsCartOpen } from "@store/cart/slice";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 
 export const Header = (): React.ReactElement => {
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem, CartState } from "../../common/types/types";
+import { CartItem, CartState } from "@/common/types/types";
 
 const initialState: CartState = {
   isCartOpen: false,
