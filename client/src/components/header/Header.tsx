@@ -22,6 +22,7 @@ import {
 import React, { useState } from "react";
 import { setIsCartOpen } from "@store/cart/slice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { MiniCart } from "../miniCart/miniCart";
 
 export const Header = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -67,114 +68,117 @@ export const Header = (): React.ReactElement => {
   };
 
   return (
-    <AppBar position="sticky">
-      <Container>
-        <Toolbar disableGutters={true} className={styles.toolbar}>
-          <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <div className={styles.leftCol}>
-              <div className={styles.currency}>
-                <span>USD</span>
-                <KeyboardArrowDownIcon />
-              </div>
-              <div className={styles.menu}>
-                {leftMenuPages.map(({ label, path }) => (
-                  <Link to={path} className="link" key={label}>
-                    <Typography>{label}</Typography>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </Box>
-          <Box
-            sx={{
-              width: { sm: "33.33%" },
-              display: { xs: "flex", md: "none" },
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              {menuOpened ? <CloseIcon /> : <MenuIcon />}
-            </IconButton>
-            <Drawer
-              anchor="top"
-              variant="persistent"
-              open={menuOpened}
-              onClose={handleOpenNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-                "& .MuiDrawer-paper": {
-                  width: "100%",
-                  height: "100%",
-                  top: "64px",
-                },
-              }}
-            >
-              {leftMenuPages.map(({ label, path }) => (
-                <Link to={path} className="link" key={label}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{label}</Typography>
-                  </MenuItem>
-                </Link>
-              ))}
-              <Divider />
-              {rightMenuPages.map(({ label, path }) => (
-                <Link to={path} className="link" key={label}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{label}</Typography>
-                  </MenuItem>
-                </Link>
-              ))}
-              <Divider />
-              <div className={styles.currency}>
-                <span>USD</span>
-                <KeyboardArrowDownIcon />
-              </div>
-            </Drawer>
-          </Box>
-          <div className={styles.centerCol}>
-            <Link to="/" className={styles.siteLogo}>
-              <Typography
-                variant="h3"
-                component="h1"
-                className={styles.siteLogoText}
-              >
-                FLYBUY
-              </Typography>
-            </Link>
-          </div>
-          <div className={styles.rightCol}>
+    <>
+      <AppBar position="sticky" className={styles.header}>
+        <Container>
+          <Toolbar disableGutters={true} className={styles.toolbar}>
             <Box sx={{ display: { xs: "none", md: "block" } }}>
-              <div className={styles.menu}>
-                {rightMenuPages.map(({ label, path }) => (
-                  <Link to={path} className="link" key={label}>
-                    <Typography>{label}</Typography>
-                  </Link>
-                ))}
+              <div className={styles.leftCol}>
+                <div className={styles.currency}>
+                  <span>USD</span>
+                  <KeyboardArrowDownIcon />
+                </div>
+                <div className={styles.menu}>
+                  {leftMenuPages.map(({ label, path }) => (
+                    <Link to={path} className="link" key={label}>
+                      <Typography>{label}</Typography>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </Box>
-            <div className={styles.icons}>
-              <SearchIcon />
-              <Box sx={{ display: { xs: "none", md: "block" } }}>
-                <PersonOutlineIcon />
-              </Box>
-              <FavoriteBorderIcon />
+            <Box
+              sx={{
+                width: { sm: "33.33%" },
+                display: { xs: "flex", md: "none" },
+              }}
+            >
               <IconButton
-                onClick={() => dispatch(setIsCartOpen())}
-                sx={{ color: "white" }}
+                size="large"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                <Badge badgeContent={cart.length} color="error">
-                  <ShoppingBasketIcon />
-                </Badge>
+                {menuOpened ? <CloseIcon /> : <MenuIcon />}
               </IconButton>
+              <Drawer
+                anchor="top"
+                variant="persistent"
+                open={menuOpened}
+                onClose={handleOpenNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                  "& .MuiDrawer-paper": {
+                    width: "100%",
+                    height: "100%",
+                    top: "64px",
+                  },
+                }}
+              >
+                {leftMenuPages.map(({ label, path }) => (
+                  <Link to={path} className="link" key={label}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{label}</Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+                <Divider />
+                {rightMenuPages.map(({ label, path }) => (
+                  <Link to={path} className="link" key={label}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{label}</Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+                <Divider />
+                <div className={styles.currency}>
+                  <span>USD</span>
+                  <KeyboardArrowDownIcon />
+                </div>
+              </Drawer>
+            </Box>
+            <div className={styles.centerCol}>
+              <Link to="/" className={styles.siteLogo}>
+                <Typography
+                  variant="h3"
+                  component="h1"
+                  className={styles.siteLogoText}
+                >
+                  FLYBUY
+                </Typography>
+              </Link>
             </div>
-          </div>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            <div className={styles.rightCol}>
+              <Box sx={{ display: { xs: "none", md: "block" } }}>
+                <div className={styles.menu}>
+                  {rightMenuPages.map(({ label, path }) => (
+                    <Link to={path} className="link" key={label}>
+                      <Typography>{label}</Typography>
+                    </Link>
+                  ))}
+                </div>
+              </Box>
+              <div className={styles.icons}>
+                <SearchIcon />
+                <Box sx={{ display: { xs: "none", md: "block" } }}>
+                  <PersonOutlineIcon />
+                </Box>
+                <FavoriteBorderIcon />
+                <IconButton
+                  onClick={() => dispatch(setIsCartOpen())}
+                  sx={{ color: "white" }}
+                >
+                  <Badge badgeContent={cart.length} color="error">
+                    <ShoppingBasketIcon />
+                  </Badge>
+                </IconButton>
+              </div>
+            </div>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <MiniCart />
+    </>
   );
 };

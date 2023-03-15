@@ -1,5 +1,9 @@
 @import "../../assets/styles/variables.scss";
 
+.header {
+  z-index: 10;
+}
+
 .toolbar {
   justify-content: space-between;
   .menu {

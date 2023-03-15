@@ -1,0 +1,27 @@
+@import "@styles/variables.scss";
+
+.miniCartBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.miniCart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: max(400px, 30%);
+  height: 100%;
+  background-color: #fff;
+  padding-top: $headerHeight;
+}
+
+.miniCartInner {
+  padding: 20px;
+  overflow-y: scroll;
+  height: 100%;
+}
