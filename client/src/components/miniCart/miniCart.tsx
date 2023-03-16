@@ -1,4 +1,3 @@
-import { CartItem } from "@/common/types/types";
 import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
@@ -9,17 +8,19 @@ import { ProductListItem } from "../productListItem/ProductListItem";
 import { formatPrice } from "@/helpers/helpers";
 import { useNavigate } from "react-router-dom";
 import { ApiPath } from "@/common/enums/apiPath";
+import { CartItem } from "@/common/types/types";
 
 export const MiniCart = (): React.ReactElement => {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const cart = useAppSelector((state) => state.cart.cart) as CartItem[];
   const isCartOpen = useAppSelector((state) => state.cart.isCartOpen);
   const navigate = useNavigate();
 
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.count * item.attributes.price,
-    0,
-  );
+  const totalPrice = cart.reduce((sum, item) => {
+    const price = item.count * item.attributes.price;
+    return sum + price;
+  }, 0);
 
   return (
     <Box display={isCartOpen ? "block" : "none"} className={styles.miniCartBg}>
