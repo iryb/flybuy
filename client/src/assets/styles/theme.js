@@ -15,4 +15,20 @@ export const theme = createTheme({
   typography: {
     fontFamily: "Poppins, Arial",
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#333",
+          color: "#fff",
+          padding: "15px",
+          width: "100%",
+          ":hover": {
+            backgroundColor: "rgb(53, 53, 196)",
+            color: "#fff",
+          },
+        },
+      },
+    },
+  },
 });
