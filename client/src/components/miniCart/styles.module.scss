@@ -21,7 +21,25 @@
 }
 
 .miniCartInner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 20px;
-  overflow-y: scroll;
   height: 100%;
+}
+
+.miniCartContent {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.checkoutBtn {
+  background-color: $primaryColor;
+  color: #fff;
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px;
+  &:hover {
+    background-color: $secondaryColor;
+  }
 }
