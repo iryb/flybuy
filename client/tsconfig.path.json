@@ -7,7 +7,9 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@types/*": ["./src/common/types/*"],
-      "@store/*": ["./src/store/*"]
+      "@enums/*": ["./src/common/enums/*"],
+      "@store/*": ["./src/store/*"],
+      "@helpers/*": ["./src/helpers/*"]
     }
   }
 }
