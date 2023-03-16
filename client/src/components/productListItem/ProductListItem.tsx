@@ -5,13 +5,18 @@ import { useAppDispatch } from "@store/hooks";
 import { formatPrice } from "@/helpers/helpers";
 import { Quantity } from "@components/general/quantity/Quantity";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { removeFromCart } from "@/store/cart/slice";
+import {
+  decreaseCount,
+  increaseCount,
+  removeFromCart,
+} from "@/store/cart/slice";
 
 import styles from "./styles.module.scss";
 
 export const ProductListItem = (item: CartItem): React.ReactElement => {
   const dispatch = useAppDispatch();
   const { name, price } = item.attributes;
+  const { count } = item;
 
   return (
     <Box>
@@ -29,7 +34,11 @@ export const ProductListItem = (item: CartItem): React.ReactElement => {
             </IconButton>
           </Box>
           <Typography>{name}</Typography>
-          <Quantity {...item} />
+          <Quantity
+            callbackDecrease={() => dispatch(decreaseCount({ ...item, count }))}
+            callbackIncrease={() => dispatch(increaseCount({ ...item, count }))}
+            quantity={count}
+          />
         </Box>
       </Box>
     </Box>

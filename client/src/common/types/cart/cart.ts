@@ -11,8 +11,8 @@ interface CartItem {
 
 interface CartState {
   isCartOpen: boolean;
-  cart: CartItem[] | [];
-  items: CartItem[] | [];
+  cart: CartItem[];
+  items: CartItem[];
 }
 
 export type { CartItem, CartState };
