@@ -17,7 +17,7 @@ export const MiniCart = (): React.ReactElement => {
   const navigate = useNavigate();
 
   const totalPrice = cart.reduce(
-    (sum, item) => sum + item.count * item.price,
+    (sum, item) => sum + item.count * item.attributes.price,
     0,
   );
 

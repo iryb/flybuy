@@ -11,23 +11,24 @@ import styles from "./styles.module.scss";
 
 export const ProductListItem = (item: CartItem): React.ReactElement => {
   const dispatch = useAppDispatch();
+  const { name, price } = item.attributes;
 
   return (
     <Box>
       <Box className={styles.product}>
         <Box flex="1 1 40%">
-          <img src="/" alt={item.name} />
+          <img src="/" alt={name} />
         </Box>
         <Box flex="1 1 60%">
           <Box className={styles.productTop}>
-            <Typography fontWeight="bold">{formatPrice(item.price)}</Typography>
+            <Typography fontWeight="bold">{formatPrice(price)}</Typography>
             <IconButton
               onClick={() => dispatch(removeFromCart({ id: item.id }))}
             >
               <HighlightOffIcon />
             </IconButton>
           </Box>
-          <Typography>{item.name}</Typography>
+          <Typography>{name}</Typography>
           <Quantity {...item} />
         </Box>
       </Box>

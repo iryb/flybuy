@@ -1,8 +1,12 @@
 interface CartItem {
   id: string;
-  name: string;
   count: number;
-  price: number;
+  attributes: {
+    name: string;
+    category?: string;
+    price: number;
+    image?: string;
+  };
 }
 
 interface CartState {
