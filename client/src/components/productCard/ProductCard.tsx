@@ -22,18 +22,13 @@ export const ProductCard = ({
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { price, name } = item.attributes;
+  const { price, name, image } = item.attributes;
 
-  // TODO: Strapi format
-  // const {
-  //   data: {
-  //     attributes: {
-  //       formats: {
-  //         medium: { url },
-  //       },
-  //     },
-  //   },
-  // } = image;
+  const url = image.data?.attributes.formats.medium.url as string | null;
+
+  const imagePlaceholder = url
+    ? `http://localhost:1337${url}`
+    : "http://images.unsplash.com/photo-1678972726040-2f2cefc3cefa?ixlib=rb-4.0.3";
 
   const descreaseCount = (): void => {
     setCount(Math.max(count - 1, 1));
@@ -48,7 +43,7 @@ export const ProductCard = ({
       <Box className={styles.card}>
         <Box>
           <img
-            src="https://images.unsplash.com/photo-1678972726040-2f2cefc3cefa?ixlib=rb-4.0.3"
+            src={imagePlaceholder}
             alt={name}
             width="300"
             height="400"

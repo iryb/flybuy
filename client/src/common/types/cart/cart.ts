@@ -5,7 +5,11 @@ interface CartItem {
     name: string;
     category?: string;
     price: number;
-    image?: string;
+    image: {
+      data: {
+        attributes: { formats: { medium: { url: string } } };
+      } | null;
+    };
   };
 }
 
