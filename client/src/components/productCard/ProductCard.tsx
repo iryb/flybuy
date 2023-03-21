@@ -18,11 +18,11 @@ export const ProductCard = ({
   item,
   width,
 }: ProductCardProps): React.ReactElement => {
-  const [count, setCount] = useState(1);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { price, name, image } = item.attributes;
+  const { id } = item;
+  const { price, name, image, category } = item.attributes;
 
   const url = image.data?.attributes.formats.medium.url as string | null;
 
@@ -30,37 +30,35 @@ export const ProductCard = ({
     ? `http://localhost:1337${url}`
     : "http://images.unsplash.com/photo-1678972726040-2f2cefc3cefa?ixlib=rb-4.0.3";
 
-  const descreaseCount = (): void => {
-    setCount(Math.max(count - 1, 1));
-  };
-
-  const increaseCount = (): void => {
-    setCount(count + 1);
-  };
-
   return (
     <Box width={width}>
-      <Box className={styles.card}>
+      <Box className={styles.card} onClick={() => navigate(`/item-${id}`)}>
         <Box>
-          <img
-            src={imagePlaceholder}
-            alt={name}
-            width="300"
-            height="400"
-            className={styles.cardImage}
-          />
-          <Typography variant="h5">{name}</Typography>
+          <Box className={styles.cardHeader}>
+            <img
+              src={imagePlaceholder}
+              alt={name}
+              width="300"
+              height="400"
+              className={styles.cardImage}
+            />
+            <Box className={styles.cardButtonWrapper}>
+              <Button
+                onClick={() => dispatch(addToCart({ ...item, count: 1 }))}
+              >
+                Add to cart
+              </Button>
+            </Box>
+          </Box>
+          <Typography className={styles.category}>
+            {category
+              ?.replace(/([A-Z])/g, " $1")
+              .replace(/^./g, (word) => word.toUpperCase())}
+          </Typography>
+          <Typography variant="h5" className={styles.title}>
+            {name}
+          </Typography>
           <Typography fontWeight="bold">{formatPrice(price)}</Typography>
-        </Box>
-        <Box className={styles.cardFooter}>
-          <Quantity
-            callbackDecrease={descreaseCount}
-            callbackIncrease={increaseCount}
-            quantity={count}
-          />
-          <Button onClick={() => dispatch(addToCart({ ...item, count }))}>
-            Add to cart
-          </Button>
         </Box>
       </Box>
     </Box>
