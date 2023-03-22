@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { addToCart } from "@store/cart/slice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@store/hooks";
 import { CartItem } from "@/common/types/types";
 import { Box, Button, Typography } from "@mui/material";
-import { formatPrice } from "@helpers/helpers";
-import { Quantity } from "@components/general/quantity/Quantity";
+import { formatPrice, formatStringCapitalize } from "@helpers/helpers";
+import { ApiPath } from "@enums/apiPath";
+import placeholder from "@images/productPlaceholder.jpg";
 
 import styles from "./styles.module.scss";
 
@@ -26,9 +27,7 @@ export const ProductCard = ({
 
   const url = image.data?.attributes.formats.medium.url as string | null;
 
-  const imagePlaceholder = url
-    ? `http://localhost:1337${url}`
-    : "http://images.unsplash.com/photo-1678972726040-2f2cefc3cefa?ixlib=rb-4.0.3";
+  const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
 
   return (
     <Box width={width}>
@@ -50,11 +49,11 @@ export const ProductCard = ({
               </Button>
             </Box>
           </Box>
-          <Typography className={styles.category}>
-            {category
-              ?.replace(/([A-Z])/g, " $1")
-              .replace(/^./g, (word) => word.toUpperCase())}
-          </Typography>
+          {category && (
+            <Typography className={styles.category}>
+              {formatStringCapitalize(category)}
+            </Typography>
+          )}
           <Typography variant="h5" className={styles.title}>
             {name}
           </Typography>

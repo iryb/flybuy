@@ -4,9 +4,12 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setItems } from "@store/cart/slice";
 import { ProductCard } from "../productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
+import { ApiPath } from "@enums/apiPath";
+import { ItemsCategories } from "@enums/itemsCategories";
 
 import styles from "./styles.module.scss";
 import { Container } from "@mui/system";
+import { formatStringCapitalize } from "@/helpers/helpers";
 
 export const CategoriesTabs = (): React.ReactElement => {
   const [value, setValue] = useState("all");
@@ -21,15 +24,9 @@ export const CategoriesTabs = (): React.ReactElement => {
   };
 
   async function getItems(): Promise<void> {
-    const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    const items = await fetch(ApiPath.ITEMSAPI, {
+      method: "GET",
+    });
     const itemsData = await items.json();
     dispatch(setItems(itemsData.data));
     return itemsData;
@@ -65,22 +62,31 @@ export const CategoriesTabs = (): React.ReactElement => {
           className={styles.categories}
         >
           <Tab label="All" value="all" />
-          <Tab label="New Arrivals" value="newArrivals" />
-          <Tab label="Best Sellers" value="bestSellers" />
-          <Tab label="Top Rated" value="topRated" />
+          <Tab
+            label={formatStringCapitalize(ItemsCategories.NEWARRIVALS)}
+            value={ItemsCategories.NEWARRIVALS}
+          />
+          <Tab
+            label={formatStringCapitalize(ItemsCategories.BESTSELLERS)}
+            value={ItemsCategories.BESTSELLERS}
+          />
+          <Tab
+            label={formatStringCapitalize(ItemsCategories.TOPRATED)}
+            value={ItemsCategories.TOPRATED}
+          />
         </Tabs>
         <Box className={styles.productsGrid}>
           {value === "all" &&
             items.map((item) => <ProductCard key={uuidv4()} item={item} />)}
-          {value === "newArrivals" &&
+          {value === ItemsCategories.NEWARRIVALS &&
             newArrivals.map((item) => (
               <ProductCard key={uuidv4()} item={item} />
             ))}
-          {value === "bestSellers" &&
+          {value === ItemsCategories.BESTSELLERS &&
             bestSellers.map((item) => (
               <ProductCard key={uuidv4()} item={item} />
             ))}
-          {value === "topRated" &&
+          {value === ItemsCategories.TOPRATED &&
             topRated.map((item) => <ProductCard key={uuidv4()} item={item} />)}
         </Box>
       </Container>
