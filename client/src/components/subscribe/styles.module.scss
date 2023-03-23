@@ -1,0 +1,23 @@
+.section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.subscribeField {
+  display: flex;
+  justify-content: center;
+  .button {
+    width: 150px;
+  }
+  .input {
+    width: 300px;
+    .MuiInputBase-formControl {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.subtitle {
+  padding: 30px 0;
+}
