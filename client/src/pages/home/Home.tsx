@@ -1,4 +1,6 @@
+import { CategoriesTabs } from "@/components/categoriesTabs/CategoriesTabs";
 import { FullWidthCarousel } from "@/components/fullWidthCarousel/FullWidthCarousel";
+import { Subscribe } from "@/components/subscribe/Subscribe";
 
 const slides = [
   {
@@ -23,6 +25,8 @@ export const Home = (): React.ReactElement => {
   return (
     <div>
       <FullWidthCarousel slides={slides} />
+      <CategoriesTabs />
+      <Subscribe />
     </div>
   );
 };
