@@ -31,7 +31,7 @@ export const ProductCard = ({
 
   return (
     <Box width={width}>
-      <Box className={styles.card} onClick={() => navigate(`/item-${id}`)}>
+      <Box className={styles.card} onClick={() => navigate(`/item/${id}`)}>
         <Box>
           <Box className={styles.cardHeader}>
             <img
