@@ -8,7 +8,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 
 import styles from "./styles.module.scss";
-import IconButton from "@mui/material/IconButton";
 
 const menu = [
   {
