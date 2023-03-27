@@ -4,6 +4,8 @@ import { Layout } from "./components/layout/Layout";
 import { Home } from "./pages/home/Home";
 import { ApiPath } from "./common/enums/apiPath";
 import { Product } from "@/pages/product/Product";
+import { Checkout } from "@/pages/checkout/Checkout";
+
 import "@styles/global.scss";
 
 const router = createBrowserRouter([
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: ApiPath.PRODUCT,
         element: <Product />,
+      },
+      {
+        path: ApiPath.CHECKOUT,
+        element: <Checkout />,
       },
     ],
   },
