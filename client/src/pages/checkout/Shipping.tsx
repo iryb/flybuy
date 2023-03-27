@@ -5,6 +5,8 @@ import { CheckoutSchemaValues } from "@/common/types/types";
 import { FormikProps } from "formik";
 import { AddressForm } from "./AddressForm";
 
+import styles from "./styles.module.scss";
+
 export const Shipping = ({
   values,
   errors,
@@ -15,11 +17,11 @@ export const Shipping = ({
 }: FormikProps<CheckoutSchemaValues>): React.ReactElement => {
   return (
     <Box>
-      <Typography>Billing Information</Typography>
+      <Typography className={styles.formTitle}>Billing Information</Typography>
       <Box>
         <AddressForm
           type="billingAddress"
-          value={values.billingAddress}
+          values={values.billingAddress}
           errors={errors}
           touched={touched}
           handleBlur={handleBlur}
@@ -44,6 +46,24 @@ export const Shipping = ({
           }
         />
       </Box>
+
+      {!values.shippingAddress.isSameAddress && (
+        <>
+          <Typography className={styles.formTitle}>
+            Shipping Information
+          </Typography>
+          <Box>
+            <AddressForm
+              type="shippingAddress"
+              values={values.shippingAddress}
+              errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+            />
+          </Box>
+        </>
+      )}
     </Box>
   );
 };

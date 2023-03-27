@@ -7,6 +7,8 @@ import { Step, StepLabel, Stepper, Typography } from "@mui/material";
 import { Shipping } from "./Shipping";
 import { CheckoutSchemaValues } from "@/common/types/types";
 
+import styles from "./styles.module.scss";
+
 const initialValues: CheckoutSchemaValues = {
   billingAddress: {
     firstName: "",
@@ -102,7 +104,7 @@ export const Checkout = (): React.ReactElement => {
   const [activeStep, setActiveStep] = useState(0);
   // const cart = useAppSelector((state) => state.cart.cart);
   const isFirstStep = activeStep === 0;
-  // const isSecondStep = activeStep === 2;
+  const isSecondStep = activeStep === 2;
 
   const handleFormSubmit = async (): Promise<void> => {
     setActiveStep(activeStep + 1);
@@ -111,10 +113,10 @@ export const Checkout = (): React.ReactElement => {
   return (
     <Box>
       <Container>
-        <Typography variant="h2" textAlign="center" mb="20px">
+        <Typography variant="h2" textAlign="center" mt="20px" mb="20px">
           Checkout
         </Typography>
-        <Stepper activeStep={activeStep}>
+        <Stepper activeStep={activeStep} className={styles.steps}>
           <Step>
             <StepLabel>Billing</StepLabel>
           </Step>
@@ -122,7 +124,7 @@ export const Checkout = (): React.ReactElement => {
             <StepLabel>Payment</StepLabel>
           </Step>
         </Stepper>
-        <Box>
+        <Box className={styles.pageContent}>
           <Formik
             onSubmit={handleFormSubmit}
             initialValues={initialValues}
