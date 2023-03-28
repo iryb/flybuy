@@ -1,6 +1,6 @@
 import { CheckoutSchemaValues } from "@/common/types/types";
 import React from "react";
-import { FormikProps, getIn } from "formik";
+import { FormikProps } from "formik";
 import { Box, TextField } from "@mui/material";
 
 import styles from "./styles.module.scss";
@@ -29,15 +29,6 @@ export const AddressForm = ({
 }: AddressFormProps &
   FormikProps<CheckoutSchemaValues>): React.ReactElement => {
   const formattedName = (field: string): string => `${type}.${field}`;
-  const formattedError = (field: string): boolean =>
-    Boolean(
-      getIn(
-        touched,
-        formattedName(field) && getIn(errors, formattedName(field)),
-      ),
-    );
-  // const formattedHelper = (field: string): string =>
-  //   getIn(touched, formattedName(field) && getIn(errors, formattedName(field)));
 
   return (
     <Box className={styles.form}>
@@ -49,8 +40,13 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.firstName}
         name={formattedName("firstName")}
-        error={formattedError("firstName")}
-        // helperText={formattedHelper("firstName")}
+        error={
+          touched.billingAddress?.firstName &&
+          Boolean(errors.billingAddress?.firstName)
+        }
+        helperText={
+          touched.billingAddress?.firstName && errors.billingAddress?.firstName
+        }
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
@@ -61,8 +57,13 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.lastName}
         name={formattedName("lastName")}
-        error={formattedError("lastName")}
-        // helperText={formattedHelper("lastName")}
+        error={
+          touched.billingAddress?.lastName &&
+          Boolean(errors.billingAddress?.lastName)
+        }
+        helperText={
+          touched.billingAddress?.lastName && errors.billingAddress?.lastName
+        }
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
@@ -73,8 +74,13 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.country}
         name={formattedName("country")}
-        error={formattedError("country")}
-        // helperText={formattedHelper("country")}
+        error={
+          touched.billingAddress?.country &&
+          Boolean(errors.billingAddress?.country)
+        }
+        helperText={
+          touched.billingAddress?.country && errors.billingAddress?.country
+        }
         sx={{ gridColumn: "span 4" }}
       />
       <TextField
@@ -85,8 +91,13 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.street1}
         name={formattedName("street1")}
-        error={formattedError("street1")}
-        // helperText={formattedHelper("street1")}
+        error={
+          touched.billingAddress?.street1 &&
+          Boolean(errors.billingAddress?.street1)
+        }
+        helperText={
+          touched.billingAddress?.street1 && errors.billingAddress?.street1
+        }
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
@@ -97,8 +108,13 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.street2}
         name={formattedName("street2")}
-        error={formattedError("street2")}
-        // helperText={formattedHelper("street2")}
+        error={
+          touched.billingAddress?.street2 &&
+          Boolean(errors.billingAddress?.street2)
+        }
+        helperText={
+          touched.billingAddress?.street2 && errors.billingAddress?.street2
+        }
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
@@ -109,8 +125,10 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.city}
         name={formattedName("city")}
-        error={formattedError("city")}
-        // helperText={formattedHelper("city")}
+        error={
+          touched.billingAddress?.city && Boolean(errors.billingAddress?.city)
+        }
+        helperText={touched.billingAddress?.city && errors.billingAddress?.city}
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
@@ -121,8 +139,12 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.state}
         name={formattedName("state")}
-        error={formattedError("state")}
-        // helperText={formattedHelper("state")}
+        error={
+          touched.billingAddress?.state && Boolean(errors.billingAddress?.state)
+        }
+        helperText={
+          touched.billingAddress?.state && errors.billingAddress?.state
+        }
         sx={{ gridColumn: "1fr" }}
       />
       <TextField
@@ -133,8 +155,13 @@ export const AddressForm = ({
         onChange={handleChange}
         value={values.zipCode}
         name={formattedName("zipCode")}
-        error={formattedError("zipCode")}
-        // helperText={formattedHelper("zipCode")}
+        error={
+          touched.billingAddress?.zipCode &&
+          Boolean(errors.billingAddress?.zipCode)
+        }
+        helperText={
+          touched.billingAddress?.zipCode && errors.billingAddress?.zipCode
+        }
         sx={{ gridColumn: "1fr" }}
       />
     </Box>
