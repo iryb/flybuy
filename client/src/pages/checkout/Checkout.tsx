@@ -2,24 +2,69 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import { useAppSelector } from "@/store/hooks";
 import { Box, Container } from "@mui/system";
-import { Step, StepLabel, Stepper, Typography } from "@mui/material";
+import { Step, StepLabel, Stepper, Typography, Button } from "@mui/material";
 import { Shipping } from "./Shipping";
 import { Payment } from "./Payment";
 import {
   checkoutInitialValues,
   checkoutSchema,
 } from "@/common/validationSchemas/schemas";
+import { CheckoutSchemaValues } from "@/common/types/types";
+import { loadStripe } from "@stripe/stripe-js";
+import { ApiPath } from "@enums/apiPath";
 
 import styles from "./styles.module.scss";
 
 export const Checkout = (): React.ReactElement => {
   const [activeStep, setActiveStep] = useState(0);
-  // const cart = useAppSelector((state) => state.cart.cart);
+  const cart = useAppSelector((state) => state.cart.cart);
   const isFirstStep = activeStep === 0;
-  const isSecondStep = activeStep === 2;
+  const isSecondStep = activeStep === 1;
 
-  const handleFormSubmit = async (): Promise<void> => {
-    setActiveStep(activeStep + 1);
+  const stripePromise = loadStripe(
+    process.env.STRIPE_PUBLISHABLE_KEY as string,
+  );
+
+  const makePayment = async (values: any): Promise<void> => {
+    const stripe = await stripePromise;
+    const requestBody = {
+      userName: [values.firstName, values.lastName].join(" "),
+      email: values.email,
+      products: cart.map(({ id, count }) => ({
+        id,
+        count,
+      })),
+    };
+
+    const response = await fetch(ApiPath.ORDERAPI, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    const session = await response.json();
+
+    await stripe?.redirectToCheckout({
+      sessionId: session.id,
+    });
+  };
+
+  const handleFormSubmit = async (
+    values: CheckoutSchemaValues,
+    actions: any,
+  ): Promise<void> => {
+    if (isFirstStep && values.shippingAddress.isSameAddress) {
+      actions.setFieldValue("shippingAddress", {
+        ...values.billingAddress,
+        isSameAddress: true,
+      });
+    }
+
+    if (isSecondStep) {
+      await makePayment(values);
+    }
+
+    actions.setTouched({});
   };
 
   return (
