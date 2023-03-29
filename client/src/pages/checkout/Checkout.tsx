@@ -4,6 +4,7 @@ import { useAppSelector } from "@/store/hooks";
 import { Box, Container } from "@mui/system";
 import { Step, StepLabel, Stepper, Typography } from "@mui/material";
 import { Shipping } from "./Shipping";
+import { Payment } from "./Payment";
 import {
   checkoutInitialValues,
   checkoutSchema,
@@ -62,6 +63,30 @@ export const Checkout = (): React.ReactElement => {
                     setFieldValue={setFieldValue}
                   />
                 )}
+                {isSecondStep && (
+                  // @ts-expect-error
+                  <Payment
+                    values={values}
+                    errors={errors}
+                    touched={touched}
+                    handleBlur={handleBlur}
+                    handleChange={handleChange}
+                    setFieldValue={setFieldValue}
+                  />
+                )}
+                <Box className={styles.checkoutButtons}>
+                  {isSecondStep && (
+                    <Button onClick={() => setActiveStep(activeStep - 1)}>
+                      Back
+                    </Button>
+                  )}
+                  <Button
+                    type="submit"
+                    onClick={() => setActiveStep(activeStep + 1)}
+                  >
+                    {isFirstStep ? "Next" : "Place Order"}
+                  </Button>
+                </Box>
               </form>
             )}
           </Formik>

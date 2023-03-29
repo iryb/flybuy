@@ -18,7 +18,7 @@ export const Shipping = ({
   return (
     <Box>
       <Typography className={styles.formTitle}>Billing Information</Typography>
-      <Box>
+      <Box sx={{ marginBottom: "15px" }}>
         <AddressForm
           type="billingAddress"
           values={values.billingAddress}
@@ -48,7 +48,7 @@ export const Shipping = ({
       </Box>
 
       {!values.shippingAddress.isSameAddress && (
-        <>
+        <Box sx={{ marginBottom: "15px" }}>
           <Typography className={styles.formTitle}>
             Shipping Information
           </Typography>
@@ -62,7 +62,7 @@ export const Shipping = ({
               handleChange={handleChange}
             />
           </Box>
-        </>
+        </Box>
       )}
     </Box>
   );
