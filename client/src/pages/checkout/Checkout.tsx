@@ -10,7 +10,7 @@ import {
   checkoutSchema,
 } from "@/common/validationSchemas/schemas";
 import { CheckoutSchemaValues } from "@/common/types/types";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe, Stripe, StripeError } from "@stripe/stripe-js";
 import { ApiPath } from "@enums/apiPath";
 
 import styles from "./styles.module.scss";
@@ -22,11 +22,15 @@ export const Checkout = (): React.ReactElement => {
   const isSecondStep = activeStep === 1;
 
   const stripePromise = loadStripe(
-    process.env.STRIPE_PUBLISHABLE_KEY as string,
+    process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,
   );
 
-  const makePayment = async (values: any): Promise<void> => {
-    const stripe = await stripePromise;
+  const makePayment = async (
+    values: any,
+  ): Promise<{
+    error: StripeError;
+  }> => {
+    const stripe = (await stripePromise) as Stripe;
     const requestBody = {
       userName: [values.firstName, values.lastName].join(" "),
       email: values.email,
@@ -44,15 +48,18 @@ export const Checkout = (): React.ReactElement => {
 
     const session = await response.json();
 
-    await stripe?.redirectToCheckout({
+    const { error } = await stripe.redirectToCheckout({
       sessionId: session.id,
     });
+
+    return { error: error };
   };
 
   const handleFormSubmit = async (
     values: CheckoutSchemaValues,
     actions: any,
   ): Promise<void> => {
+    setActiveStep(activeStep + 1);
     if (isFirstStep && values.shippingAddress.isSameAddress) {
       actions.setFieldValue("shippingAddress", {
         ...values.billingAddress,
@@ -125,10 +132,7 @@ export const Checkout = (): React.ReactElement => {
                       Back
                     </Button>
                   )}
-                  <Button
-                    type="submit"
-                    onClick={() => setActiveStep(activeStep + 1)}
-                  >
+                  <Button type="submit">
                     {isFirstStep ? "Next" : "Place Order"}
                   </Button>
                 </Box>
