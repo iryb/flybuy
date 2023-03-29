@@ -5,6 +5,7 @@ import { Home } from "./pages/home/Home";
 import { ApiPath } from "./common/enums/apiPath";
 import { Product } from "@/pages/product/Product";
 import { Checkout } from "@/pages/checkout/Checkout";
+import { PaymentSuccessfull } from "@/pages/checkout/PaymentSuccessfull";
 
 import "@styles/global.scss";
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: ApiPath.CHECKOUT,
         element: <Checkout />,
+      },
+      {
+        path: ApiPath.PAYMENTSUCCESSFULL,
+        element: <PaymentSuccessfull />,
       },
     ],
   },
