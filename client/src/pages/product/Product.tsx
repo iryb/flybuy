@@ -2,10 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch } from "@store/hooks";
 import { ApiPath } from "@enums/apiPath";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { CartItem } from "@/common/types/types";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+  ToggleButtonGroup,
+  ToggleButton,
+  Badge,
+} from "@mui/material";
+import { CartItem, Size } from "@/common/types/types";
 import { formatStringCapitalize, formatPrice } from "@helpers/helpers";
 import { Quantity } from "@/components/general/quantity/Quantity";
+import { v4 as uuidv4 } from "uuid";
 
 import styles from "./styles.module.scss";
 import { addToCart } from "@/store/cart/slice";
@@ -15,6 +25,7 @@ export const Product = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const [item, setItem] = useState<CartItem>();
   const [count, setCount] = useState(1);
+  const [size, setSize] = useState<Size>();
 
   const descreaseCount = (): void => {
     setCount(Math.max(count - 1, 1));
@@ -35,6 +46,13 @@ export const Product = (): React.ReactElement => {
     const itemData = await item.json();
     setItem(itemData.data);
   }
+
+  const handleSizeChange = (
+    event: React.MouseEvent<HTMLElement>,
+    size: Size,
+  ): void => {
+    setSize(size);
+  };
 
   useEffect(() => {
     getItem().catch((err) => console.log(err));
@@ -73,6 +91,27 @@ export const Product = (): React.ReactElement => {
                   quantity={count}
                 />
 
+                <Box sx={{ marginBottom: "15px" }}>
+                  <Typography>Select size:</Typography>
+                  <ToggleButtonGroup
+                    exclusive
+                    onChange={handleSizeChange}
+                    value={size}
+                  >
+                    {item.attributes?.size?.data.map((item) => (
+                      <ToggleButton value={item.size} key={uuidv4()}>
+                        {item.count < 10 && (
+                          <Badge color="error" badgeContent="low stock">
+                            <Typography>{item.size}</Typography>
+                          </Badge>
+                        )}
+                        {item.count >= 10 && (
+                          <Typography>{item.size}</Typography>
+                        )}
+                      </ToggleButton>
+                    ))}
+                  </ToggleButtonGroup>
+                </Box>
                 <Button onClick={() => dispatch(addToCart({ ...item, count }))}>
                   Add to cart
                 </Button>

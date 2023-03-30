@@ -1,3 +1,8 @@
+interface Size {
+  size: string;
+  count: number;
+}
+
 interface CartItem {
   id: string;
   count: number;
@@ -10,6 +15,9 @@ interface CartItem {
         attributes: { formats: { medium: { url: string } } };
       } | null;
     };
+    size: {
+      data: Size[];
+    };
   };
 }
 
@@ -19,4 +27,4 @@ interface CartState {
   items: CartItem[];
 }
 
-export type { CartItem, CartState };
+export type { CartItem, CartState, Size };

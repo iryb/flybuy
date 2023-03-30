@@ -89,6 +89,14 @@
         "women",
         "children"
       ]
+    },
+    "size": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "json"
     }
   }
 }
