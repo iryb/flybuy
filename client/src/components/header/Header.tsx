@@ -31,15 +31,15 @@ export const Header = (): React.ReactElement => {
   const leftMenuPages = [
     {
       label: "Men",
-      path: "/products/men",
+      path: "/category/men",
     },
     {
       label: "Women",
-      path: "/products/women",
+      path: "/category/women",
     },
     {
       label: "Children",
-      path: "/products/children",
+      path: "/category/children",
     },
   ];
   const rightMenuPages = [

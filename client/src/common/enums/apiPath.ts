@@ -5,6 +5,7 @@ enum ApiPath {
   CHECKOUT = "/checkout",
   PAYMENTSUCCESSFULL = "/success",
   PRODUCT = "item/:itemId",
+  CATEGORY = "category/:slug",
 }
 
 export { ApiPath };
