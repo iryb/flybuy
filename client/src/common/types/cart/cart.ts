@@ -15,6 +15,7 @@ interface CartItem {
         attributes: { formats: { medium: { url: string } } };
       } | null;
     };
+    fullDescription: string;
     size: {
       data: Size[];
     };

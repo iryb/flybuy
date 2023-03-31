@@ -81,27 +81,40 @@ export const Product = (): React.ReactElement => {
                     {formatStringCapitalize(item.attributes.category)}
                   </Typography>
                 )}
-                <Typography fontWeight="bold">
+                <Typography className={styles.price}>
                   {formatPrice(item.attributes.price)}
                 </Typography>
-
+                <Typography className={styles.description}>
+                  {item.attributes.fullDescription}
+                </Typography>
                 <Quantity
                   callbackDecrease={descreaseCount}
                   callbackIncrease={increaseCount}
                   quantity={count}
                 />
 
-                <Box sx={{ marginBottom: "15px" }}>
+                <Box className={styles.sizeContainer}>
                   <Typography>Select size:</Typography>
                   <ToggleButtonGroup
                     exclusive
                     onChange={handleSizeChange}
                     value={size}
+                    className={styles.sizeButtons}
                   >
                     {item.attributes?.size?.data.map((item) => (
                       <ToggleButton value={item.size} key={uuidv4()}>
                         {item.count < 10 && (
-                          <Badge color="error" badgeContent="low stock">
+                          <Badge
+                            color="error"
+                            badgeContent="low stock"
+                            sx={{
+                              ".MuiBadge-badge": {
+                                padding: "3px",
+                                height: "30px",
+                                marginTop: "-15px",
+                              },
+                            }}
+                          >
                             <Typography>{item.size}</Typography>
                           </Badge>
                         )}
@@ -112,7 +125,10 @@ export const Product = (): React.ReactElement => {
                     ))}
                   </ToggleButtonGroup>
                 </Box>
-                <Button onClick={() => dispatch(addToCart({ ...item, count }))}>
+                <Button
+                  onClick={() => dispatch(addToCart({ ...item, count }))}
+                  className={styles.button}
+                >
                   Add to cart
                 </Button>
               </Grid>
