@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setItems } from "@store/cart/slice";
 import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
+import { Filters } from "@/components/filters/Filters";
 
 import styles from "./styles.module.scss";
 
@@ -26,8 +27,6 @@ export const Category = (): React.ReactElement => {
     return itemsData;
   }
 
-  const sizes = items.map((item) => item.attributes.size?.data);
-
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getItems();
@@ -38,12 +37,7 @@ export const Category = (): React.ReactElement => {
       <Container>
         <Grid container spacing={2}>
           <Grid item sm={3} xs={12}>
-            {/* TODO: Filters */}
-            <Typography variant="h5" className={styles.filtersTitle}>
-              Filters:
-            </Typography>
-            <Typography className={styles.filterTitle}>Size</Typography>
-            <Typography className={styles.filterTitle}>Price</Typography>
+            <Filters items={items} />
           </Grid>
           <Grid item sm={9} xs={12}>
             <Typography variant="h2" className={styles.pageTitle}>
