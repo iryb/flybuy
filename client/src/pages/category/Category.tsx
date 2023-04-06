@@ -31,7 +31,7 @@ export const Category = (): React.ReactElement => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getItems();
-  }, []);
+  }, [slug]);
 
   return (
     <Box className={styles.pageContent}>
