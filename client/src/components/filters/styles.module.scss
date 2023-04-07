@@ -1,0 +1,26 @@
+@import "@styles/variables.scss";
+
+.filters {
+  .filter {
+    background-color: transparent;
+    color: $primaryColor;
+    border-radius: 0;
+    padding: 8px 16px;
+    &.active {
+      background-color: $primaryColor;
+      color: #fff;
+    }
+  }
+}
+
+.filterTitle {
+  padding-bottom: 10px;
+}
+
+.filtersGroup {
+  gap: 10px;
+}
+
+.container {
+  margin: 20px 0;
+}
