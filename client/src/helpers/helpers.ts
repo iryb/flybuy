@@ -20,3 +20,12 @@ export const getUniqueSizes = (items: CartItem[]): string[] => {
 
   return Array.from(uniqueSizes);
 };
+
+export const getPriceRange = (items: CartItem[]): [number, number] => {
+  const prices = items.map((item) => item.attributes.price);
+  const uniquePrices = new Set(prices);
+  const min = Math.min(...Array.from(uniquePrices));
+  const max = Math.max(...Array.from(uniquePrices));
+
+  return [min, max];
+};
