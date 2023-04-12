@@ -1,5 +1,5 @@
 import { Box, Container, Typography, Grid } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import React, { useEffect } from "react";
 import { ApiPath } from "@enums/apiPath";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
@@ -10,18 +10,36 @@ import { Filters } from "@/components/filters/Filters";
 
 import styles from "./styles.module.scss";
 
+const useQuery = (): URLSearchParams => {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
+
 export const Category = (): React.ReactElement => {
   const { slug } = useParams() as { slug: string };
   const items = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
+  const query = useQuery();
+  const minPrice = query.get("minPrice") as string;
+  const maxPrice = query.get("maxPrice") as string;
+
+  const queryParams = new URL(
+    `${ApiPath.ROOT}/api/items?filters[personCategory][$eq]=${slug}&populate=image`,
+  );
+
+  if (minPrice) {
+    queryParams.searchParams.append("filters[price][$gte]", minPrice);
+  }
+
+  if (maxPrice) {
+    queryParams.searchParams.append("filters[price][$lte]", maxPrice);
+  }
 
   async function getItems(): Promise<void> {
-    const items = await fetch(
-      `${ApiPath.ROOT}/api/items?filters[personCategory][$eq]=${slug}&populate=image`,
-      {
-        method: "GET",
-      },
-    );
+    const items = await fetch(queryParams, {
+      method: "GET",
+    });
     const itemsData = await items.json();
     dispatch(setItems(itemsData.data));
     return itemsData;
@@ -30,7 +48,7 @@ export const Category = (): React.ReactElement => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getItems();
-  }, [slug]);
+  }, [slug, minPrice]);
 
   return (
     <Box className={styles.pageContent}>

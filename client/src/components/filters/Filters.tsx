@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { getUniqueSizes, getPriceRange } from "@helpers/helpers";
 import { CartItem } from "@/common/types/types";
 import clsx from "clsx";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 
@@ -24,6 +25,8 @@ export const Filters = ({
 
   const [sizeFilter, setSizeFilter] = useState<string[]>([]);
   const [price, setPrice] = useState<number[]>(priceRange);
+
+  const navigate = useNavigate();
 
   const handleSizeFilter = (size: string): void => {
     if (sizeFilter?.includes(size)) {
@@ -55,6 +58,13 @@ export const Filters = ({
     const newValue =
       event.target.value === "" ? price[1] : Number(event.target.value);
     setPrice([price[0], newValue]);
+  };
+
+  const handleApplyFilters = (): void => {
+    navigate({
+      pathname: "",
+      search: `?minPrice=${price[0]}&maxPrice=${price[1]}`,
+    });
   };
 
   return (
@@ -104,6 +114,7 @@ export const Filters = ({
           className={styles.priceSlider}
         />
       </Box>
+      <Button onClick={() => handleApplyFilters()}>Apply filters</Button>
     </Box>
   );
 };
