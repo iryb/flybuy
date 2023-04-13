@@ -8,38 +8,27 @@ import {
   Input,
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-import { getUniqueSizes, getPriceRange } from "@helpers/helpers";
-import { CartItem } from "@/common/types/types";
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
-import { ApiPath } from "@enums/apiPath";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { setSizes, setPriceRange } from "@store/cart/slice";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAppSelector } from "@store/hooks";
 
 import styles from "./styles.module.scss";
 
-export const Filters = ({
-  items,
-}: {
-  items: CartItem[];
-}): React.ReactElement => {
-  const [sizeFilter, setSizeFilter] = useState<string[]>([]);
-  const [price, setPrice] = useState<[number, number]>([0, 0]);
+const useQuery = (): URLSearchParams => {
+  const { search } = useLocation();
 
-  const dispatch = useAppDispatch();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
+
+export const Filters = (): React.ReactElement => {
   const sizes = useAppSelector((state) => state.cart.sizes);
   const priceRange = useAppSelector((state) => state.cart.priceRange);
+  const [sizeFilter, setSizeFilter] = useState<string[]>([]);
+  const [price, setPrice] = useState<number[]>(priceRange);
 
-  async function getFilters(): Promise<void> {
-    const items = await fetch(`${ApiPath.ROOT}/api/items`, {
-      method: "GET",
-    });
-    const itemsData = await items.json();
-    const sizes = getUniqueSizes(itemsData.data);
-    dispatch(setSizes(sizes));
-    const priceRange = getPriceRange(itemsData.data);
-    dispatch(setPriceRange(priceRange));
-  }
+  const query = useQuery();
+  const minPrice = query.get("minPrice") as string;
+  const maxPrice = query.get("maxPrice") as string;
 
   const navigate = useNavigate();
 
@@ -56,7 +45,8 @@ export const Filters = ({
     event: Event,
     newValue: number | number[],
   ): void => {
-    // setPrice(newValue);
+    // @ts-expect-error
+    setPrice(newValue);
   };
 
   const handleMinPriceChange = (
@@ -69,8 +59,7 @@ export const Filters = ({
   const handleMaxPriceChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    const newValue =
-      event.target.value === "" ? price[1] : Number(event.target.value);
+    const newValue = Number(event.target.value);
     setPrice([price[0], newValue]);
   };
 
@@ -86,8 +75,9 @@ export const Filters = ({
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getFilters();
+    if (minPrice && maxPrice) {
+      setPrice([parseInt(minPrice), parseInt(maxPrice)]);
+    }
   }, []);
 
   return (
@@ -120,18 +110,20 @@ export const Filters = ({
       {priceRange && (
         <Box className={styles.container}>
           <Typography className={styles.filterTitle}>Price</Typography>
-          <Box className={styles.rangeInputs}>
-            <Input
-              value={price[0]}
-              onChange={handleMinPriceChange}
-              type="number"
-            />
-            <Input
-              value={price[1]}
-              onChange={handleMaxPriceChange}
-              type="number"
-            />
-          </Box>
+          {price && (
+            <Box className={styles.rangeInputs}>
+              <Input
+                value={price[0]}
+                onChange={handleMinPriceChange}
+                type="number"
+              />
+              <Input
+                value={price[1]}
+                onChange={handleMaxPriceChange}
+                type="number"
+              />
+            </Box>
+          )}
           <Slider
             value={price}
             onChange={handlePriceChange}

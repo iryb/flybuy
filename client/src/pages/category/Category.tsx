@@ -3,10 +3,11 @@ import { useLocation, useParams } from "react-router-dom";
 import React, { useEffect } from "react";
 import { ApiPath } from "@enums/apiPath";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { setItems } from "@store/cart/slice";
+import { setItems, setSizes, setPriceRange } from "@store/cart/slice";
 import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
+import { getUniqueSizes, getPriceRange } from "@helpers/helpers";
 
 import styles from "./styles.module.scss";
 
@@ -37,11 +38,23 @@ export const Category = (): React.ReactElement => {
   }
 
   async function getItems(): Promise<void> {
-    const items = await fetch(queryParams, {
+    const filteredItems = await fetch(queryParams, {
       method: "GET",
     });
+    const filteredItemsData = await filteredItems.json();
+    dispatch(setItems(filteredItemsData.data));
+
+    const items = await fetch(
+      `${ApiPath.ROOT}/api/items?filters[personCategory][$eq]=${slug}&populate=image`,
+      {
+        method: "GET",
+      },
+    );
     const itemsData = await items.json();
-    dispatch(setItems(itemsData.data));
+    const sizes = getUniqueSizes(itemsData.data);
+    dispatch(setSizes(sizes));
+    const priceRange = getPriceRange(itemsData.data);
+    dispatch(setPriceRange(priceRange));
     return itemsData;
   }
 
@@ -55,7 +68,7 @@ export const Category = (): React.ReactElement => {
       <Container>
         <Grid container spacing={2}>
           <Grid item sm={3} xs={12}>
-            <Filters items={items} />
+            <Filters />
           </Grid>
           <Grid item sm={9} xs={12}>
             <Typography variant="h2" className={styles.pageTitle}>
