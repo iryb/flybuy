@@ -7,7 +7,20 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
   z-index: 2;
+  pointer-events: none;
+  transition: opacity 300ms;
+}
+
+.miniCartContainer {
+  &.active {
+    opacity: 1;
+    pointer-events: initial;
+    .miniCart {
+      transform: translateX(0);
+    }
+  }
 }
 
 .miniCart {
@@ -18,6 +31,11 @@
   height: 100%;
   background-color: #fff;
   padding-top: $headerHeight;
+  transform: translateX(100%);
+  transition: transform 300ms;
+  @media (max-width: $screen-sm) {
+    width: 100%;
+  }
 }
 
 .miniCartInner {
@@ -42,4 +60,11 @@
   &:hover {
     background-color: $secondaryColor;
   }
+}
+
+.totalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
 }

@@ -8,12 +8,11 @@ import { ProductListItem } from "../productListItem/ProductListItem";
 import { formatPrice } from "@/helpers/helpers";
 import { useNavigate } from "react-router-dom";
 import { ApiPath } from "@/common/enums/apiPath";
-import { CartItem } from "@/common/types/types";
+import clsx from "clsx";
 
 export const MiniCart = (): React.ReactElement => {
   const dispatch = useAppDispatch();
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const cart = useAppSelector((state) => state.cart.cart) as CartItem[];
+  const cart = useAppSelector((state) => state.cart.cart);
   const isCartOpen = useAppSelector((state) => state.cart.isCartOpen);
   const navigate = useNavigate();
 
@@ -23,7 +22,13 @@ export const MiniCart = (): React.ReactElement => {
   }, 0);
 
   return (
-    <Box display={isCartOpen ? "block" : "none"} className={styles.miniCartBg}>
+    <Box
+      className={clsx(
+        styles.miniCartBg,
+        styles.miniCartContainer,
+        isCartOpen ? styles.active : "",
+      )}
+    >
       <Box className={styles.miniCart}>
         <Box className={styles.miniCartInner}>
           <Box className={styles.miniCartContent}>
@@ -42,11 +47,7 @@ export const MiniCart = (): React.ReactElement => {
           <Box className={styles.miniCartFooter}>
             <Divider />
             <Box mt="20px">
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Box className={styles.totalContainer}>
                 <Typography variant="h5" fontWeight="bold">
                   Total:
                 </Typography>

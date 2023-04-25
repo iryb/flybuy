@@ -1,5 +1,5 @@
 .product {
-  padding: 15px;
+  padding: 15px 0;
   display: flex;
 }
 
@@ -7,4 +7,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.leftCol {
+  padding-right: 15px;
+}
+
+.productImage {
+  max-width: 100%;
+  height: auto;
 }

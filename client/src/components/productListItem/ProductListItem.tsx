@@ -10,19 +10,25 @@ import {
   increaseCount,
   removeFromCart,
 } from "@/store/cart/slice";
+import { ApiPath } from "@enums/apiPath";
 
 import styles from "./styles.module.scss";
 
 export const ProductListItem = (item: CartItem): React.ReactElement => {
   const dispatch = useAppDispatch();
-  const { name, price } = item.attributes;
+  const { name, price, image } = item.attributes;
   const { count } = item;
 
   return (
     <Box>
       <Box className={styles.product}>
-        <Box flex="1 1 40%">
-          <img src="/" alt={name} />
+        <Box flex="1 1 40%" className={styles.leftCol}>
+          <img
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            src={`${ApiPath.ROOT}${image.data?.attributes.formats.medium.url}`}
+            alt={name}
+            className={styles.productImage}
+          />
         </Box>
         <Box flex="1 1 60%">
           <Box className={styles.productTop}>
