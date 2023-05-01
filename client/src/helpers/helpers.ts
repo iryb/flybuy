@@ -1,4 +1,6 @@
-import { CartItem } from "@/common/types/types";
+import { CartItem, Image } from "@/common/types/types";
+import { ApiPath } from "@enums/apiPath";
+import placeholder from "@images/productPlaceholder.jpg";
 
 export const formatPrice = (num: number): string => {
   return num.toLocaleString("en-US", { style: "currency", currency: "USD" });
@@ -28,4 +30,22 @@ export const getPriceRange = (items: CartItem[]): [number, number] => {
   const max = Math.max(...Array.from(uniquePrices));
 
   return [min, max];
+};
+
+export const getProductImage = (item: CartItem): string => {
+  const url = item.attributes.image.data?.attributes.formats.medium.url as
+    | string
+    | null;
+
+  const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
+
+  return imagePlaceholder;
+};
+
+export const getCategoryImage = (item: Partial<Image>): string => {
+  const url = item.data?.attributes?.formats.medium.url as string | null;
+
+  const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
+
+  return imagePlaceholder;
 };

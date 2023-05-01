@@ -3,6 +3,12 @@ interface Size {
   count: number;
 }
 
+interface Image {
+  data: {
+    attributes: { formats: { medium: { url: string } } };
+  } | null;
+}
+
 interface CartItem {
   id: string;
   count: number;
@@ -30,4 +36,4 @@ interface CartState {
   priceRange: [number, number];
 }
 
-export type { CartItem, CartState, Size };
+export type { CartItem, CartState, Size, Image };
