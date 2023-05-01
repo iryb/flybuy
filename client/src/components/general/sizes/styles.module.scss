@@ -1,0 +1,15 @@
+@import "@styles/variables.scss";
+
+.filtersGroup {
+  gap: 10px;
+  .filter {
+    background-color: transparent;
+    color: $primaryColor;
+    border-radius: 0;
+    padding: 8px 16px;
+    &.active {
+      background-color: $primaryColor;
+      color: #fff;
+    }
+  }
+}

@@ -1,52 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { addToCart } from "@store/cart/slice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@store/hooks";
-import { CartItem } from "@/common/types/types";
+import { CartItem, Image } from "@/common/types/types";
 import { Box, Button, Typography } from "@mui/material";
-import { formatPrice, formatStringCapitalize } from "@helpers/helpers";
-import { ApiPath } from "@enums/apiPath";
-import placeholder from "@images/productPlaceholder.jpg";
+import {
+  formatPrice,
+  formatStringCapitalize,
+  getProductImage,
+} from "@helpers/helpers";
+import { Sizes } from "../general/sizes/Sizes";
 
 import styles from "./styles.module.scss";
 
 interface ProductCardProps {
   item: CartItem;
-  width?: string;
 }
 
-export const ProductCard = ({
-  item,
-  width,
-}: ProductCardProps): React.ReactElement => {
+export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [choseSize, setChoseSize] = useState<string>();
+  const [error, setError] = useState<string>();
 
   const { id } = item;
-  const { price, name, image, category } = item.attributes;
+  const { price, name, category, size } = item.attributes;
 
-  const url = image.data?.attributes.formats.medium.url as string | null;
+  const handleAddToCart = (): void => {
+    if (!choseSize) {
+      setError("Please choose a size");
+      return;
+    } else {
+      setError("");
+    }
+    dispatch(addToCart({ ...item, count: 1 }));
+  };
 
-  const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
+  const handleSizeClick = (s: string): void => {
+    setChoseSize(s);
+  };
 
   return (
-    <Box width={width}>
-      <Box className={styles.card} onClick={() => navigate(`/item/${id}`)}>
+    <Box>
+      <Box className={styles.card}>
         <Box>
           <Box className={styles.cardHeader}>
             <img
-              src={imagePlaceholder}
+              src={getProductImage(item)}
               alt={name}
               width="300"
               height="400"
               className={styles.cardImage}
+              onClick={() => navigate(`/item/${id}`)}
             />
             <Box className={styles.cardButtonWrapper}>
-              <Button
-                onClick={() => dispatch(addToCart({ ...item, count: 1 }))}
-              >
-                Add to cart
-              </Button>
+              {error && <Typography>{error}</Typography>}
+              {size && (
+                <Box className={styles.sizesContainer}>
+                  <Sizes items={size.data} callback={handleSizeClick} />
+                </Box>
+              )}
+              <Button onClick={handleAddToCart}>Add to cart</Button>
             </Box>
           </Box>
           {category && (
@@ -55,7 +69,7 @@ export const ProductCard = ({
             </Typography>
           )}
           <Typography variant="h5" className={styles.title}>
-            {name}
+            <Link to={`/item/${id}`}>{name}</Link>
           </Typography>
           <Typography fontWeight="bold">{formatPrice(price)}</Typography>
         </Box>
