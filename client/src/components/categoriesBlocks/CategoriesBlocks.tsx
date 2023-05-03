@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { ApiPath } from "@enums/apiPath";
 import { setCategories } from "@store/categories/slice";
 import { v4 as uuidv4 } from "uuid";
 import { getCategoryImage } from "@helpers/helpers";
 
 import styles from "./styles.module.scss";
+import { Link } from "react-router-dom";
 
 export const CategoriesBlocks = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -29,12 +30,23 @@ export const CategoriesBlocks = (): React.ReactElement => {
   return (
     <>
       {categories && (
-        <Box>
-          <Grid container spacing={2}>
+        <Box className={styles.section}>
+          <Grid container>
             {categories.map((category) => (
-              <Grid item xs={4} key={uuidv4()}>
-                <img src={getCategoryImage(category.attributes.image)} alt="" />
-                {category.attributes.title}
+              <Grid item sm={4} key={uuidv4()} className={styles.category}>
+                <Link
+                  to={`category${category.attributes.link}`}
+                  className={styles.link}
+                ></Link>
+                <Box className={styles.imageContainer}>
+                  <img
+                    src={getCategoryImage(category.attributes.image)}
+                    alt={category.attributes.title}
+                  />
+                </Box>
+                <Typography variant="h3" className={styles.categoryTitle}>
+                  {category.attributes.title}
+                </Typography>
               </Grid>
             ))}
           </Grid>
