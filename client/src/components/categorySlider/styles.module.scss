@@ -1,5 +1,10 @@
 @import "@styles/variables.scss";
 
+.title {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
 .carousel {
   .arrowPrev {
     position: absolute;
@@ -41,4 +46,10 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.arrowsContainer {
+  padding-top: 20px;
+  padding-left: 0;
+  text-align: center;
 }

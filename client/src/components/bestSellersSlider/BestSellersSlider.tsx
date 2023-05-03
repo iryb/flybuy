@@ -16,8 +16,7 @@ export const BestSellersSlider = (): React.ReactElement => {
       {bestSellers && (
         <Box>
           <Container>
-            <Typography variant="h3">Best Sellers</Typography>
-            <CategorySlider slides={bestSellers} />
+            <CategorySlider title="Best Sellers" slides={bestSellers} />
           </Container>
         </Box>
       )}

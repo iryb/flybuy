@@ -14,10 +14,9 @@ export const NewArrivalsSlider = (): React.ReactElement => {
   return (
     <>
       {newArrivals && (
-        <Box>
+        <Box className="section">
           <Container>
-            <Typography variant="h3">New Arrivals</Typography>
-            <CategorySlider slides={newArrivals} />
+            <CategorySlider title="New Arrivals" slides={newArrivals} />
           </Container>
         </Box>
       )}

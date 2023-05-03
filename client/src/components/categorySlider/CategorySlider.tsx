@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
@@ -15,10 +15,12 @@ import { ProductCard } from "@components/productCard/ProductCard";
 import styles from "./styles.module.scss";
 
 interface CategorySliderProps {
+  title?: string;
   slides: CartItem[];
 }
 
 export const CategorySlider = ({
+  title,
   slides,
 }: CategorySliderProps): React.ReactElement => {
   const navigate = useNavigate();
@@ -27,16 +29,31 @@ export const CategorySlider = ({
     <>
       {slides && (
         <Box className={styles.section}>
+          {title && (
+            <Typography variant="h3" className={styles.title}>
+              {title}
+            </Typography>
+          )}
           <Swiper
             modules={[Navigation, Autoplay]}
-            spaceBetween={15}
-            slidesPerView={4}
+            spaceBetween={0}
+            slidesPerView={1}
             navigation={{
               nextEl: ".swiper-button-next",
               prevEl: ".swiper-button-prev",
               disabledClass: "swiper-button-disabled",
             }}
             loop={false}
+            breakpoints={{
+              600: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+              },
+              900: {
+                slidesPerView: 4,
+                spaceBetween: 15,
+              },
+            }}
             className={styles.carousel}
           >
             {slides.map((slide) => (
@@ -45,7 +62,10 @@ export const CategorySlider = ({
               </SwiperSlide>
             ))}
           </Swiper>
-          <Container sx={{ position: "relative", height: "100%" }}>
+          <Container
+            sx={{ position: "relative", height: "100%" }}
+            className={styles.arrowsContainer}
+          >
             <IconButton
               className={clsx("swiper-button-prev", styles.arrowPrev)}
             >
