@@ -37,6 +37,7 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   };
 
   const handleSizeClick = (s: string): void => {
+    setError("");
     setChoseSize(s);
   };
 
@@ -54,7 +55,9 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
               onClick={() => navigate(`/item/${id}`)}
             />
             <Box className={styles.cardButtonWrapper}>
-              {error && <Typography>{error}</Typography>}
+              {error && (
+                <Typography className={styles.error}>{error}</Typography>
+              )}
               {size && (
                 <Box className={styles.sizesContainer}>
                   <Sizes items={size.data} callback={handleSizeClick} />
