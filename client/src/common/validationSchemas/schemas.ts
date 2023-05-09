@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { CheckoutSchemaValues } from "@/common/types/types";
+import { CheckoutSchemaValues, SignInSchemaValues } from "@/common/types/types";
 
 export const checkoutInitialValues: CheckoutSchemaValues = {
   billingAddress: {
@@ -98,3 +98,13 @@ export const checkoutSchema = [
     phoneNumber: yup.string().required("required"),
   }),
 ];
+
+export const signInInitialValues: SignInSchemaValues = {
+  email: "",
+  password: "",
+};
+
+export const signInSchema = yup.object().shape({
+  email: yup.string().required("required"),
+  password: yup.string().required("required"),
+});

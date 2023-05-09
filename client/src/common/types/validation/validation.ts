@@ -24,4 +24,9 @@ interface CheckoutSchemaValues {
   phoneNumber: string;
 }
 
-export type { CheckoutSchemaValues };
+interface SignInSchemaValues {
+  email: string;
+  password: string;
+}
+
+export type { CheckoutSchemaValues, SignInSchemaValues };

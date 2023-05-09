@@ -23,6 +23,7 @@ import React, { useState } from "react";
 import { setIsCartOpen } from "@store/cart/slice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { MiniCart } from "../miniCart/miniCart";
+import { ApiPath } from "@/common/enums/apiPath";
 
 export const Header = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -162,7 +163,9 @@ export const Header = (): React.ReactElement => {
               <div className={styles.icons}>
                 <SearchIcon />
                 <Box sx={{ display: { xs: "none", md: "block" } }}>
-                  <PersonOutlineIcon />
+                  <Link to={ApiPath.SIGNIN}>
+                    <PersonOutlineIcon />
+                  </Link>
                 </Box>
                 <FavoriteBorderIcon />
                 <IconButton
