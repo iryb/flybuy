@@ -26,6 +26,7 @@ import { MiniCart } from "../miniCart/miniCart";
 import { ApiPath } from "@/common/enums/apiPath";
 import { fetchUser } from "@store/user/slice";
 import { getToken } from "@/helpers/helpers";
+import { AvatarMenu } from "../avatarMenu/AvatarMenu";
 
 import styles from "./styles.module.scss";
 
@@ -74,8 +75,6 @@ export const Header = (): React.ReactElement => {
   const handleCloseNavMenu = (): void => {
     setMenuOpened(false);
   };
-
-  const handleAvatarClick = (): void => {};
 
   useEffect(() => {
     if (authToken) {
@@ -179,18 +178,12 @@ export const Header = (): React.ReactElement => {
               <div className={styles.icons}>
                 <SearchIcon />
                 <Box sx={{ display: { xs: "none", md: "block" } }}>
-                  {!user && (
-                    <Link to={ApiPath.SIGNIN}>
+                  {!user.name && (
+                    <Link to={ApiPath.SIGNIN} className={styles.link}>
                       <PersonOutlineIcon />
                     </Link>
                   )}
-                  {user && (
-                    <IconButton onClick={handleAvatarClick}>
-                      <Avatar className={styles.avatarIcon}>
-                        {user.name.charAt(0)}
-                      </Avatar>
-                    </IconButton>
-                  )}
+                  {user.name && <AvatarMenu />}
                 </Box>
                 <FavoriteBorderIcon />
                 <IconButton

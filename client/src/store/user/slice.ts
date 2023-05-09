@@ -28,6 +28,10 @@ export const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.data = action.payload;
     },
+    logout: (state) => {
+      state.data.name = "";
+      state.data.email = "";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
@@ -37,6 +41,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 
 export default userSlice.reducer;
