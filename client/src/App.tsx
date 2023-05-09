@@ -9,6 +9,7 @@ import { PaymentSuccessfull } from "@/pages/checkout/PaymentSuccessfull";
 import { Category } from "@/pages/category/Category";
 import { SignIn } from "@/pages/sign/SignIn";
 import { SignUp } from "@/pages/sign/SignUp";
+import { Profile } from "@/pages/profile/Profile";
 
 import "@styles/global.scss";
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: ApiPath.SIGNUP,
         element: <SignUp />,
+      },
+      {
+        path: ApiPath.PROFILE,
+        element: <Profile />,
       },
     ],
   },

@@ -1,5 +1,6 @@
 import { CartItem, Image } from "@/common/types/types";
 import { ApiPath } from "@enums/apiPath";
+import { Auth } from "@enums/auth";
 import placeholder from "@images/productPlaceholder.jpg";
 
 export const formatPrice = (num: number): string => {
@@ -48,4 +49,18 @@ export const getCategoryImage = (item: Partial<Image>): string => {
   const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
 
   return imagePlaceholder;
+};
+
+export const getToken = (): string | null => {
+  return localStorage.getItem(Auth.TOKEN);
+};
+
+export const setToken = (token: string): void => {
+  if (token) {
+    localStorage.setItem(Auth.TOKEN, token);
+  }
+};
+
+export const removeToken = (): void => {
+  localStorage.removeItem(Auth.TOKEN);
 };

@@ -6,7 +6,6 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { Link } from "react-router-dom";
-import styles from "./styles.module.scss";
 import {
   AppBar,
   Badge,
@@ -18,16 +17,24 @@ import {
   MenuItem,
   Toolbar,
   Typography,
+  Avatar,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { setIsCartOpen } from "@store/cart/slice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { MiniCart } from "../miniCart/miniCart";
 import { ApiPath } from "@/common/enums/apiPath";
+import { fetchUser } from "@store/user/slice";
+import { getToken } from "@/helpers/helpers";
+
+import styles from "./styles.module.scss";
 
 export const Header = (): React.ReactElement => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.data);
   const cart = useAppSelector((state) => state.cart.cart);
+
+  const authToken = getToken();
 
   const leftMenuPages = [
     {
@@ -67,6 +74,15 @@ export const Header = (): React.ReactElement => {
   const handleCloseNavMenu = (): void => {
     setMenuOpened(false);
   };
+
+  const handleAvatarClick = (): void => {};
+
+  useEffect(() => {
+    if (authToken) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      dispatch(fetchUser(authToken));
+    }
+  }, [authToken]);
 
   return (
     <>
@@ -163,9 +179,18 @@ export const Header = (): React.ReactElement => {
               <div className={styles.icons}>
                 <SearchIcon />
                 <Box sx={{ display: { xs: "none", md: "block" } }}>
-                  <Link to={ApiPath.SIGNIN}>
-                    <PersonOutlineIcon />
-                  </Link>
+                  {!user && (
+                    <Link to={ApiPath.SIGNIN}>
+                      <PersonOutlineIcon />
+                    </Link>
+                  )}
+                  {user && (
+                    <IconButton onClick={handleAvatarClick}>
+                      <Avatar className={styles.avatarIcon}>
+                        {user.name.charAt(0)}
+                      </Avatar>
+                    </IconButton>
+                  )}
                 </Box>
                 <FavoriteBorderIcon />
                 <IconButton

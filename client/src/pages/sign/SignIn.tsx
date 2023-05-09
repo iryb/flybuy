@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -8,8 +8,9 @@ import {
   FormControlLabel,
   Checkbox,
   Grid,
+  Alert,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ApiPath } from "@/common/enums/apiPath";
 import { Formik } from "formik";
 import {
@@ -17,10 +18,17 @@ import {
   signInSchema,
 } from "@/common/validationSchemas/schemas";
 import { SignInSchemaValues } from "@/common/types/types";
+import { useAppDispatch } from "@store/hooks";
+import { setToken } from "@helpers/helpers";
+import { setUser } from "@/store/user/slice";
 
 import styles from "./styles.module.scss";
 
 export const SignIn = (): React.ReactElement => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
   const handleFormSubmit = async (
     values: SignInSchemaValues,
   ): Promise<void> => {
@@ -41,10 +49,20 @@ export const SignIn = (): React.ReactElement => {
       if (data?.error) {
         throw data?.error;
       } else {
-        console.log("logged in");
+        setToken(data.jwt);
+
+        dispatch(
+          setUser({
+            name: data.user.username,
+            email: data.user.email,
+          }),
+        );
+
+        navigate(ApiPath.PROFILE);
       }
     } catch (error) {
-      console.error(error);
+      // @ts-expect-error
+      setError(error.message);
     }
   };
 
@@ -54,6 +72,11 @@ export const SignIn = (): React.ReactElement => {
         <Typography variant="h1" className={styles.pageTitle}>
           Sign In
         </Typography>
+        {error && (
+          <Alert severity="error" sx={{ mb: 3 }}>
+            {error}
+          </Alert>
+        )}
         <Formik
           onSubmit={handleFormSubmit}
           initialValues={signInInitialValues}

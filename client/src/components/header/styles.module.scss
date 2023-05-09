@@ -79,3 +79,18 @@
     font-size: 12px;
   }
 }
+
+.avatar {
+  text-decoration: none;
+  .avatarIcon {
+    background-color: #fff;
+    color: $primaryColor;
+    width: 30px;
+    height: 30px;
+    transition: all 300ms;
+    &:hover {
+      background-color: $secondaryColor;
+      color: #fff;
+    }
+  }
+}

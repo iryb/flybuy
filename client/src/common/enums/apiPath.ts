@@ -10,6 +10,7 @@ enum ApiPath {
   CATEGORY = "category/:slug",
   SIGNIN = "/signin",
   SIGNUP = "/signup",
+  PROFILE = "/profile",
 }
 
 export { ApiPath };
