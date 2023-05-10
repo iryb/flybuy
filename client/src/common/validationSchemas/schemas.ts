@@ -1,5 +1,9 @@
 import * as yup from "yup";
-import { CheckoutSchemaValues, SignInSchemaValues } from "@/common/types/types";
+import {
+  CheckoutSchemaValues,
+  SignInSchemaValues,
+  SignUpSchemaValues,
+} from "@/common/types/types";
 
 export const checkoutInitialValues: CheckoutSchemaValues = {
   billingAddress: {
@@ -107,4 +111,21 @@ export const signInInitialValues: SignInSchemaValues = {
 export const signInSchema = yup.object().shape({
   email: yup.string().required("required"),
   password: yup.string().required("required"),
+});
+
+export const signUpInitialValues: SignUpSchemaValues = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
+export const signUpSchema = yup.object().shape({
+  name: yup.string().required("reduired"),
+  email: yup.string().required("required"),
+  password: yup.string().required("required"),
+  confirmPassword: yup
+    .string()
+    .required("required")
+    .oneOf([yup.ref("password")], "Passwords must match"),
 });

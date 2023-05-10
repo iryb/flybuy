@@ -29,4 +29,11 @@ interface SignInSchemaValues {
   password: string;
 }
 
-export type { CheckoutSchemaValues, SignInSchemaValues };
+interface SignUpSchemaValues {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export type { CheckoutSchemaValues, SignInSchemaValues, SignUpSchemaValues };
