@@ -10,7 +10,7 @@ import {
   Grid,
   Alert,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { ApiPath } from "@/common/enums/apiPath";
 import { Formik } from "formik";
 import {
@@ -18,7 +18,7 @@ import {
   signInSchema,
 } from "@/common/validationSchemas/schemas";
 import { SignInSchemaValues } from "@/common/types/types";
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setToken } from "@helpers/helpers";
 import { setUser } from "@/store/user/slice";
 
@@ -28,6 +28,7 @@ export const SignIn = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const user = useAppSelector((state) => state.user.data);
 
   const handleFormSubmit = async (
     values: SignInSchemaValues,
@@ -65,6 +66,10 @@ export const SignIn = (): React.ReactElement => {
       setError(error.message);
     }
   };
+
+  if (user.name) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Box className={styles.pageContent}>
