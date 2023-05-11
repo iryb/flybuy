@@ -22,4 +22,10 @@ body {
   @media (max-width: $screen-sm) {
     margin: 40px 0;
   }
+  .pageTitle {
+    text-transform: capitalize;
+    font-size: 30px;
+    font-weight: 700;
+    padding-bottom: 30px;
+  }
 }
