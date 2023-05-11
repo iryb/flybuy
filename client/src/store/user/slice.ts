@@ -7,6 +7,7 @@ const initialState: UserState = {
   data: {
     name: "",
     email: "",
+    id: "",
   },
 };
 
@@ -31,12 +32,14 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.data.name = "";
       state.data.email = "";
+      state.data.id = "";
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.data.name = action.payload.username;
       state.data.email = action.payload.email;
+      state.data.id = action.payload.id;
     });
   },
 });

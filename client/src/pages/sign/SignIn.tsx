@@ -56,6 +56,7 @@ export const SignIn = (): React.ReactElement => {
           setUser({
             name: data.user.username,
             email: data.user.email,
+            id: data.user.id,
           }),
         );
 
