@@ -36,4 +36,18 @@ interface CartState {
   priceRange: [number, number];
 }
 
-export type { CartItem, CartState, Size, Image };
+interface ProductPreview {
+  id: string;
+  count: number;
+  attributes: {
+    name: string;
+    price: number;
+    image: {
+      data: {
+        attributes: { formats: { medium: { url: string } } };
+      } | null;
+    };
+  };
+}
+
+export type { CartItem, CartState, Size, Image, ProductPreview };

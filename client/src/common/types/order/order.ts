@@ -1,10 +1,13 @@
-import { CartItem } from "../cart/cart";
+interface OrderProduct {
+  id: string;
+  count: number;
+}
 
 interface Order {
   id: string;
   attributes: {
     createdAt: string;
-    products: CartItem[];
+    products: OrderProduct[];
   };
 }
 

@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import clsx from "clsx";
 import { Navigate } from "react-router-dom";
 import { fetchOrders } from "@/store/order/slice";
+import { OrdersHistory } from "@/components/ordersHistory/OrdersHistory";
 
 import styles from "./styles.module.scss";
 
@@ -32,6 +33,7 @@ export const Profile = (): React.ReactElement => {
         <Typography variant="h3" className={styles.ordersTitle}>
           Your Orders
         </Typography>
+        <OrdersHistory />
       </Container>
     </Box>
   );
