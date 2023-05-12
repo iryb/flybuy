@@ -33,18 +33,8 @@ export const getPriceRange = (items: CartItem[]): [number, number] => {
   return [min, max];
 };
 
-export const getProductImage = (item: CartItem): string => {
-  const url = item.attributes.image.data?.attributes.formats.medium.url as
-    | string
-    | null;
-
-  const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
-
-  return imagePlaceholder;
-};
-
-export const getCategoryImage = (item: Partial<Image>): string => {
-  const url = item.data?.attributes?.formats.medium.url as string | null;
+export const getProductImage = (item: Image): string => {
+  const url = item?.data?.attributes.formats.medium.url as string | null;
 
   const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
 
@@ -63,4 +53,8 @@ export const setToken = (token: string): void => {
 
 export const removeToken = (): void => {
   localStorage.removeItem(Auth.TOKEN);
+};
+
+export const formatDate = (date: string): string => {
+  return new Date(date).toLocaleDateString("en-US");
 };

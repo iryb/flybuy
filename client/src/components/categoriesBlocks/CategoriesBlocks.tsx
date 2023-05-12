@@ -4,10 +4,10 @@ import { Box, Grid, Typography } from "@mui/material";
 import { ApiPath } from "@enums/apiPath";
 import { setCategories } from "@store/categories/slice";
 import { v4 as uuidv4 } from "uuid";
-import { getCategoryImage } from "@helpers/helpers";
+import { getProductImage } from "@helpers/helpers";
+import { Link } from "react-router-dom";
 
 import styles from "./styles.module.scss";
-import { Link } from "react-router-dom";
 
 export const CategoriesBlocks = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -40,7 +40,7 @@ export const CategoriesBlocks = (): React.ReactElement => {
                 ></Link>
                 <Box className={styles.imageContainer}>
                   <img
-                    src={getCategoryImage(category.attributes.image)}
+                    src={getProductImage(category.attributes.image)}
                     alt={category.attributes.title}
                   />
                 </Box>

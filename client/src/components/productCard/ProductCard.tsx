@@ -47,7 +47,7 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
         <Box>
           <Box className={styles.cardHeader}>
             <img
-              src={getProductImage(item)}
+              src={getProductImage(item.attributes.image)}
               alt={name}
               width="300"
               height="400"
