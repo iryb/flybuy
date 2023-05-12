@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { OrderState } from "@/common/types/types";
+import { CartItem, OrderState, ProductPreview } from "@/common/types/types";
 import { ApiPath } from "@/common/enums/apiPath";
 
 const initialState: OrderState = {
@@ -30,7 +30,24 @@ export const fetchOrders = createAsyncThunk(
             return await productResponse.json();
           }
         }),
-      );
+      ).then((res) => {
+        const resData: ProductPreview[] = [];
+        res.forEach((product) => {
+          const productData: ProductPreview = {
+            id: product.data[0].id,
+            count: 1,
+            attributes: {
+              name: product.data[0].attributes.name,
+              price: product.data[0].attributes.price,
+              image: product.data[0].attributes.image,
+            },
+          };
+
+          resData.push(productData);
+
+          return resData;
+        });
+      });
     });
 
     console.log(await Promise.all(productsData));
