@@ -1,13 +1,18 @@
 import React from "react";
 import { useAppSelector } from "@/store/hooks";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { OrderItem } from "@components/orderItem/OrderItem";
 import { v4 as uuidv4 } from "uuid";
+
+import styles from "./styles.module.scss";
 
 export const OrdersHistory = (): React.ReactElement => {
   const orders = useAppSelector((state) => state.order.data);
   return (
-    <Box>
+    <Box className={styles.pageContent}>
+      <Typography variant="h3" className={styles.ordersTitle}>
+        Orders History
+      </Typography>
       {orders
         ?.slice()
         .sort((a, b) => {

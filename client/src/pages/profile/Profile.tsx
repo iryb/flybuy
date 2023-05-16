@@ -30,9 +30,6 @@ export const Profile = (): React.ReactElement => {
         >
           Welcome back, {user.name}!
         </Typography>
-        <Typography variant="h3" className={styles.ordersTitle}>
-          Your Orders
-        </Typography>
         <OrdersHistory />
       </Container>
     </Box>

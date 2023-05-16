@@ -1,0 +1,66 @@
+@import "@styles/variables.scss";
+
+.orderItem {
+  margin: 40px 0;
+  .title {
+    font-weight: 700;
+    margin: 15px 0;
+    font-size: 18px;
+  }
+  .date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: $primaryColorLight;
+  }
+  .image {
+    width: 100px;
+    height: 130px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .details {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+  }
+  .price {
+    font-weight: 700;
+  }
+  .name {
+    font-weight: 700;
+  }
+  .count {
+    color: $primaryColorLight;
+  }
+}
+
+.detailsText {
+  width: calc(100% - 100px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  .leftCol {
+    width: calc(100% - 215px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media (max-width: $screen-sm) {
+      width: 100%;
+    }
+  }
+  .rightCol {
+    width: 200px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media (max-width: $screen-sm) {
+      width: 100%;
+      text-align: left;
+    }
+  }
+}
