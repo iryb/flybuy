@@ -9,23 +9,14 @@ import { Box, Button, Container, IconButton, Typography } from "@mui/material";
 import clsx from "clsx";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/store/hooks";
+import { ApiPath } from "@/common/enums/apiPath";
 
 import styles from "./styles.module.scss";
 
-interface Slide {
-  image: string;
-  title?: string;
-  link?: string;
-}
-
-interface FullWidthCarouselProps {
-  slides: Slide[];
-}
-
-export const FullWidthCarousel = ({
-  slides,
-}: FullWidthCarouselProps): React.ReactElement => {
+export const FullWidthCarousel = (): React.ReactElement => {
   const navigate = useNavigate();
+  const slides = useAppSelector((state) => state.banner.data);
 
   return (
     <Swiper
@@ -41,9 +32,13 @@ export const FullWidthCarousel = ({
       autoplay
       className={styles.carousel}
     >
-      {slides.map(({ image, title, link }) => (
+      {slides?.map(({ image, title, link }) => (
         <SwiperSlide key={uuidv4()}>
-          <img className={styles.carouselImage} src={image} alt="" />
+          <img
+            className={styles.carouselImage}
+            src={`${ApiPath.ROOT}${image}`}
+            alt=""
+          />
           <Container sx={{ position: "relative", height: "100%" }}>
             <IconButton
               className={clsx("swiper-button-prev", styles.arrowPrev)}
