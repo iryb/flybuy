@@ -10,7 +10,8 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import clsx from "clsx";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAppSelector } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { fetchSubcategories } from "@/store/categories/slice";
 
 import styles from "./styles.module.scss";
 
@@ -21,16 +22,23 @@ const useQuery = (): URLSearchParams => {
 };
 
 export const Filters = (): React.ReactElement => {
-  const sizes = useAppSelector((state) => state.cart.sizes);
-  const priceRange = useAppSelector((state) => state.cart.priceRange);
+  const sizes = ["xs", "sm", "md", "lg"];
+  const priceRange = ["10", "20", "30", "40", "50", "100"];
   const [sizeFilter, setSizeFilter] = useState<string[]>([]);
-  const [price, setPrice] = useState<number[]>(priceRange);
+  const [subcategoryFilter, setSubcategoryFilter] = useState<string[]>([]);
+  const [price, setPrice] = useState<number[]>();
 
   const query = useQuery();
-  const minPrice = query.get("minPrice") as string;
   const maxPrice = query.get("maxPrice") as string;
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const subcategories = useAppSelector(
+    (state) => state.categories.subcategories,
+  );
+  const subcategoriesFilter = subcategories.find(
+    (item) => item.title === "Women",
+  );
 
   const handleSizeFilter = (size: string): void => {
     if (sizeFilter?.includes(size)) {
@@ -41,27 +49,29 @@ export const Filters = (): React.ReactElement => {
     }
   };
 
-  const handlePriceChange = (
-    event: Event,
-    newValue: number | number[],
-  ): void => {
-    // @ts-expect-error
-    setPrice(newValue);
+  const handleSubcategoryFilter = (item: string): void => {
+    if (subcategoryFilter?.includes(item)) {
+      const newSubcategories = subcategoryFilter.filter((i) => i !== item);
+      setSubcategoryFilter(newSubcategories);
+    } else {
+      setSubcategoryFilter([...subcategoryFilter, item]);
+    }
   };
 
-  const handleMinPriceChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    const newValue = Number(event.target.value);
-    setPrice([newValue, price[1]]);
-  };
+  // const handlePriceChange = (
+  //   event: Event,
+  //   newValue: number | number[],
+  // ): void => {
+  //   // @ts-expect-error
+  //   setPrice(newValue);
+  // };
 
-  const handleMaxPriceChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    const newValue = Number(event.target.value);
-    setPrice([price[0], newValue]);
-  };
+  // const handleMaxPriceChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ): void => {
+  //   const newValue = Number(event.target.value);
+  //   setPrice([price[0], newValue]);
+  // };
 
   const handleApplyFilters = (): void => {
     let queryParams = `?`;
@@ -74,10 +84,15 @@ export const Filters = (): React.ReactElement => {
     });
   };
 
+  // useEffect(() => {
+  //   if (minPrice && maxPrice) {
+  //     setPrice([parseInt(minPrice), parseInt(maxPrice)]);
+  //   }
+  // }, []);
+
   useEffect(() => {
-    if (minPrice && maxPrice) {
-      setPrice([parseInt(minPrice), parseInt(maxPrice)]);
-    }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    dispatch(fetchSubcategories());
   }, []);
 
   return (
@@ -110,27 +125,49 @@ export const Filters = (): React.ReactElement => {
       {priceRange && (
         <Box className={styles.container}>
           <Typography className={styles.filterTitle}>Price</Typography>
-          {price && (
-            <Box className={styles.rangeInputs}>
-              <Input
-                value={price[0]}
-                onChange={handleMinPriceChange}
-                type="number"
-              />
-              <Input
-                value={price[1]}
-                onChange={handleMaxPriceChange}
-                type="number"
-              />
-            </Box>
-          )}
-          <Slider
-            value={price}
-            onChange={handlePriceChange}
-            min={priceRange[0]}
-            max={priceRange[1]}
-            className={styles.priceSlider}
-          />
+          <ButtonGroup
+            className={clsx(styles.filtersGroup, styles.priceContainer)}
+          >
+            {priceRange.map((s: string) => (
+              <Button
+                key={uuidv4()}
+                onClick={() => handleSizeFilter(s)}
+                className={clsx(
+                  styles.filter,
+                  sizeFilter?.includes(s) ? styles.active : "",
+                )}
+                sx={{
+                  borderRightColor: "rgba(29, 29, 29, 0.5)!important",
+                }}
+              >
+                Up to ${s}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </Box>
+      )}
+      {subcategories && (
+        <Box className={styles.container}>
+          <Typography className={styles.filterTitle}>Subcategories</Typography>
+          <ButtonGroup
+            className={clsx(styles.filtersGroup, styles.subcategories)}
+          >
+            {subcategoriesFilter?.items.map((item: any) => (
+              <Button
+                key={uuidv4()}
+                onClick={() => handleSubcategoryFilter(item)}
+                className={clsx(
+                  styles.filter,
+                  subcategoryFilter?.includes(item) ? styles.active : "",
+                )}
+                sx={{
+                  borderRightColor: "rgba(29, 29, 29, 0.5)!important",
+                }}
+              >
+                {item}
+              </Button>
+            ))}
+          </ButtonGroup>
         </Box>
       )}
       <Button onClick={() => handleApplyFilters()}>Apply filters</Button>

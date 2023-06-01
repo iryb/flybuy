@@ -98,24 +98,10 @@
       },
       "type": "json"
     },
-    "type": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "enumeration",
-      "enum": [
-        "Dresses",
-        "T-shirts",
-        "Shirts",
-        "Tops",
-        "Skirts",
-        "Jackets",
-        "Trousers",
-        "Sweatshirts",
-        "Accessories"
-      ]
+    "subcategory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subcategory.subcategory"
     }
   }
 }

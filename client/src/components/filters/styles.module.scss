@@ -25,11 +25,13 @@
   margin: 20px 0;
 }
 
-.rangeInputs {
-  display: flex;
-  gap: 15px;
+.priceContainer {
+  flex-wrap: wrap;
+  .filter {
+    max-width: max-content;
+  }
 }
 
-.priceSlider {
-  margin-top: 20px;
+.subcategories {
+  flex-wrap: wrap;
 }
