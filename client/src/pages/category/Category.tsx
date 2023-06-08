@@ -22,20 +22,29 @@ export const Category = (): React.ReactElement => {
   const items = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
   const query = useQuery();
-  const minPrice = query.get("minPrice") as string;
-  const maxPrice = query.get("maxPrice") as string;
+
+  const querySizes = query.getAll("size");
+  const maxPrice = query.get("maxPrice");
+  const querySubcategories = query.getAll("subcat");
 
   const queryParams = new URL(
     `${ApiPath.ROOT}/api/items?filters[personCategory][$eq]=${slug}&populate=image`,
   );
 
-  if (minPrice) {
-    queryParams.searchParams.append("filters[price][$gte]", minPrice);
-  }
+  querySizes?.forEach((s) => {
+    queryParams.searchParams.append("filters[size][$contains]", s);
+  });
 
   if (maxPrice) {
     queryParams.searchParams.append("filters[price][$lte]", maxPrice);
   }
+
+  querySubcategories?.forEach((s) => {
+    queryParams.searchParams.append(
+      "filters[$and][0][subcategory][title][$eq]",
+      s.charAt(0).toUpperCase() + s.slice(1),
+    );
+  });
 
   async function getItems(): Promise<void> {
     const filteredItems = await fetch(queryParams, {
@@ -61,7 +70,7 @@ export const Category = (): React.ReactElement => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getItems();
-  }, [slug, minPrice]);
+  }, [slug, query]);
 
   return (
     <Box className={styles.pageContent}>
