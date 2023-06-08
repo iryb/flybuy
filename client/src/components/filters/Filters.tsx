@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import clsx from "clsx";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { fetchSubcategories } from "@/store/categories/slice";
 
@@ -29,15 +29,20 @@ export const Filters = (): React.ReactElement => {
   const [price, setPrice] = useState<number[]>();
 
   const query = useQuery();
-  const maxPrice = query.get("maxPrice") as string;
+  // const maxPrice = query.get("maxPrice") as string;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { slug } = useParams() as { slug: string };
+  const currentCategory: string = slug.charAt(0).toUpperCase() + slug.slice(1);
+
+  console.log(currentCategory);
+
   const subcategories = useAppSelector(
     (state) => state.categories.subcategories,
   );
   const subcategoriesFilter = subcategories.find(
-    (item) => item.title === "Women",
+    (item) => item.title === currentCategory,
   );
 
   const handleSizeFilter = (size: string): void => {
