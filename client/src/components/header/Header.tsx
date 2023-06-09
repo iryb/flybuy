@@ -88,19 +88,20 @@ export const Header = (): React.ReactElement => {
       <AppBar position="sticky" className={styles.header}>
         <Container>
           <Toolbar disableGutters={true} className={styles.toolbar}>
-            <Box sx={{ display: { xs: "none", md: "block" } }}>
-              <div className={styles.leftCol}>
-                <div className={styles.currency}>
-                  <span>USD</span>
-                  <KeyboardArrowDownIcon />
-                </div>
-                <div className={styles.menu}>
-                  {leftMenuPages.map(({ label, path }) => (
-                    <Link to={path} className="link" key={label}>
-                      <Typography>{label}</Typography>
-                    </Link>
-                  ))}
-                </div>
+            <Box
+              className={styles.leftCol}
+              sx={{ display: { xs: "none", md: "block" } }}
+            >
+              <div className={styles.currency}>
+                <span>USD</span>
+                <KeyboardArrowDownIcon />
+              </div>
+              <div className={styles.menu}>
+                {leftMenuPages.map(({ label, path }) => (
+                  <Link to={path} className="link" key={label}>
+                    <Typography>{label}</Typography>
+                  </Link>
+                ))}
               </div>
             </Box>
             <Box
@@ -185,7 +186,8 @@ export const Header = (): React.ReactElement => {
                   )}
                   {user.name && <AvatarMenu />}
                 </Box>
-                <FavoriteBorderIcon />
+                {/* TODO:
+                <FavoriteBorderIcon /> */}
                 <IconButton
                   onClick={() => dispatch(setIsCartOpen())}
                   sx={{ color: "white" }}
