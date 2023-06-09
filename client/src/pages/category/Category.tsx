@@ -75,11 +75,11 @@ export const Category = (): React.ReactElement => {
   return (
     <Box className={styles.pageContent}>
       <Container>
-        <Grid container spacing={2}>
-          <Grid item sm={3} xs={12}>
+        <Grid container spacing={4}>
+          <Grid item md={3} sm={12}>
             <Filters />
           </Grid>
-          <Grid item sm={9} xs={12}>
+          <Grid item md={9} sm={12}>
             <Typography variant="h2" className={styles.pageTitle}>
               For {slug}
             </Typography>
