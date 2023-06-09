@@ -95,7 +95,7 @@ export const Filters = (): React.ReactElement => {
     if (querySizes) setSizeFilter(querySizes);
     if (queryMaxPrice) setPriceFilter(parseInt(queryMaxPrice));
     if (querySubcategories) setSubcategoryFilter(querySubcategories);
-  }, []);
+  }, [query]);
 
   return (
     <Box className={styles.filters}>
