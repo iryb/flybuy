@@ -8,18 +8,12 @@ import {
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import clsx from "clsx";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { fetchSubcategories } from "@/store/categories/slice";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
 import styles from "./styles.module.scss";
-
-const useQuery = (): URLSearchParams => {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-};
 
 export const Filters = (): React.ReactElement => {
   const sizes = ["xs", "sm", "md", "lg"];
@@ -27,13 +21,12 @@ export const Filters = (): React.ReactElement => {
   const [sizeFilter, setSizeFilter] = useState<string[]>([]);
   const [priceFilter, setPriceFilter] = useState<number>();
   const [subcategoryFilter, setSubcategoryFilter] = useState<string[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const query = useQuery();
-  const querySizes = query.getAll("size");
-  const queryMaxPrice = query.get("maxPrice");
-  const querySubcategories = query.getAll("subcat");
+  const querySizes = searchParams.getAll("size");
+  const queryMaxPrice = searchParams.get("maxPrice");
+  const querySubcategories = searchParams.getAll("subcat");
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { slug } = useParams() as { slug: string };
 
@@ -75,22 +68,24 @@ export const Filters = (): React.ReactElement => {
   };
 
   const handleApplyFilters = (): void => {
-    let queryParams = `?`;
-
+    const params: {
+      size?: string[];
+      maxPrice?: string;
+      subcat?: string[];
+    } = {};
     if (sizeFilter) {
-      sizeFilter.forEach((s) => (queryParams += `size=${s}&`));
-    }
-    if (priceFilter) {
-      queryParams += `&maxPrice=${priceFilter}`;
-    }
-    if (subcategoryFilter) {
-      subcategoryFilter.forEach((s) => (queryParams += `&subcat=${s}&`));
+      params.size = sizeFilter;
     }
 
-    navigate({
-      pathname: "",
-      search: queryParams,
-    });
+    if (priceFilter) {
+      params.maxPrice = priceFilter.toString();
+    }
+
+    if (subcategoryFilter) {
+      params.subcat = subcategoryFilter;
+    }
+
+    setSearchParams(params);
   };
 
   useEffect(() => {
@@ -102,7 +97,7 @@ export const Filters = (): React.ReactElement => {
     if (querySizes) setSizeFilter(querySizes);
     if (queryMaxPrice) setPriceFilter(parseInt(queryMaxPrice));
     if (querySubcategories) setSubcategoryFilter(querySubcategories);
-  }, [query]);
+  }, [searchParams]);
 
   return (
     <>
