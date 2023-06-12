@@ -1,5 +1,5 @@
-import { Box, Container, Typography, Grid } from "@mui/material";
-import { useLocation, useParams } from "react-router-dom";
+import { Box, Container, Typography, Grid, Chip } from "@mui/material";
+import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect } from "react";
 import { ApiPath } from "@enums/apiPath";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
@@ -11,21 +11,15 @@ import { getUniqueSizes, getPriceRange } from "@helpers/helpers";
 
 import styles from "./styles.module.scss";
 
-const useQuery = (): URLSearchParams => {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-};
-
 export const Category = (): React.ReactElement => {
   const { slug } = useParams() as { slug: string };
   const items = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
-  const query = useQuery();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const querySizes = query.getAll("size");
-  const maxPrice = query.get("maxPrice");
-  const querySubcategories = query.getAll("subcat");
+  const querySizes = searchParams.getAll("size");
+  const maxPrice = searchParams.get("maxPrice");
+  const querySubcategories = searchParams.getAll("subcat");
 
   const queryParams = new URL(
     `${ApiPath.ROOT}/api/items?filters[personCategory][$eq]=${slug}&populate=image`,
@@ -70,7 +64,28 @@ export const Category = (): React.ReactElement => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getItems();
-  }, [slug, query]);
+  }, [slug, searchParams]);
+
+  const handleRemoveSizeFilter = (s: string): void => {
+    const params: {
+      size?: string[];
+      maxPrice?: string;
+      subcat?: string[];
+    } = {};
+    if (querySizes) {
+      params.size = querySizes.filter((p) => p !== s);
+    }
+
+    if (maxPrice) {
+      params.maxPrice = maxPrice;
+    }
+
+    if (querySubcategories) {
+      params.subcat = querySubcategories;
+    }
+
+    setSearchParams(params);
+  };
 
   return (
     <Box className={styles.pageContent}>
@@ -83,7 +98,15 @@ export const Category = (): React.ReactElement => {
             <Typography variant="h2" className={styles.pageTitle}>
               For {slug}
             </Typography>
-            <Grid container spacing={2}>
+            {querySizes?.map((s) => (
+              <Chip
+                key={uuidv4()}
+                label={s}
+                onDelete={() => handleRemoveSizeFilter(s)}
+              />
+            ))}
+
+            <Grid container spacing={2} mt={2}>
               {items?.map((item) => (
                 <Grid item sm={4} xs={12} key={uuidv4()}>
                   <ProductCard item={item} />
