@@ -87,6 +87,43 @@ export const Category = (): React.ReactElement => {
     setSearchParams(params);
   };
 
+  const handleRemovePriceFilter = (p: string): void => {
+    const params: {
+      size?: string[];
+      subcat?: string[];
+    } = {};
+    if (querySizes) {
+      params.size = querySizes;
+    }
+
+    if (querySubcategories) {
+      params.subcat = querySubcategories;
+    }
+
+    setSearchParams(params);
+  };
+
+  const handleRemoveSubcategoryFilter = (s: string): void => {
+    const params: {
+      size?: string[];
+      maxPrice?: string;
+      subcat?: string[];
+    } = {};
+    if (querySizes) {
+      params.size = querySizes;
+    }
+
+    if (maxPrice) {
+      params.maxPrice = maxPrice;
+    }
+
+    if (querySubcategories) {
+      params.subcat = querySubcategories.filter((p) => p !== s);
+    }
+
+    setSearchParams(params);
+  };
+
   return (
     <Box className={styles.pageContent}>
       <Container>
@@ -103,6 +140,19 @@ export const Category = (): React.ReactElement => {
                 key={uuidv4()}
                 label={s}
                 onDelete={() => handleRemoveSizeFilter(s)}
+              />
+            ))}
+            {maxPrice && (
+              <Chip
+                label={`Up to $${maxPrice}`}
+                onDelete={() => handleRemovePriceFilter(maxPrice)}
+              />
+            )}
+            {querySubcategories?.map((s) => (
+              <Chip
+                key={uuidv4()}
+                label={s}
+                onDelete={() => handleRemoveSubcategoryFilter(s)}
               />
             ))}
 
