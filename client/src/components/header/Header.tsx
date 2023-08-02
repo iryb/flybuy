@@ -1,5 +1,4 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -17,7 +16,6 @@ import {
   MenuItem,
   Toolbar,
   Typography,
-  Avatar,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { setIsCartOpen } from "@store/cart/slice";
@@ -27,6 +25,7 @@ import { ApiPath } from "@/common/enums/apiPath";
 import { fetchUser } from "@store/user/slice";
 import { getToken } from "@/helpers/helpers";
 import { AvatarMenu } from "../avatarMenu/AvatarMenu";
+import { SearchBar } from "@/components/header/SearchBar";
 
 import styles from "./styles.module.scss";
 
@@ -177,7 +176,7 @@ export const Header = (): React.ReactElement => {
                 </div>
               </Box>
               <div className={styles.icons}>
-                <SearchIcon />
+                <SearchBar />
                 <Box sx={{ display: { xs: "none", md: "block" } }}>
                   {!user.name && (
                     <Link to={ApiPath.SIGNIN} className={styles.link}>
