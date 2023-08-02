@@ -10,6 +10,7 @@ import { Category } from "@/pages/category/Category";
 import { SignIn } from "@/pages/sign/SignIn";
 import { SignUp } from "@/pages/sign/SignUp";
 import { Profile } from "@/pages/profile/Profile";
+import { Search } from "@/pages/search/Search";
 
 import "@styles/global.scss";
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: ApiPath.PROFILE,
         element: <Profile />,
+      },
+      {
+        path: ApiPath.SEARCH,
+        element: <Search />,
       },
     ],
   },

@@ -11,6 +11,7 @@ enum ApiPath {
   SIGNIN = "/signin",
   SIGNUP = "/signup",
   PROFILE = "/profile",
+  SEARCH = "/search",
 }
 
 export { ApiPath };
