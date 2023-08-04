@@ -9,6 +9,7 @@ import { formatPrice } from "@/helpers/helpers";
 import { useNavigate } from "react-router-dom";
 import { ApiPath } from "@/common/enums/apiPath";
 import clsx from "clsx";
+import emptyCartImg from "@images/shopping-bag.png";
 
 export const MiniCart = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,40 @@ export const MiniCart = (): React.ReactElement => {
     return sum + price;
   }, 0);
 
+  if (totalPrice === 0) {
+    return (
+      <Box
+        className={clsx(
+          styles.miniCartBg,
+          styles.miniCartContainer,
+          styles.miniCartEmpty,
+          isCartOpen ? styles.active : "",
+        )}
+      >
+        <Box className={styles.miniCart}>
+          <Box className={styles.miniCartInner}>
+            <Box className={styles.miniCartContent}>
+              <Box className={styles.miniCartHeader}>
+                <Typography variant="h4">Basket</Typography>
+                <IconButton onClick={() => dispatch(setIsCartOpen())}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+              <Box className={styles.emptyCartContent}>
+                <img
+                  src={emptyCartImg}
+                  alt="Empty cart"
+                  className={styles.emptyCartImage}
+                />
+                <Typography>Your basket is still empty.</Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box
       className={clsx(
@@ -32,13 +67,13 @@ export const MiniCart = (): React.ReactElement => {
       <Box className={styles.miniCart}>
         <Box className={styles.miniCartInner}>
           <Box className={styles.miniCartContent}>
-            <Box textAlign="right">
+            <Box className={styles.miniCartHeader}>
+              <Typography variant="h4">Basket ({cart.length})</Typography>
               <IconButton onClick={() => dispatch(setIsCartOpen())}>
                 <CloseIcon />
               </IconButton>
             </Box>
-            <Typography variant="h4">Basket ({cart.length})</Typography>
-            <Box>
+            <Box className={styles.miniCartItems}>
               {cart.map((item) => (
                 <ProductListItem key={item.id} {...item} />
               ))}
