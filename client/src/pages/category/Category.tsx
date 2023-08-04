@@ -10,7 +10,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { ApiPath } from "@enums/apiPath";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { setItems, setSizes, setPriceRange } from "@store/cart/slice";
+import { setItems } from "@store/cart/slice";
 import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
