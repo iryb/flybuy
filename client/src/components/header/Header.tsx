@@ -25,7 +25,7 @@ import { ApiPath } from "@/common/enums/apiPath";
 import { fetchUser } from "@store/user/slice";
 import { getToken } from "@/helpers/helpers";
 import { AvatarMenu } from "../avatarMenu/AvatarMenu";
-import { SearchBar } from "@/components/header/SearchBar";
+import { SearchBar } from "@/components/header/searchBar/SearchBar";
 
 import styles from "./styles.module.scss";
 
@@ -51,10 +51,6 @@ export const Header = (): React.ReactElement => {
     },
   ];
   const rightMenuPages = [
-    {
-      label: "Home",
-      path: "/",
-    },
     {
       label: "About",
       path: "/about",

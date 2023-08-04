@@ -1,8 +1,10 @@
 import { ApiPath } from "@/common/enums/apiPath";
-import { Button, Popover, TextField } from "@mui/material";
+import { Box, Button, InputBase, Popover } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+
+import styles from "./styles.module.scss";
 
 export const SearchBar = (): React.ReactElement => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -32,11 +34,16 @@ export const SearchBar = (): React.ReactElement => {
   const handleSearch = (e: any): void => {
     e.preventDefault();
     navigate(`${ApiPath.SEARCH}?s=${searchTerm}`);
+    setAnchorEl(null);
   };
 
   return (
-    <>
-      <Button aria-describedby={id} onClick={handleOpenSearch}>
+    <Box className={styles.searchBar}>
+      <Button
+        aria-describedby={id}
+        className={styles.modalToggler}
+        onClick={handleOpenSearch}
+      >
         <SearchIcon />
       </Button>
       <Popover
@@ -46,23 +53,36 @@ export const SearchBar = (): React.ReactElement => {
         onClose={handleCloseSearch}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "right",
         }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          zIndex: 2,
+          transition: "opacity 300ms",
+          "& .MuiPopover-paper": {
+            top: "75px !important",
+          },
+        }}
+        className={styles.searchModal}
       >
-        <form onSubmit={handleSearch}>
-          <TextField
+        <form onSubmit={handleSearch} className={styles.form}>
+          <InputBase
             id="search"
             type="search"
-            label="Search"
-            variant="filled"
             fullWidth
             onChange={handleChangeSearch}
+            placeholder="Search"
+            className={styles.searchInput}
           />
-          <Button type="submit">
+          <Button type="submit" className={styles.button}>
             <SearchIcon />
           </Button>
         </form>
       </Popover>
-    </>
+    </Box>
   );
 };
