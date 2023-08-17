@@ -1,8 +1,6 @@
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { Link } from "react-router-dom";
 import {
@@ -26,6 +24,7 @@ import { fetchUser } from "@store/user/slice";
 import { getToken } from "@/helpers/helpers";
 import { AvatarMenu } from "../avatarMenu/AvatarMenu";
 import { SearchBar } from "@/components/header/searchBar/SearchBar";
+import { LanguageSwitcher } from "./languageSwitcher/LanguageSwitcher";
 
 import styles from "./styles.module.scss";
 
@@ -87,10 +86,7 @@ export const Header = (): React.ReactElement => {
               className={styles.leftCol}
               sx={{ display: { xs: "none", md: "block" } }}
             >
-              <div className={styles.currency}>
-                <span>USD</span>
-                <KeyboardArrowDownIcon />
-              </div>
+              <LanguageSwitcher className={styles.langSwitcherLight} />
               <div className={styles.menu}>
                 {leftMenuPages.map(({ label, path }) => (
                   <Link to={path} className="link" key={label}>
@@ -144,10 +140,7 @@ export const Header = (): React.ReactElement => {
                   </Link>
                 ))}
                 <Divider />
-                <div className={styles.currency}>
-                  <span>USD</span>
-                  <KeyboardArrowDownIcon />
-                </div>
+                <LanguageSwitcher className={styles.langSwitcherDark} />
               </Drawer>
             </Box>
             <div className={styles.centerCol}>

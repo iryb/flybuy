@@ -4,6 +4,7 @@ import categoriesReducer from "@store/categories/slice";
 import userReducer from "@store/user/slice";
 import orderReducer from "@store/order/slice";
 import bannerReducer from "@store/banner/slice";
+import settingsReducer from "@store/settings/slice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     user: userReducer,
     order: orderReducer,
     banner: bannerReducer,
+    settings: settingsReducer,
   },
 });
 
