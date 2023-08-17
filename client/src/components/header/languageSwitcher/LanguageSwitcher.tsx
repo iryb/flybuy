@@ -36,8 +36,8 @@ export const LanguageSwitcher = ({
       IconComponent={() => <KeyboardArrowDownIcon />}
       className={clsx(className, styles.select, styles.customSelect)}
     >
-      <MenuItem value="us">US</MenuItem>
-      <MenuItem value="ua">UA</MenuItem>
+      <MenuItem value="en">US</MenuItem>
+      <MenuItem value="uk-UA">UA</MenuItem>
     </Select>
   );
 };

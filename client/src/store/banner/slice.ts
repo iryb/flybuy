@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { BannerState, BannerSlide } from "@/common/types/types";
 import { ApiPath } from "@/common/enums/apiPath";
+import { RootState } from "@store/store";
 
 const initialState: BannerState = {
   data: null,
@@ -8,8 +9,10 @@ const initialState: BannerState = {
 
 export const fetchBannerSlides = createAsyncThunk(
   `${ApiPath.API}/banner`,
-  async () => {
-    const response = await fetch(`${ApiPath.API}/banners?populate=image`);
+  async (_, { getState }) => {
+    const { settings } = getState() as RootState;
+    const endoint = `${ApiPath.API}/banners?populate=image&locale=${settings.language}`;
+    const response = await fetch(endoint);
 
     const slides = await response.json();
 
