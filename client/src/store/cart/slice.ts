@@ -5,8 +5,6 @@ const initialState: CartState = {
   isCartOpen: false,
   cart: [],
   items: [],
-  sizes: [],
-  priceRange: [0, 0],
 };
 
 export const cartSlice = createSlice({
@@ -53,12 +51,6 @@ export const cartSlice = createSlice({
     setIsCartOpen: (state) => {
       state.isCartOpen = !state.isCartOpen;
     },
-    setSizes: (state, action: PayloadAction<string[]>) => {
-      state.sizes = action.payload;
-    },
-    setPriceRange: (state, action: PayloadAction<[number, number]>) => {
-      state.priceRange = action.payload;
-    },
   },
 });
 
@@ -69,8 +61,6 @@ export const {
   increaseCount,
   decreaseCount,
   setIsCartOpen,
-  setSizes,
-  setPriceRange,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -32,8 +32,6 @@ interface CartState {
   isCartOpen: boolean;
   cart: CartItem[];
   items: CartItem[];
-  sizes: string[];
-  priceRange: [number, number];
 }
 
 interface ProductPreview {
