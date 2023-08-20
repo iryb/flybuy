@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "@styles/theme";
 import { Provider } from "react-redux";
 import store from "@store/store";
+import "./translation/i18n";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
