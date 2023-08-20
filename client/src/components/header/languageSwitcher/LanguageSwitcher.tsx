@@ -4,6 +4,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setLanguage } from "@store/settings/slice";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
@@ -14,10 +15,12 @@ export const LanguageSwitcher = ({
 }): React.ReactElement => {
   const dispatch = useAppDispatch();
   const language = useAppSelector((state) => state.settings.language);
+  const { i18n } = useTranslation();
 
   const handleChange = (event: SelectChangeEvent): void => {
     localStorage.setItem("language", event.target.value);
     dispatch(setLanguage(event.target.value));
+    void i18n.changeLanguage(event.target.value);
   };
 
   useEffect(() => {
