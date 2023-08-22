@@ -1,38 +1,25 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { ApiPath } from "@enums/apiPath";
-import { setCategories } from "@store/categories/slice";
 import { v4 as uuidv4 } from "uuid";
 import { getProductImage } from "@helpers/helpers";
 import { Link } from "react-router-dom";
+import useFetch from "@/hooks/hooks";
+import { Category } from "@/common/types/types";
 
 import styles from "./styles.module.scss";
 
 export const CategoriesBlocks = (): React.ReactElement => {
-  const dispatch = useAppDispatch();
-  const categories = useAppSelector((state) => state.categories.items);
+  const { data, loading, error } = useFetch(`${ApiPath.CATEGORIESAPI}`);
 
-  async function getItems(): Promise<void> {
-    const items = await fetch(ApiPath.CATEGORIESAPI, {
-      method: "GET",
-    });
-    const itemsData = await items.json();
-    dispatch(setCategories(itemsData.data));
-    return itemsData;
-  }
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getItems();
-  }, []);
+  if (loading) return <p>Loading...</p>;
 
   return (
     <>
-      {categories && (
+      {data && (
         <Box className={styles.section}>
           <Grid container>
-            {categories.map((category) => (
+            {data.map((category: Category) => (
               <Grid item sm={4} key={uuidv4()} className={styles.category}>
                 <Link
                   to={`category${category.attributes.link}`}
