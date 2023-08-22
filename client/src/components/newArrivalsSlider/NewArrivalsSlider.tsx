@@ -1,30 +1,26 @@
 import React from "react";
 import { CategorySlider } from "@components/categorySlider/CategorySlider";
-import { useAppSelector } from "@/store/hooks";
 import { Box } from "@mui/material";
 import { Container } from "@mui/system";
 import { useTranslation } from "react-i18next";
+import useFetch from "@/hooks/hooks";
+import { ApiPath } from "@enums/apiPath";
 
 export const NewArrivalsSlider = (): React.ReactElement => {
-  const items = useAppSelector((state) => state.cart.items);
   const { t } = useTranslation();
-
-  const newArrivals = items.filter(
-    (item) => item.attributes.category === "newArrivals",
+  const { data, loading, error } = useFetch(
+    `${ApiPath.ITEMSAPI}&filters[category][$eq]=newArrivals`,
   );
 
   return (
-    <>
-      {newArrivals && (
-        <Box className="section">
-          <Container>
-            <CategorySlider
-              title={t("newArrivalsTitle")}
-              slides={newArrivals}
-            />
-          </Container>
-        </Box>
-      )}
-    </>
+    <Box className="section">
+      <Container>
+        <CategorySlider
+          title={t("newArrivalsTitle")}
+          slides={data}
+          loading={loading}
+        />
+      </Container>
+    </Box>
   );
 };

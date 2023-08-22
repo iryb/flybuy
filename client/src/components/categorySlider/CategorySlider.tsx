@@ -2,7 +2,6 @@ import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
 import { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -17,13 +16,15 @@ import styles from "./styles.module.scss";
 interface CategorySliderProps {
   title?: string;
   slides: CartItem[];
+  loading?: boolean;
 }
 
 export const CategorySlider = ({
   title,
   slides,
+  loading,
 }: CategorySliderProps): React.ReactElement => {
-  const navigate = useNavigate();
+  if (loading) return <p>Loading...</p>;
 
   return (
     <>
