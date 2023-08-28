@@ -6,51 +6,54 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
-const menu = [
-  {
-    label: "Men",
-    path: "/products/men",
-  },
-  {
-    label: "Women",
-    path: "/products/women",
-  },
-  {
-    label: "Children",
-    path: "/products/children",
-  },
-];
-
 export const Footer = (): React.ReactElement => {
+  const { t } = useTranslation();
+
+  const menu = [
+    {
+      label: t("men"),
+      path: "/products/men",
+    },
+    {
+      label: t("women"),
+      path: "/products/women",
+    },
+    {
+      label: t("children"),
+      path: "/products/children",
+    },
+  ];
+
   return (
     <Box className={styles.footer}>
       <Container>
         <Grid container className={styles.footerInner}>
           <Grid item sm={5} xs={12}>
             <Typography variant="h6" className={styles.footerTitle}>
-              Can we help you?
+              {t("footerTitle1")}
             </Typography>
             <Box className={styles.contactInfo}>
               <Typography className={styles.contactInfoTitle}>
                 <MailOutlineIcon />
-                <span>Email us</span>
+                <span>{t("footerEmailText")}</span>
               </Typography>
               <Link to="mailto:flybuy@gmail.com">flybuy@gmail.com</Link>
             </Box>
             <Box className={styles.contactInfo}>
               <Typography className={styles.contactInfoTitle}>
                 <PhoneIcon />
-                <span>Call us</span>
+                <span>{t("footerPhoneText")}</span>
               </Typography>
               <Link to="tel:900 456 003">900 456 003</Link>
             </Box>
           </Grid>
           <Grid item sm={5} xs={12}>
             <Typography variant="h6" className={styles.footerTitle}>
-              Our collections
+              {t("footerTitle2")}
             </Typography>
             <Box className={styles.menu}>
               {menu.map(({ label, path }) => (

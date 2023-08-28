@@ -2,7 +2,6 @@ import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import React from "react";
-import styles from "./styles.module.scss";
 import { setIsCartOpen } from "@/store/cart/slice";
 import { ProductListItem } from "../productListItem/ProductListItem";
 import { formatPrice } from "@/helpers/helpers";
@@ -10,8 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { ApiPath } from "@/common/enums/apiPath";
 import clsx from "clsx";
 import emptyCartImg from "@images/shopping-bag.png";
+import { useTranslation } from "react-i18next";
+
+import styles from "./styles.module.scss";
 
 export const MiniCart = (): React.ReactElement => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.cart);
   const isCartOpen = useAppSelector((state) => state.cart.isCartOpen);
@@ -36,7 +39,7 @@ export const MiniCart = (): React.ReactElement => {
           <Box className={styles.miniCartInner}>
             <Box className={styles.miniCartContent}>
               <Box className={styles.miniCartHeader}>
-                <Typography variant="h4">Basket</Typography>
+                <Typography variant="h4">{t("miniCartTitle")}</Typography>
                 <IconButton onClick={() => dispatch(setIsCartOpen())}>
                   <CloseIcon />
                 </IconButton>
@@ -47,7 +50,7 @@ export const MiniCart = (): React.ReactElement => {
                   alt="Empty cart"
                   className={styles.emptyCartImage}
                 />
-                <Typography>Your basket is still empty.</Typography>
+                <Typography>{t("miniCartEmptyText")}</Typography>
               </Box>
             </Box>
           </Box>
@@ -68,7 +71,9 @@ export const MiniCart = (): React.ReactElement => {
         <Box className={styles.miniCartInner}>
           <Box className={styles.miniCartContent}>
             <Box className={styles.miniCartHeader}>
-              <Typography variant="h4">Basket ({cart.length})</Typography>
+              <Typography variant="h4">
+                {t("miniCartTitle")} ({cart.length})
+              </Typography>
               <IconButton onClick={() => dispatch(setIsCartOpen())}>
                 <CloseIcon />
               </IconButton>
@@ -84,7 +89,7 @@ export const MiniCart = (): React.ReactElement => {
             <Box mt="20px">
               <Box className={styles.totalContainer}>
                 <Typography variant="h5" fontWeight="bold">
-                  Total:
+                  {t("miniCartTotal")}
                 </Typography>
                 <Typography variant="h5" fontWeight="bold">
                   {formatPrice(totalPrice)}
@@ -94,7 +99,7 @@ export const MiniCart = (): React.ReactElement => {
                 className={styles.checkoutBtn}
                 onClick={() => navigate(ApiPath.CHECKOUT)}
               >
-                Checkout
+                {t("checkout")}
               </Button>
             </Box>
           </Box>

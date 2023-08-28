@@ -25,10 +25,12 @@ import { getToken } from "@/helpers/helpers";
 import { AvatarMenu } from "../avatarMenu/AvatarMenu";
 import { SearchBar } from "@/components/header/searchBar/SearchBar";
 import { LanguageSwitcher } from "./languageSwitcher/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const Header = (): React.ReactElement => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.data);
   const cart = useAppSelector((state) => state.cart.cart);
@@ -37,25 +39,25 @@ export const Header = (): React.ReactElement => {
 
   const leftMenuPages = [
     {
-      label: "Men",
+      label: t("men"),
       path: "/category/men",
     },
     {
-      label: "Women",
+      label: t("women"),
       path: "/category/women",
     },
     {
-      label: "Children",
+      label: t("children"),
       path: "/category/children",
     },
   ];
   const rightMenuPages = [
     {
-      label: "About",
+      label: t("about"),
       path: "/about",
     },
     {
-      label: "Contact",
+      label: t("contact"),
       path: "/contact",
     },
   ];

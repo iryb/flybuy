@@ -4,5 +4,22 @@
   "subscribeTitle": "Get 10% off",
   "subscribeText": "Subscribe to the newsletter and get 10% off your next shop, access to special offers and much more!",
   "subscribeBtnText": "Subscribe",
-  "subscibeEmailText": "Enter your email"
+  "subscibeEmailText": "Enter your email",
+  "generalBtnText": "Learn More",
+  "addToCardText": "Add to card",
+  "chooseSizeError": "Please choose a size",
+  "footerTitle1": "Can we help you?",
+  "footerTitle2": "Our collections",
+  "footerEmailText": "Email us",
+  "footerPhoneText": "Call us",
+  "men": "Men",
+  "women": "Women",
+  "children": "Children",
+  "about": "About",
+  "contact": "Contact",
+  "miniCartTitle": "Basket",
+  "miniCartEmptyText": "Your basket is still empty.",
+  "miniCartTotal": "Total",
+  "checkout": "Checkout",
+  "search": "Search"
 }

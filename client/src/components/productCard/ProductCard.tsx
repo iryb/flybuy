@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { addToCart } from "@store/cart/slice";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@store/hooks";
-import { CartItem, Image } from "@/common/types/types";
+import { CartItem } from "@/common/types/types";
 import { Box, Button, Typography } from "@mui/material";
 import {
   formatPrice,
@@ -10,6 +10,7 @@ import {
   getProductImage,
 } from "@helpers/helpers";
 import { Sizes } from "../general/sizes/Sizes";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
@@ -22,13 +23,14 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   const dispatch = useAppDispatch();
   const [choseSize, setChoseSize] = useState<string>();
   const [error, setError] = useState<string>();
+  const { t } = useTranslation();
 
   const { id } = item;
   const { price, name, category, size } = item.attributes;
 
   const handleAddToCart = (): void => {
     if (!choseSize) {
-      setError("Please choose a size");
+      setError(t("chooseSizeError"));
       return;
     } else {
       setError("");
@@ -63,7 +65,7 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
                   <Sizes items={size.data} callback={handleSizeClick} />
                 </Box>
               )}
-              <Button onClick={handleAddToCart}>Add to cart</Button>
+              <Button onClick={handleAddToCart}>{t("addToCardText")}</Button>
             </Box>
           </Box>
           {category && (

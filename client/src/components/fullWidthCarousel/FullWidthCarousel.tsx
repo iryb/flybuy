@@ -11,12 +11,14 @@ import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { ApiPath } from "@/common/enums/apiPath";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const FullWidthCarousel = (): React.ReactElement => {
   const navigate = useNavigate();
   const slides = useAppSelector((state) => state.banner.data);
+  const { t } = useTranslation();
 
   return (
     <Swiper
@@ -59,7 +61,7 @@ export const FullWidthCarousel = (): React.ReactElement => {
                 )}
                 {link && (
                   <Button onClick={() => navigate(link)} variant="text">
-                    Learn More
+                    {t("generalBtnText")}
                   </Button>
                 )}
               </Box>

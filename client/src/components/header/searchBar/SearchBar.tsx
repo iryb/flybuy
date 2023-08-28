@@ -3,10 +3,12 @@ import { Box, Button, InputBase, Popover } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const SearchBar = (): React.ReactElement => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
@@ -75,7 +77,7 @@ export const SearchBar = (): React.ReactElement => {
             type="search"
             fullWidth
             onChange={handleChangeSearch}
-            placeholder="Search"
+            placeholder={t("search")}
             className={styles.searchInput}
           />
           <Button type="submit" className={styles.button}>

@@ -4,5 +4,22 @@
   "subscribeTitle": "Отримайте знижку 10%",
   "subscribeText": "Підпишіться на розсилку та отримайте знижку 10% на наступне замовлення, доступ до спеціальних пропозицій та багато іншого!",
   "subscribeBtnText": "Підписатись",
-  "subscibeEmailText": "Введіть ваш email"
+  "subscibeEmailText": "Введіть ваш email",
+  "generalBtnText": "Детальніше",
+  "addToCardText": "Додати до кошика",
+  "chooseSizeError": "Будь-ласка, оберіть розмір",
+  "footerTitle1": "Потрібна допомога?",
+  "footerTitle2": "Наші колекції",
+  "footerEmailText": "Надішліть лист",
+  "footerPhoneText": "Зателефонуйте",
+  "men": "Чоловік",
+  "women": "Жінка",
+  "children": "Дитина",
+  "about": "Про нас",
+  "contact": "Контакти",
+  "miniCartTitle": "Кошик",
+  "miniCartEmptyText": "Ваш кошик все ще порожній.",
+  "miniCartTotal": "Всього",
+  "checkout": "Оформити замовлення",
+  "search": "Пошук"
 }
