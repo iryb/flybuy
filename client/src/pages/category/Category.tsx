@@ -9,18 +9,15 @@ import {
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { ApiPath } from "@enums/apiPath";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { setItems } from "@store/cart/slice";
 import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
+import useFetch from "@/hooks/hooks";
 
 import styles from "./styles.module.scss";
 
 export const Category = (): React.ReactElement => {
   const { slug } = useParams() as { slug: string };
-  const items = useAppSelector((state) => state.cart.items);
-  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
@@ -48,20 +45,11 @@ export const Category = (): React.ReactElement => {
     );
   });
 
-  async function getItems(): Promise<void> {
-    const filteredItems = await fetch(queryParams, {
-      method: "GET",
-    });
-    const filteredItemsData = await filteredItems.json();
-    dispatch(setItems(filteredItemsData.data));
-    setPageCount(filteredItemsData.meta.pagination.pageCount);
-    return filteredItemsData;
-  }
+  const { data, meta, loading, error } = useFetch(queryParams.toString());
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getItems();
-  }, [slug, searchParams, page]);
+    setPageCount(meta?.pagination?.pageCount);
+  }, [data]);
 
   useEffect(() => {
     setPage(1);
@@ -132,6 +120,8 @@ export const Category = (): React.ReactElement => {
     setPage(value);
   };
 
+  if (loading) return <p>Loading...</p>;
+
   return (
     <Box className={styles.pageContent}>
       <Container>
@@ -165,7 +155,7 @@ export const Category = (): React.ReactElement => {
             ))}
 
             <Grid container spacing={2} mt={2}>
-              {items?.map((item) => (
+              {data?.map((item: any) => (
                 <Grid item sm={4} xs={12} key={uuidv4()}>
                   <ProductCard item={item} />
                 </Grid>
