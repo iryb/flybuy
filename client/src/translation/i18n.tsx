@@ -13,9 +13,11 @@ const resources = {
   },
 };
 
+const defaultLanguage = localStorage.getItem("language") as string;
+
 void i18next.use(initReactI18next).init({
   resources,
-  lng: "en",
+  lng: defaultLanguage,
 });
 
 export default i18next;
