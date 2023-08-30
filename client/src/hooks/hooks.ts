@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function useFetch(url: string): any {
   const [data, setData] = useState(null);
+  const [meta, setMeta] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const language = localStorage.getItem("language");
@@ -18,6 +19,7 @@ export default function useFetch(url: string): any {
       });
       const itemsData = await items.json();
       setData(itemsData.data);
+      setMeta(itemsData.meta);
     } catch (err: any) {
       setError(err);
     } finally {
@@ -29,5 +31,5 @@ export default function useFetch(url: string): any {
     void fetchData();
   }, [url, language]);
 
-  return { data, error, loading };
+  return { data, meta, error, loading };
 }
