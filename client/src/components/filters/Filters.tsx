@@ -13,10 +13,12 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { fetchSubcategories } from "@/store/categories/slice";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useUrlParams } from "@/hooks/hooks";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const Filters = (): React.ReactElement => {
+  const { t } = useTranslation();
   const sizes = ["xs", "sm", "md", "lg"];
   const priceRange = ["10", "20", "30", "40", "50", "100"];
   const [sizeFilter, setSizeFilter] = useState<string[]>([]);
@@ -102,17 +104,17 @@ export const Filters = (): React.ReactElement => {
     <>
       <Box className={styles.filtersIconContainerMobile}>
         <IconButton className={styles.filtersIconMobile}>
-          <Typography>Filters</Typography>
+          <Typography>{t("filters")}</Typography>
           <FilterListIcon />
         </IconButton>
       </Box>
       <Box className={styles.filters}>
         <Typography variant="h5" className={styles.filtersTitle}>
-          Filters:
+          {t("filters")}:
         </Typography>
         {sizes && (
           <Box className={styles.container}>
-            <Typography className={styles.filterTitle}>Size</Typography>
+            <Typography className={styles.filterTitle}>{t("size")}</Typography>
             <ButtonGroup
               className={clsx(styles.filtersGroup, styles.sizesContainer)}
             >
@@ -136,7 +138,7 @@ export const Filters = (): React.ReactElement => {
         )}
         {priceRange && (
           <Box className={styles.container}>
-            <Typography className={styles.filterTitle}>Price</Typography>
+            <Typography className={styles.filterTitle}>{t("price")}</Typography>
             <ButtonGroup
               className={clsx(styles.filtersGroup, styles.priceContainer)}
             >
@@ -152,7 +154,7 @@ export const Filters = (): React.ReactElement => {
                     borderRightColor: "rgba(29, 29, 29, 0.5)!important",
                   }}
                 >
-                  Up to ${price}
+                  {t("upTo")} ${price}
                 </Button>
               ))}
             </ButtonGroup>
@@ -160,7 +162,9 @@ export const Filters = (): React.ReactElement => {
         )}
         {subcategories && (
           <Box className={styles.container}>
-            <Typography className={styles.filterTitle}>Category</Typography>
+            <Typography className={styles.filterTitle}>
+              {t("category")}
+            </Typography>
             <ButtonGroup
               className={clsx(styles.filtersGroup, styles.subcategories)}
             >
@@ -184,7 +188,9 @@ export const Filters = (): React.ReactElement => {
             </ButtonGroup>
           </Box>
         )}
-        <Button onClick={() => handleApplyFilters()}>Apply filters</Button>
+        <Button onClick={() => handleApplyFilters()}>
+          {t("applyFiltersBtn")}
+        </Button>
       </Box>
     </>
   );

@@ -13,10 +13,12 @@ import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
 import { useFetch, useUrlParams } from "@/hooks/hooks";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const Category = (): React.ReactElement => {
+  const { t } = useTranslation();
   const { slug } = useParams() as { slug: string };
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
@@ -129,7 +131,7 @@ export const Category = (): React.ReactElement => {
           </Grid>
           <Grid item md={9} sm={12}>
             <Typography variant="h2" className={styles.pageTitle}>
-              For {slug}
+              {t(slug)}
             </Typography>
             {querySizes?.map((s) => (
               <Chip
@@ -140,7 +142,8 @@ export const Category = (): React.ReactElement => {
             ))}
             {queryMaxPrice && (
               <Chip
-                label={`Up to $${queryMaxPrice}`}
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                label={`${t("upTo")} $${queryMaxPrice}`}
                 onDelete={() => handleRemovePriceFilter(queryMaxPrice)}
               />
             )}

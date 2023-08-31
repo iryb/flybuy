@@ -21,5 +21,11 @@
   "miniCartEmptyText": "Your basket is still empty.",
   "miniCartTotal": "Total",
   "checkout": "Checkout",
-  "search": "Search"
+  "search": "Search",
+  "filters": "Filters",
+  "size": "Size",
+  "price": "Price",
+  "category": "Category",
+  "applyFiltersBtn": "Apply Filters",
+  "upTo": "Up to"
 }

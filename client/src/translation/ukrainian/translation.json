@@ -21,5 +21,11 @@
   "miniCartEmptyText": "Ваш кошик все ще порожній.",
   "miniCartTotal": "Всього",
   "checkout": "Оформити замовлення",
-  "search": "Пошук"
+  "search": "Пошук",
+  "filters": "Фільтри",
+  "size": "Розмір",
+  "price": "Ціна",
+  "category": "Категорія",
+  "applyFiltersBtn": "Застосувати фільтри",
+  "upTo": "До"
 }
