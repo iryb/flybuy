@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
+import { useAppSelector } from "@/store/hooks";
 
 export default function useFetch(url: string): any {
   const [data, setData] = useState(null);
   const [meta, setMeta] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const language = localStorage.getItem("language");
+  const language = useAppSelector((state) => state.settings.language);
 
   const fetchData = useCallback(async () => {
     try {
