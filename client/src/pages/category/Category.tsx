@@ -12,7 +12,7 @@ import { ApiPath } from "@enums/apiPath";
 import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
-import useFetch from "@/hooks/hooks";
+import { useFetch, useUrlParams } from "@/hooks/hooks";
 
 import styles from "./styles.module.scss";
 
@@ -21,10 +21,8 @@ export const Category = (): React.ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
-
-  const querySizes = searchParams.getAll("size");
-  const maxPrice = searchParams.get("maxPrice");
-  const querySubcategories = searchParams.getAll("subcat");
+  const { querySizes, queryMaxPrice, querySubcategories } =
+    useUrlParams(searchParams);
 
   const queryParams = new URL(
     `${ApiPath.ROOT}/api/items?filters[personCategory][$eq]=${slug}&populate=image&pagination[page]=${page}&pagination[pageSize]=9`,
@@ -34,8 +32,8 @@ export const Category = (): React.ReactElement => {
     queryParams.searchParams.append("filters[size][$contains]", s);
   });
 
-  if (maxPrice) {
-    queryParams.searchParams.append("filters[price][$lte]", maxPrice);
+  if (queryMaxPrice) {
+    queryParams.searchParams.append("filters[price][$lte]", queryMaxPrice);
   }
 
   querySubcategories?.forEach((s) => {
@@ -65,8 +63,8 @@ export const Category = (): React.ReactElement => {
       params.size = querySizes.filter((p) => p !== s);
     }
 
-    if (maxPrice) {
-      params.maxPrice = maxPrice;
+    if (queryMaxPrice) {
+      params.maxPrice = queryMaxPrice;
     }
 
     if (querySubcategories) {
@@ -102,8 +100,8 @@ export const Category = (): React.ReactElement => {
       params.size = querySizes;
     }
 
-    if (maxPrice) {
-      params.maxPrice = maxPrice;
+    if (queryMaxPrice) {
+      params.maxPrice = queryMaxPrice;
     }
 
     if (querySubcategories) {
@@ -140,10 +138,10 @@ export const Category = (): React.ReactElement => {
                 onDelete={() => handleRemoveSizeFilter(s)}
               />
             ))}
-            {maxPrice && (
+            {queryMaxPrice && (
               <Chip
-                label={`Up to $${maxPrice}`}
-                onDelete={() => handleRemovePriceFilter(maxPrice)}
+                label={`Up to $${queryMaxPrice}`}
+                onDelete={() => handleRemovePriceFilter(queryMaxPrice)}
               />
             )}
             {querySubcategories?.map((s) => (

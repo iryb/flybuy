@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hooks";
 
-export default function useFetch(url: string): any {
+export function useFetch(url: string): any {
   const [data, setData] = useState(null);
   const [meta, setMeta] = useState(null);
   const [error, setError] = useState(null);
@@ -33,4 +33,16 @@ export default function useFetch(url: string): any {
   }, [url, language]);
 
   return { data, meta, error, loading };
+}
+
+export function useUrlParams(searchParams: URLSearchParams): {
+  querySizes?: string[];
+  queryMaxPrice?: string | null;
+  querySubcategories?: string[];
+} {
+  const querySizes = searchParams.getAll("size");
+  const queryMaxPrice = searchParams.get("maxPrice");
+  const querySubcategories = searchParams.getAll("subcat");
+
+  return { querySizes, queryMaxPrice, querySubcategories };
 }

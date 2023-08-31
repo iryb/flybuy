@@ -12,6 +12,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { fetchSubcategories } from "@/store/categories/slice";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { useUrlParams } from "@/hooks/hooks";
 
 import styles from "./styles.module.scss";
 
@@ -22,10 +23,8 @@ export const Filters = (): React.ReactElement => {
   const [priceFilter, setPriceFilter] = useState<number>();
   const [subcategoryFilter, setSubcategoryFilter] = useState<string[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const querySizes = searchParams.getAll("size");
-  const queryMaxPrice = searchParams.get("maxPrice");
-  const querySubcategories = searchParams.getAll("subcat");
+  const { querySizes, queryMaxPrice, querySubcategories } =
+    useUrlParams(searchParams);
 
   const dispatch = useAppDispatch();
   const { slug } = useParams() as { slug: string };

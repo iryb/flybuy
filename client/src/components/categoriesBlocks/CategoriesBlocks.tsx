@@ -4,7 +4,7 @@ import { ApiPath } from "@enums/apiPath";
 import { v4 as uuidv4 } from "uuid";
 import { getProductImage } from "@helpers/helpers";
 import { Link } from "react-router-dom";
-import useFetch from "@/hooks/hooks";
+import { useFetch } from "@/hooks/hooks";
 import { Category } from "@/common/types/types";
 
 import styles from "./styles.module.scss";

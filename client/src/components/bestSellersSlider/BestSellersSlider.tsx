@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { Container } from "@mui/system";
 import { useTranslation } from "react-i18next";
 import { ApiPath } from "@enums/apiPath";
-import useFetch from "@/hooks/hooks";
+import { useFetch } from "@/hooks/hooks";
 
 export const BestSellersSlider = (): React.ReactElement => {
   const { t } = useTranslation();
