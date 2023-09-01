@@ -28,6 +28,7 @@ export const Product = (): React.ReactElement => {
   const [item, setItem] = useState<CartItem>();
   const [count, setCount] = useState(1);
   const [size, setSize] = useState<Size>();
+  const [error, setError] = useState<string>();
 
   const descreaseCount = (): void => {
     setCount(Math.max(count - 1, 1));
@@ -56,6 +57,17 @@ export const Product = (): React.ReactElement => {
     setSize(size);
   };
 
+  const handleAddToCart = (): void => {
+    if (!item) return;
+    if (!size) {
+      setError(t("chooseSizeError"));
+      return;
+    } else {
+      setError("");
+    }
+    dispatch(addToCart({ ...item, count }));
+  };
+
   useEffect(() => {
     getItem().catch((err) => console.log(err));
   }, [itemId]);
@@ -66,14 +78,15 @@ export const Product = (): React.ReactElement => {
         <Box className={styles.section}>
           <Container>
             <Grid container spacing={8}>
-              <Grid item sm={5} xs={12}>
-                <img
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  src={`${ApiPath.ROOT}${item?.attributes.image.data?.attributes.formats.medium.url}`}
-                  alt={item?.attributes.name}
-                  className={styles.mainImage}
-                />
-              </Grid>
+              {item.attributes.image.data && (
+                <Grid item sm={5} xs={12}>
+                  <img
+                    src={`${ApiPath.ROOT}${item.attributes.image.data.attributes.formats.medium.url}`}
+                    alt={item?.attributes.name}
+                    className={styles.mainImage}
+                  />
+                </Grid>
+              )}
               <Grid item sm={7} xs={12}>
                 <Typography variant="h2" className={styles.productTitle}>
                   {item.attributes.name}
@@ -94,7 +107,6 @@ export const Product = (): React.ReactElement => {
                   callbackIncrease={increaseCount}
                   quantity={count}
                 />
-
                 <Box className={styles.sizeContainer}>
                   <Typography>{t("selectSize")}:</Typography>
                   <ToggleButtonGroup
@@ -127,10 +139,10 @@ export const Product = (): React.ReactElement => {
                     ))}
                   </ToggleButtonGroup>
                 </Box>
-                <Button
-                  onClick={() => dispatch(addToCart({ ...item, count }))}
-                  className={styles.button}
-                >
+                {error && (
+                  <Typography className="error message">{error}</Typography>
+                )}
+                <Button onClick={handleAddToCart} className={styles.button}>
                   {t("addToCardText")}
                 </Button>
               </Grid>

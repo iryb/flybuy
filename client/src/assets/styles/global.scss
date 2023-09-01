@@ -29,3 +29,10 @@ body {
     padding-bottom: 30px;
   }
 }
+
+.error {
+  color: red;
+  &.message {
+    margin: 15px 0;
+  }
+}
