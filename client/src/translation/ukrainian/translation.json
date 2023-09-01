@@ -27,5 +27,7 @@
   "price": "Ціна",
   "category": "Категорія",
   "applyFiltersBtn": "Застосувати фільтри",
-  "upTo": "До"
+  "upTo": "До",
+  "selectSize": "Оберіть розмір",
+  "lowStock": "Останні розміри"
 }

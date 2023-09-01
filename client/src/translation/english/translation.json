@@ -27,5 +27,7 @@
   "price": "Price",
   "category": "Category",
   "applyFiltersBtn": "Apply Filters",
-  "upTo": "Up to"
+  "upTo": "Up to",
+  "selectSize": "Select size",
+  "lowStock": "Low stock"
 }

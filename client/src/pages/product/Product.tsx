@@ -16,11 +16,13 @@ import { CartItem, Size } from "@/common/types/types";
 import { formatStringCapitalize, formatPrice } from "@helpers/helpers";
 import { Quantity } from "@/components/general/quantity/Quantity";
 import { v4 as uuidv4 } from "uuid";
+import { addToCart } from "@/store/cart/slice";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
-import { addToCart } from "@/store/cart/slice";
 
 export const Product = (): React.ReactElement => {
+  const { t } = useTranslation();
   const { itemId } = useParams() as { itemId: string };
   const dispatch = useAppDispatch();
   const [item, setItem] = useState<CartItem>();
@@ -94,7 +96,7 @@ export const Product = (): React.ReactElement => {
                 />
 
                 <Box className={styles.sizeContainer}>
-                  <Typography>Select size:</Typography>
+                  <Typography>{t("selectSize")}:</Typography>
                   <ToggleButtonGroup
                     exclusive
                     onChange={handleSizeChange}
@@ -106,7 +108,7 @@ export const Product = (): React.ReactElement => {
                         {item.count < 10 && (
                           <Badge
                             color="error"
-                            badgeContent="low stock"
+                            badgeContent={t("lowStock")}
                             sx={{
                               ".MuiBadge-badge": {
                                 padding: "3px",
@@ -129,7 +131,7 @@ export const Product = (): React.ReactElement => {
                   onClick={() => dispatch(addToCart({ ...item, count }))}
                   className={styles.button}
                 >
-                  Add to cart
+                  {t("addToCardText")}
                 </Button>
               </Grid>
             </Grid>
