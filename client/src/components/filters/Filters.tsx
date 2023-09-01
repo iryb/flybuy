@@ -12,8 +12,9 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { fetchSubcategories } from "@/store/categories/slice";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { useUrlParams } from "@/hooks/hooks";
+import { useScrollBlock, useUrlParams } from "@/hooks/hooks";
 import { useTranslation } from "react-i18next";
+import CloseIcon from "@mui/icons-material/Close";
 
 import styles from "./styles.module.scss";
 
@@ -27,6 +28,8 @@ export const Filters = (): React.ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { querySizes, queryMaxPrice, querySubcategories } =
     useUrlParams(searchParams);
+  const [isMobileFiltersOpened, setMobileFiltersOpened] = useState(false);
+  const { blockScroll, allowScroll } = useScrollBlock();
 
   const dispatch = useAppDispatch();
   const { slug } = useParams() as { slug: string };
@@ -87,6 +90,15 @@ export const Filters = (): React.ReactElement => {
     setSearchParams(params);
   };
 
+  const handleMobileFiltersClick = (): void => {
+    setMobileFiltersOpened(!isMobileFiltersOpened);
+    if (isMobileFiltersOpened) {
+      allowScroll();
+    } else {
+      blockScroll();
+    }
+  };
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(fetchSubcategories());
@@ -101,15 +113,29 @@ export const Filters = (): React.ReactElement => {
   return (
     <>
       <Box className={styles.filtersIconContainerMobile}>
-        <IconButton className={styles.filtersIconMobile}>
+        <IconButton
+          className={styles.filtersIconMobile}
+          onClick={handleMobileFiltersClick}
+        >
           <Typography>{t("filters")}</Typography>
           <FilterListIcon />
         </IconButton>
       </Box>
-      <Box className={styles.filters}>
+      <Box
+        className={clsx(
+          styles.filters,
+          isMobileFiltersOpened ? styles.active : "",
+        )}
+      >
         <Typography variant="h5" className={styles.filtersTitle}>
           {t("filters")}:
         </Typography>
+        <IconButton
+          className={styles.filtersCloseBtn}
+          onClick={handleMobileFiltersClick}
+        >
+          <CloseIcon />
+        </IconButton>
         {sizes && (
           <Box className={styles.container}>
             <Typography className={styles.filterTitle}>{t("size")}</Typography>

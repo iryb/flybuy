@@ -133,27 +133,29 @@ export const Category = (): React.ReactElement => {
             <Typography variant="h2" className={styles.pageTitle}>
               {t(slug)}
             </Typography>
-            {querySizes?.map((s) => (
-              <Chip
-                key={uuidv4()}
-                label={s}
-                onDelete={() => handleRemoveSizeFilter(s)}
-              />
-            ))}
-            {queryMaxPrice && (
-              <Chip
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                label={`${t("upTo")} $${queryMaxPrice}`}
-                onDelete={() => handleRemovePriceFilter(queryMaxPrice)}
-              />
-            )}
-            {querySubcategories?.map((s) => (
-              <Chip
-                key={uuidv4()}
-                label={s}
-                onDelete={() => handleRemoveSubcategoryFilter(s)}
-              />
-            ))}
+            <Box className={styles.filterPillsContainer}>
+              {querySizes?.map((s) => (
+                <Chip
+                  key={uuidv4()}
+                  label={s}
+                  onDelete={() => handleRemoveSizeFilter(s)}
+                />
+              ))}
+              {queryMaxPrice && (
+                <Chip
+                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                  label={`${t("upTo")} $${queryMaxPrice}`}
+                  onDelete={() => handleRemovePriceFilter(queryMaxPrice)}
+                />
+              )}
+              {querySubcategories?.map((s) => (
+                <Chip
+                  key={uuidv4()}
+                  label={s}
+                  onDelete={() => handleRemoveSubcategoryFilter(s)}
+                />
+              ))}
+            </Box>
 
             <Grid container spacing={2} mt={2}>
               {data?.map((item: any) => (

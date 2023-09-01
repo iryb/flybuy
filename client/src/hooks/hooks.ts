@@ -46,3 +46,15 @@ export function useUrlParams(searchParams: URLSearchParams): {
 
   return { querySizes, queryMaxPrice, querySubcategories };
 }
+
+export function useScrollBlock(): any {
+  const blockScroll = (): void => {
+    document.body.style.overflow = "hidden";
+  };
+
+  const allowScroll = (): void => {
+    document.body.style.overflow = "scroll";
+  };
+
+  return { blockScroll, allowScroll };
+}

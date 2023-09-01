@@ -16,3 +16,9 @@
 .paginationContainer {
   justify-content: center;
 }
+
+.filterPillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
