@@ -34,9 +34,7 @@ export const Filters = (): React.ReactElement => {
   const subcategories = useAppSelector(
     (state) => state.categories.subcategories,
   );
-  const subcategoriesList = subcategories.find(
-    (item) => item.title === slug.charAt(0).toUpperCase() + slug.slice(1),
-  );
+  const subcategoriesList = subcategories.filter((i) => i.title === t(slug));
 
   const handleSizeFilter = (size: string): void => {
     if (sizeFilter?.includes(size)) {
@@ -160,7 +158,7 @@ export const Filters = (): React.ReactElement => {
             </ButtonGroup>
           </Box>
         )}
-        {subcategories && (
+        {subcategoriesList && (
           <Box className={styles.container}>
             <Typography className={styles.filterTitle}>
               {t("category")}
@@ -168,7 +166,7 @@ export const Filters = (): React.ReactElement => {
             <ButtonGroup
               className={clsx(styles.filtersGroup, styles.subcategories)}
             >
-              {subcategoriesList?.items.map((item: any) => (
+              {subcategoriesList[0]?.items.map((item: any) => (
                 <Button
                   key={uuidv4()}
                   onClick={() => handleSubcategoryFilter(item)}
