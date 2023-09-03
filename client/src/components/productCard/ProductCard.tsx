@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addToCart } from "@store/cart/slice";
+import { addToCartById } from "@store/cart/slice";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@store/hooks";
 import { CartItem } from "@/common/types/types";
@@ -35,7 +35,14 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
     } else {
       setError("");
     }
-    dispatch(addToCart({ ...item, count: 1 }));
+    dispatch(
+      addToCartById({
+        id: item.id,
+        count: 1,
+        size: choseSize,
+        price: item.attributes.price,
+      }),
+    );
   };
 
   const handleSizeClick = (s: string): void => {

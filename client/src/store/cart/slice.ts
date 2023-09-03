@@ -14,13 +14,25 @@ export const cartSlice = createSlice({
     setItems: (state, action: PayloadAction<CartItem[]>) => {
       state.items = action.payload;
     },
-    addToCart: (state, action: PayloadAction<CartItem>) => {
+    addToCartById: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        count: number;
+        size: string;
+        price: number;
+      }>,
+    ) => {
       const itemDuplicate = state.cart.some(
-        ({ id }) => id === action.payload.id,
+        ({ id, size }) =>
+          id === action.payload.id && size === action.payload.size,
       );
       if (itemDuplicate) {
         state.cart = state.cart.map((item) => {
-          if (item.id === action.payload.id) {
+          if (
+            item.id === action.payload.id &&
+            item.size === action.payload.size
+          ) {
             item.count += action.payload.count;
           }
           return item;
@@ -29,20 +41,48 @@ export const cartSlice = createSlice({
         state.cart = [...state.cart, action.payload];
       }
     },
-    removeFromCart: (state, action) => {
-      state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+    removeFromCart: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        size: string;
+      }>,
+    ) => {
+      state.cart = state.cart.filter(
+        (item) =>
+          !(item.id === action.payload.id && item.size === action.payload.size),
+      );
     },
-    increaseCount: (state, action: PayloadAction<CartItem>) => {
+    increaseCount: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        size: string;
+      }>,
+    ) => {
       state.cart = state.cart.map((item) => {
-        if (item.id === action.payload.id) {
+        if (
+          item.id === action.payload.id &&
+          item.size === action.payload.size
+        ) {
           item.count++;
         }
         return item;
       });
     },
-    decreaseCount: (state, action: PayloadAction<CartItem>) => {
+    decreaseCount: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        size: string;
+      }>,
+    ) => {
       state.cart = state.cart.map((item) => {
-        if (item.id === action.payload.id && item.count > 1) {
+        if (
+          item.id === action.payload.id &&
+          item.size === action.payload.size &&
+          item.count > 1
+        ) {
           item.count--;
         }
         return item;
@@ -56,11 +96,11 @@ export const cartSlice = createSlice({
 
 export const {
   setItems,
-  addToCart,
   removeFromCart,
   increaseCount,
   decreaseCount,
   setIsCartOpen,
+  addToCartById,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -12,11 +12,11 @@ import {
   ToggleButton,
   Badge,
 } from "@mui/material";
-import { CartItem, Size } from "@/common/types/types";
+import { CartItem } from "@/common/types/types";
 import { formatStringCapitalize, formatPrice } from "@helpers/helpers";
 import { Quantity } from "@/components/general/quantity/Quantity";
 import { v4 as uuidv4 } from "uuid";
-import { addToCart } from "@/store/cart/slice";
+import { addToCartById } from "@/store/cart/slice";
 import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
@@ -27,7 +27,7 @@ export const Product = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const [item, setItem] = useState<CartItem>();
   const [count, setCount] = useState(1);
-  const [size, setSize] = useState<Size>();
+  const [size, setSize] = useState("");
   const [error, setError] = useState<string>();
 
   const descreaseCount = (): void => {
@@ -52,7 +52,7 @@ export const Product = (): React.ReactElement => {
 
   const handleSizeChange = (
     event: React.MouseEvent<HTMLElement>,
-    size: Size,
+    size: string,
   ): void => {
     setSize(size);
   };
@@ -65,7 +65,9 @@ export const Product = (): React.ReactElement => {
     } else {
       setError("");
     }
-    dispatch(addToCart({ ...item, count }));
+    dispatch(
+      addToCartById({ id: item.id, count, size, price: item.attributes.price }),
+    );
   };
 
   useEffect(() => {
@@ -81,8 +83,9 @@ export const Product = (): React.ReactElement => {
               {item.attributes.image.data && (
                 <Grid item sm={5} xs={12}>
                   <img
+                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     src={`${ApiPath.ROOT}${item.attributes.image.data.attributes.formats.medium.url}`}
-                    alt={item?.attributes.name}
+                    alt={item.attributes.name}
                     className={styles.mainImage}
                   />
                 </Grid>

@@ -28,9 +28,16 @@ interface CartItem {
   };
 }
 
+interface Product {
+  id: string;
+  count: number;
+  size: string;
+  price: number;
+}
+
 interface CartState {
   isCartOpen: boolean;
-  cart: CartItem[];
+  cart: Product[];
   items: CartItem[];
 }
 
@@ -48,4 +55,4 @@ interface ProductPreview {
   };
 }
 
-export type { CartItem, CartState, Size, Image, ProductPreview };
+export type { CartItem, CartState, Size, Image, ProductPreview, Product };

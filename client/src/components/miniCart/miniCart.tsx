@@ -21,7 +21,7 @@ export const MiniCart = (): React.ReactElement => {
   const navigate = useNavigate();
 
   const totalPrice = cart.reduce((sum, item) => {
-    const price = item.count * item.attributes.price;
+    const price = item.count * item.price;
     return sum + price;
   }, 0);
 
@@ -80,7 +80,7 @@ export const MiniCart = (): React.ReactElement => {
             </Box>
             <Box className={styles.miniCartItems}>
               {cart.map((item) => (
-                <ProductListItem key={item.id} {...item} />
+                <ProductListItem key={`${item.id}-${item.size}`} {...item} />
               ))}
             </Box>
           </Box>
