@@ -26,6 +26,7 @@ import { AvatarMenu } from "../avatarMenu/AvatarMenu";
 import { SearchBar } from "@/components/header/searchBar/SearchBar";
 import { LanguageSwitcher } from "./languageSwitcher/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { useScrollBlock } from "@/hooks/hooks";
 
 import styles from "./styles.module.scss";
 
@@ -34,6 +35,7 @@ export const Header = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.data);
   const cart = useAppSelector((state) => state.cart.cart);
+  const { blockScroll, allowScroll } = useScrollBlock();
 
   const authToken = getToken();
 
@@ -66,16 +68,16 @@ export const Header = (): React.ReactElement => {
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setMenuOpened(!menuOpened);
-  };
-
-  const handleCloseNavMenu = (): void => {
-    setMenuOpened(false);
+    if (menuOpened) {
+      allowScroll();
+    } else {
+      blockScroll();
+    }
   };
 
   useEffect(() => {
     if (authToken) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      dispatch(fetchUser(authToken));
+      void dispatch(fetchUser(authToken));
     }
   }, [authToken]);
 
@@ -112,38 +114,6 @@ export const Header = (): React.ReactElement => {
               >
                 {menuOpened ? <CloseIcon /> : <MenuIcon />}
               </IconButton>
-              <Drawer
-                anchor="top"
-                variant="persistent"
-                open={menuOpened}
-                onClose={handleOpenNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                  "& .MuiDrawer-paper": {
-                    width: "100%",
-                    height: "100%",
-                    top: "64px",
-                  },
-                }}
-              >
-                {leftMenuPages.map(({ label, path }) => (
-                  <Link to={path} className="link" key={label}>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{label}</Typography>
-                    </MenuItem>
-                  </Link>
-                ))}
-                <Divider />
-                {rightMenuPages.map(({ label, path }) => (
-                  <Link to={path} className="link" key={label}>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{label}</Typography>
-                    </MenuItem>
-                  </Link>
-                ))}
-                <Divider />
-                <LanguageSwitcher className={styles.langSwitcherDark} />
-              </Drawer>
             </Box>
             <div className={styles.centerCol}>
               <Link to="/" className={styles.siteLogo}>
@@ -191,6 +161,38 @@ export const Header = (): React.ReactElement => {
           </Toolbar>
         </Container>
       </AppBar>
+      <Drawer
+        anchor="top"
+        variant="persistent"
+        open={menuOpened}
+        onClose={handleOpenNavMenu}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": {
+            width: "100%",
+            height: "100%",
+            top: "64px",
+          },
+        }}
+      >
+        {leftMenuPages.map(({ label, path }) => (
+          <Link to={path} className="link" key={label}>
+            <MenuItem onClick={handleOpenNavMenu}>
+              <Typography textAlign="center">{label}</Typography>
+            </MenuItem>
+          </Link>
+        ))}
+        <Divider />
+        {rightMenuPages.map(({ label, path }) => (
+          <Link to={path} className="link" key={label}>
+            <MenuItem onClick={handleOpenNavMenu}>
+              <Typography textAlign="center">{label}</Typography>
+            </MenuItem>
+          </Link>
+        ))}
+        <Divider />
+        <LanguageSwitcher className={styles.langSwitcherDark} />
+      </Drawer>
       <MiniCart />
     </>
   );
