@@ -21,10 +21,12 @@ import { SignInSchemaValues } from "@/common/types/types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setToken } from "@helpers/helpers";
 import { setUser } from "@/store/user/slice";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const SignIn = (): React.ReactElement => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -68,6 +70,9 @@ export const SignIn = (): React.ReactElement => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  const signUpText = `${t("noAccount")}? ${t("signUp")}`;
+
   if (user.name) {
     return <Navigate to="/" />;
   }
@@ -76,7 +81,7 @@ export const SignIn = (): React.ReactElement => {
     <Box className={styles.pageContent}>
       <Container>
         <Typography variant="h1" className={styles.pageTitle}>
-          Sign In
+          {t("signIn")}
         </Typography>
         {error && (
           <Alert severity="error" sx={{ mb: 3 }}>
@@ -99,33 +104,35 @@ export const SignIn = (): React.ReactElement => {
             <form onSubmit={handleSubmit}>
               <TextField
                 fullWidth
-                label="Email Address"
+                label={t("email")}
                 name="email"
                 value={values.email}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
+                helperText={touched.email && errors.email && t(errors.email)}
                 sx={{ marginBottom: "15px" }}
               />
               <TextField
                 fullWidth
                 name="password"
-                label="Password"
+                label={t("password")}
                 type="password"
                 value={values.password}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={touched.password && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
+                helperText={
+                  touched.password && errors.password && t(errors.password)
+                }
                 sx={{ marginBottom: "15px" }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                label={t("rememberUser")}
               />
               <Button className={styles.button} type="submit">
-                Sign In
+                {t("signIn")}
               </Button>
             </form>
           )}
@@ -133,12 +140,12 @@ export const SignIn = (): React.ReactElement => {
         <Grid container className={styles.linksContainer}>
           <Grid item xs>
             <Link to="/" className={styles.link}>
-              Forgot password?
+              {t("forgotPassword")}
             </Link>
           </Grid>
           <Grid item>
             <Link to={ApiPath.SIGNUP} className={styles.link}>
-              {"Don't have an account? Sign Up"}
+              {signUpText}
             </Link>
           </Grid>
         </Grid>

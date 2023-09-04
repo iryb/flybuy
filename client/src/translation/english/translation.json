@@ -29,5 +29,17 @@
   "applyFiltersBtn": "Apply Filters",
   "upTo": "Up to",
   "selectSize": "Select size",
-  "lowStock": "Low stock"
+  "lowStock": "Low stock",
+  "signIn": "Sign in",
+  "email": "Email address",
+  "password": "Password",
+  "rememberUser": "Remember me",
+  "forgotPassword": "Forgot password",
+  "noAccount": "Don't have an account",
+  "signUp": "Sign up",
+  "name": "Name",
+  "confirmPassword": "Confirm password",
+  "hasAccount": "Already have an account",
+  "requiredField": "This field is required",
+  "passwordsMustMatch": "Passwords must match"
 }

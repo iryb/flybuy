@@ -34,43 +34,43 @@ export const checkoutInitialValues: CheckoutSchemaValues = {
 export const checkoutSchema = [
   yup.object().shape({
     billingAddress: yup.object().shape({
-      firstName: yup.string().required("required"),
-      lastName: yup.string().required("required"),
-      country: yup.string().required("required"),
-      street1: yup.string().required("required"),
+      firstName: yup.string().required("requiredField"),
+      lastName: yup.string().required("requiredField"),
+      country: yup.string().required("requiredField"),
+      street1: yup.string().required("requiredField"),
       street2: yup.string(),
-      city: yup.string().required("required"),
-      state: yup.string().required("required"),
-      zipCode: yup.string().required("required"),
+      city: yup.string().required("requiredField"),
+      state: yup.string().required("requiredField"),
+      zipCode: yup.string().required("requiredField"),
     }),
     shippingAddress: yup.object().shape({
-      isSameAddress: yup.boolean().required("required"),
+      isSameAddress: yup.boolean().required("requiredField"),
       firstName: yup.string().when("isSameAddress", {
         is: false,
         then: () =>
           yup.object({
-            firstName: yup.string().required("required"),
+            firstName: yup.string().required("requiredField"),
           }),
       }),
       lastName: yup.string().when("isSameAddress", {
         is: false,
         then: () =>
           yup.object({
-            lastName: yup.string().required("required"),
+            lastName: yup.string().required("requiredField"),
           }),
       }),
       country: yup.string().when("isSameAddress", {
         is: false,
         then: () =>
           yup.object({
-            country: yup.string().required("required"),
+            country: yup.string().required("requiredField"),
           }),
       }),
       street1: yup.string().when("isSameAddress", {
         is: false,
         then: () =>
           yup.object({
-            street1: yup.string().required("required"),
+            street1: yup.string().required("requiredField"),
           }),
       }),
       street2: yup.string(),
@@ -78,28 +78,28 @@ export const checkoutSchema = [
         is: false,
         then: () =>
           yup.object({
-            street2: yup.string().required("required"),
+            street2: yup.string().required("requiredField"),
           }),
       }),
       state: yup.string().when("isSameAddress", {
         is: false,
         then: () =>
           yup.object({
-            state: yup.string().required("required"),
+            state: yup.string().required("requiredField"),
           }),
       }),
       zipCode: yup.string().when("isSameAddress", {
         is: false,
         then: () =>
           yup.object({
-            zipCode: yup.string().required("required"),
+            zipCode: yup.string().required("requiredField"),
           }),
       }),
     }),
   }),
   yup.object().shape({
-    email: yup.string().required("required"),
-    phoneNumber: yup.string().required("required"),
+    email: yup.string().required("requiredField"),
+    phoneNumber: yup.string().required("requiredField"),
   }),
 ];
 
@@ -109,8 +109,8 @@ export const signInInitialValues: SignInSchemaValues = {
 };
 
 export const signInSchema = yup.object().shape({
-  email: yup.string().required("required"),
-  password: yup.string().required("required"),
+  email: yup.string().required("requiredField"),
+  password: yup.string().required("requiredField"),
 });
 
 export const signUpInitialValues: SignUpSchemaValues = {
@@ -121,11 +121,11 @@ export const signUpInitialValues: SignUpSchemaValues = {
 };
 
 export const signUpSchema = yup.object().shape({
-  name: yup.string().required("reduired"),
-  email: yup.string().required("required"),
-  password: yup.string().required("required"),
+  name: yup.string().required("requiredField"),
+  email: yup.string().required("requiredField"),
+  password: yup.string().required("requiredField"),
   confirmPassword: yup
     .string()
-    .required("required")
-    .oneOf([yup.ref("password")], "Passwords must match"),
+    .required("requiredField")
+    .oneOf([yup.ref("password")], "passwordsMustMatch"),
 });

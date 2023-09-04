@@ -21,10 +21,12 @@ import { SignUpSchemaValues } from "@/common/types/types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setToken } from "@helpers/helpers";
 import { setUser } from "@/store/user/slice";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const SignUp = (): React.ReactElement => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -69,6 +71,9 @@ export const SignUp = (): React.ReactElement => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  const signInText = `${t("hasAccount")}? ${t("signIn")}`;
+
   if (user.name) {
     return <Navigate to="/" />;
   }
@@ -77,7 +82,7 @@ export const SignUp = (): React.ReactElement => {
     <Box className={styles.pageContent}>
       <Container>
         <Typography variant="h1" className={styles.pageTitle}>
-          Sign Up
+          {t("signUp")}
         </Typography>
         {error && (
           <Alert severity="error" sx={{ mb: 3 }}>
@@ -100,42 +105,44 @@ export const SignUp = (): React.ReactElement => {
             <form onSubmit={handleSubmit}>
               <TextField
                 fullWidth
-                label="Name"
+                label={t("name")}
                 name="name"
                 value={values.name}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={touched.name && Boolean(errors.name)}
-                helperText={touched.name && errors.name}
+                helperText={touched.name && errors.name && t(errors.name)}
                 sx={{ marginBottom: "15px" }}
               />
               <TextField
                 fullWidth
-                label="Email Address"
+                label={t("email")}
                 name="email"
                 value={values.email}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
+                helperText={touched.email && errors.email && t(errors.email)}
                 sx={{ marginBottom: "15px" }}
               />
               <TextField
                 fullWidth
                 name="password"
-                label="Password"
+                label={t("password")}
                 type="password"
                 value={values.password}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={touched.password && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
+                helperText={
+                  touched.password && errors.password && t(errors.password)
+                }
                 sx={{ marginBottom: "15px" }}
               />
               <TextField
                 fullWidth
                 name="confirmPassword"
-                label="Confirm Password"
+                label={t("confirmPassword")}
                 type="password"
                 value={values.confirmPassword}
                 onBlur={handleBlur}
@@ -143,11 +150,15 @@ export const SignUp = (): React.ReactElement => {
                 error={
                   touched.confirmPassword && Boolean(errors.confirmPassword)
                 }
-                helperText={touched.confirmPassword && errors.confirmPassword}
+                helperText={
+                  touched.confirmPassword &&
+                  errors.confirmPassword &&
+                  t(errors.confirmPassword)
+                }
                 sx={{ marginBottom: "15px" }}
               />
               <Button className={styles.button} type="submit">
-                Sign Up
+                {t("signUp")}
               </Button>
             </form>
           )}
@@ -155,7 +166,7 @@ export const SignUp = (): React.ReactElement => {
         <Grid container className={styles.linksContainer}>
           <Grid item>
             <Link to={ApiPath.SIGNIN} className={styles.link}>
-              {"Already have an account? Sign In"}
+              {signInText}
             </Link>
           </Grid>
         </Grid>

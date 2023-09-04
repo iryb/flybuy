@@ -29,5 +29,17 @@
   "applyFiltersBtn": "Застосувати фільтри",
   "upTo": "До",
   "selectSize": "Оберіть розмір",
-  "lowStock": "Останні розміри"
+  "lowStock": "Останні розміри",
+  "signIn": "Увійти",
+  "email": "Електронна пошта",
+  "password": "Пароль",
+  "rememberUser": "Запам'ятайте мене",
+  "forgotPassword": "Я забув (-ла) свій пароль",
+  "noAccount": "Немає акаунту",
+  "signUp": "Реєстрація",
+  "name": "Ім'я",
+  "confirmPassword": "Підтвердіть пароль",
+  "hasAccount": "Вже є акаунт",
+  "requiredField": "Це поле обов'язкове",
+  "passwordsMustMatch": "Паролі мають бути однакові"
 }
