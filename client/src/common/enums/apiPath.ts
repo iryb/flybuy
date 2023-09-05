@@ -6,7 +6,7 @@ enum ApiPath {
   ORDERAPI = "http://localhost:1337/api/orders",
   CHECKOUT = "/checkout",
   PAYMENTSUCCESSFULL = "/success",
-  PRODUCT = "item/:itemId",
+  PRODUCT = "item/:slug",
   CATEGORY = "category/:slug",
   SIGNIN = "/signin",
   SIGNUP = "/signup",

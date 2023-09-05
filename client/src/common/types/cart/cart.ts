@@ -25,6 +25,7 @@ interface CartItem {
     size: {
       data: Size[];
     };
+    slug: string;
   };
 }
 

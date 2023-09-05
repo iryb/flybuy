@@ -25,8 +25,9 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   const [error, setError] = useState<string>();
   const { t } = useTranslation();
 
-  const { id } = item;
-  const { price, name, category, size } = item.attributes;
+  const { price, name, category, size, slug } = item.attributes;
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  const productLink = `/item/${slug}`;
 
   const handleAddToCart = (): void => {
     if (!choseSize) {
@@ -61,7 +62,7 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
               width="300"
               height="400"
               className={styles.cardImage}
-              onClick={() => navigate(`/item/${id}`)}
+              onClick={() => navigate(productLink)}
             />
             <Box className={styles.cardButtonWrapper}>
               {error && (
@@ -81,7 +82,7 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
             </Typography>
           )}
           <Typography variant="h5" className={styles.title}>
-            <Link to={`/item/${id}`}>{name}</Link>
+            <Link to={productLink}>{name}</Link>
           </Typography>
           <Typography fontWeight="bold">{formatPrice(price)}</Typography>
         </Box>
