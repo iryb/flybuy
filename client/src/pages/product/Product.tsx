@@ -74,7 +74,12 @@ export const Product = (): React.ReactElement => {
           <Container>
             <Grid container spacing={8}>
               {item[0].attributes.image.data && (
-                <Grid item sm={5} xs={12}>
+                <Grid
+                  item
+                  sm={5}
+                  xs={12}
+                  className={styles.desktopImgContainer}
+                >
                   <img
                     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     src={`${ApiPath.ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
@@ -87,6 +92,16 @@ export const Product = (): React.ReactElement => {
                 <Typography variant="h2" className={styles.productTitle}>
                   {item[0].attributes.name}
                 </Typography>
+                {item[0].attributes.image.data && (
+                  <Box className={styles.mobileImgContainer}>
+                    <img
+                      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                      src={`${ApiPath.ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
+                      alt={item[0].attributes.name}
+                      className={styles.mainImage}
+                    />
+                  </Box>
+                )}
                 {item[0].attributes.category && (
                   <Typography className={styles.category}>
                     {formatStringCapitalize(item[0].attributes.category)}
