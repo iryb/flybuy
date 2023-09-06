@@ -42,5 +42,9 @@
   "confirmPassword": "Confirm password",
   "hasAccount": "Already have an account",
   "requiredField": "This field is required",
-  "passwordsMustMatch": "Passwords must match"
+  "passwordsMustMatch": "Passwords must match",
+  "profileGreeting": "Welcome back",
+  "ordersHistory": "Orders history",
+  "order": "Order",
+  "count": "Count"
 }

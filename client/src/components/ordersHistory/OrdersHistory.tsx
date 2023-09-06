@@ -3,15 +3,18 @@ import { useAppSelector } from "@/store/hooks";
 import { Box, Typography } from "@mui/material";
 import { OrderItem } from "@components/orderItem/OrderItem";
 import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const OrdersHistory = (): React.ReactElement => {
+  const { t } = useTranslation();
   const orders = useAppSelector((state) => state.order.data);
+
   return (
     <Box className={styles.pageContent}>
       <Typography variant="h3" className={styles.ordersTitle}>
-        Orders History
+        {t("ordersHistory")}
       </Typography>
       {orders
         ?.slice()

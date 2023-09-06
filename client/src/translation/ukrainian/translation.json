@@ -42,5 +42,9 @@
   "confirmPassword": "Підтвердіть пароль",
   "hasAccount": "Вже є акаунт",
   "requiredField": "Це поле обов'язкове",
-  "passwordsMustMatch": "Паролі мають бути однакові"
+  "passwordsMustMatch": "Паролі мають бути однакові",
+  "profileGreeting": "З поверненням",
+  "ordersHistory": "Історія замовлень",
+  "order": "Замовлення",
+  "count": "Кількість"
 }
