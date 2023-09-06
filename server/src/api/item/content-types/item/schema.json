@@ -103,6 +103,15 @@
       },
       "type": "string",
       "required": true
+    },
+    "sku": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string",
+      "required": true
     }
   }
 }

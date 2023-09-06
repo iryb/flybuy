@@ -18,6 +18,7 @@ import styles from "./styles.module.scss";
 export const Checkout = (): React.ReactElement => {
   const [activeStep, setActiveStep] = useState(0);
   const cart = useAppSelector((state) => state.cart.cart);
+  const { id: userId } = useAppSelector((state) => state.user.data);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
 
@@ -33,10 +34,13 @@ export const Checkout = (): React.ReactElement => {
     const stripe = (await stripePromise) as Stripe;
     const requestBody = {
       userName: [values.firstName, values.lastName].join(" "),
+      userId: userId.toString(),
       email: values.email,
-      products: cart.map(({ id, count }) => ({
+      products: cart.map(({ id, count, size, sku }) => ({
         id,
         count,
+        size,
+        sku,
       })),
     };
 
@@ -52,7 +56,7 @@ export const Checkout = (): React.ReactElement => {
       sessionId: session.id,
     });
 
-    return { error: error };
+    return { error };
   };
 
   const handleFormSubmit = async (

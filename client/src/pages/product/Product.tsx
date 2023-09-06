@@ -58,9 +58,17 @@ export const Product = (): React.ReactElement => {
     } else {
       setError("");
     }
-    dispatch(
-      addToCartById({ id: item.id, count, size, price: item.attributes.price }),
-    );
+    if (item) {
+      dispatch(
+        addToCartById({
+          id: item.id,
+          count,
+          size,
+          price: item.attributes.price,
+          sku: item.attributes.sku,
+        }),
+      );
+    }
   };
 
   if (requestErr) return <p>Error</p>;

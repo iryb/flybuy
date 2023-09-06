@@ -26,6 +26,7 @@ interface CartItem {
       data: Size[];
     };
     slug: string;
+    sku: string;
   };
 }
 
@@ -34,6 +35,7 @@ interface Product {
   count: number;
   size: string;
   price: number;
+  sku: string;
 }
 
 interface CartState {

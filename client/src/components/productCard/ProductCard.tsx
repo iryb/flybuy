@@ -42,6 +42,7 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
         count: 1,
         size: choseSize,
         price: item.attributes.price,
+        sku: item.attributes.sku,
       }),
     );
   };

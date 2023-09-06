@@ -21,6 +21,7 @@ export const cartSlice = createSlice({
         count: number;
         size: string;
         price: number;
+        sku: string;
       }>,
     ) => {
       const itemDuplicate = state.cart.some(
