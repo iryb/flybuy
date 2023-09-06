@@ -1,6 +1,8 @@
 interface OrderProduct {
   id: string;
   count: number;
+  size: string;
+  sku: string;
 }
 
 interface Order {

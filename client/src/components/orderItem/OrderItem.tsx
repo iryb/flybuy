@@ -15,13 +15,15 @@ interface OrderItemProps {
 
 export const OrderItem = ({ item }: OrderItemProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { id } = item;
-  const { createdAt, products } = item.attributes;
+  const {
+    id,
+    attributes: { createdAt, products },
+  } = item;
   const [productsData, setProductsData] = useState<ProductPreview[]>([]);
 
-  const fetchProduct = async (id: string): Promise<ProductPreview[]> => {
+  const fetchProduct = async (sku: string): Promise<ProductPreview[]> => {
     const items = await fetch(
-      `${ApiPath.API}/items?filters[id][$eq]=${id}&populate=image`,
+      `${ApiPath.API}/items?filters[sku][$eq]=${sku}&populate=image`,
       {
         method: "GET",
       },
@@ -32,24 +34,48 @@ export const OrderItem = ({ item }: OrderItemProps): React.ReactElement => {
 
   useEffect(() => {
     const data = products.map(async (product) => {
-      return await fetchProduct(product.id);
+      return await fetchProduct(product.sku);
     });
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     Promise.all(data).then((res) => {
       const items: ProductPreview[] = [];
 
-      res.forEach((item) => {
+      if (res.length > 1) {
+        res.forEach((item) => {
+          const {
+            id,
+            attributes: { name, price, image, sku },
+          } = item[0];
+          items.push({
+            id,
+            count: products.find((p) => p.id === id)?.count as number,
+            attributes: {
+              name,
+              price,
+              image,
+              size: products.find((p) => p.sku === sku)?.size as string,
+              sku,
+            },
+          });
+        });
+      } else {
+        const {
+          id,
+          attributes: { name, price, image, sku },
+        } = res[0][0];
         items.push({
-          id: item[0].id,
-          count: products.find((p) => p.id === item[0].id)?.count as number,
+          id,
+          count: 1,
           attributes: {
-            name: item[0].attributes.name,
-            price: item[0].attributes.price,
-            image: item[0].attributes.image,
+            name,
+            price,
+            image,
+            size: products[0].size,
+            sku,
           },
         });
-      });
+      }
 
       setProductsData(items);
     });
@@ -83,6 +109,9 @@ export const OrderItem = ({ item }: OrderItemProps): React.ReactElement => {
                   </Typography>
                   <Typography className={styles.count}>
                     {t("count")}: {item?.count}
+                  </Typography>
+                  <Typography className={styles.size}>
+                    {t("size")}: {item?.attributes.size}
                   </Typography>
                 </Box>
                 <Box className={styles.rightCol}>

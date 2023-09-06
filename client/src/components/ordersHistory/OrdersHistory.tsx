@@ -2,7 +2,6 @@ import React from "react";
 import { useAppSelector } from "@/store/hooks";
 import { Box, Typography } from "@mui/material";
 import { OrderItem } from "@components/orderItem/OrderItem";
-import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
@@ -25,7 +24,7 @@ export const OrdersHistory = (): React.ReactElement => {
           );
         })
         .map((order) => (
-          <OrderItem key={uuidv4()} item={order} />
+          <OrderItem key={order.id} item={order} />
         ))}
     </Box>
   );

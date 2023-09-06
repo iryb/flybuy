@@ -55,6 +55,8 @@ interface ProductPreview {
         attributes: { formats: { medium: { url: string } } };
       } | null;
     };
+    size: string;
+    sku: string;
   };
 }
 
