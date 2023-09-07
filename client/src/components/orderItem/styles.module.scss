@@ -39,6 +39,15 @@
   .size {
     color: $primaryColorLight;
   }
+  .productLink {
+    max-width: max-content;
+    text-decoration: none;
+    color: $primaryColor;
+    transition: all 300ms;
+    &:hover {
+      color: $secondaryColor;
+    }
+  }
 }
 
 .detailsText {

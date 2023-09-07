@@ -57,6 +57,7 @@ interface ProductPreview {
     };
     size: string;
     sku: string;
+    slug: string;
   };
 }
 
