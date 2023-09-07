@@ -5,10 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeToken } from "@helpers/helpers";
 import { logout } from "@/store/user/slice";
 import { ApiPath } from "@/common/enums/apiPath";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const AvatarMenu = (): React.ReactElement => {
+  const { t } = useTranslation();
   const user = useAppSelector((state) => state.user.data);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
@@ -69,9 +71,9 @@ export const AvatarMenu = (): React.ReactElement => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Link to={ApiPath.PROFILE} className={styles.link}>
-          <MenuItem>Profile</MenuItem>
+          <MenuItem>{t("profile")}</MenuItem>
         </Link>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
       </Menu>
     </Box>
   );

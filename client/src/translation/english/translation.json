@@ -46,5 +46,7 @@
   "profileGreeting": "Welcome back",
   "ordersHistory": "Orders history",
   "order": "Order",
-  "count": "Count"
+  "count": "Count",
+  "profile": "Profile",
+  "logout": "Logout"
 }

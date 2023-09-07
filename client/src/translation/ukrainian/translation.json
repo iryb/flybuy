@@ -46,5 +46,7 @@
   "profileGreeting": "З поверненням",
   "ordersHistory": "Історія замовлень",
   "order": "Замовлення",
-  "count": "Кількість"
+  "count": "Кількість",
+  "profile": "Профіль",
+  "logout": "Вийти"
 }
