@@ -52,23 +52,23 @@ export const Product = (): React.ReactElement => {
 
   const handleAddToCart = (): void => {
     if (!item) return;
-    if (!size) {
-      setError(t("chooseSizeError"));
-      return;
-    } else {
-      setError("");
+    if (item[0].attributes.size) {
+      if (!size) {
+        setError(t("chooseSizeError"));
+        return;
+      } else {
+        setError("");
+      }
     }
-    if (item) {
-      dispatch(
-        addToCartById({
-          id: item.id,
-          count,
-          size,
-          price: item.attributes.price,
-          sku: item.attributes.sku,
-        }),
-      );
-    }
+    dispatch(
+      addToCartById({
+        id: item[0].id,
+        count,
+        size,
+        price: item[0].attributes.price,
+        sku: item[0].attributes.sku,
+      }),
+    );
   };
 
   if (requestErr) return <p>Error</p>;

@@ -21,7 +21,7 @@ interface ProductCardProps {
 export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [choseSize, setChoseSize] = useState<string>();
+  const [choseSize, setChoseSize] = useState<string>("");
   const [error, setError] = useState<string>();
   const { t } = useTranslation();
 
@@ -30,11 +30,13 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   const productLink = `/item/${slug}`;
 
   const handleAddToCart = (): void => {
-    if (!choseSize) {
-      setError(t("chooseSizeError"));
-      return;
-    } else {
-      setError("");
+    if (size) {
+      if (!choseSize) {
+        setError(t("chooseSizeError"));
+        return;
+      } else {
+        setError("");
+      }
     }
     dispatch(
       addToCartById({

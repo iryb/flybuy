@@ -56,9 +56,11 @@ export const ProductListItem = ({
               </IconButton>
             </Box>
             <Typography>{data[0].attributes.name}</Typography>
-            <Typography>
-              {t("size")}: {size}
-            </Typography>
+            {size && (
+              <Typography>
+                {t("size")}: {size}
+              </Typography>
+            )}
             <Quantity
               callbackDecrease={() => dispatch(decreaseCount({ id, size }))}
               callbackIncrease={() => dispatch(increaseCount({ id, size }))}
