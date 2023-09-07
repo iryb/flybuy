@@ -4,6 +4,7 @@ import React from "react";
 import { CheckoutSchemaValues } from "@/common/types/types";
 import { FormikProps } from "formik";
 import { AddressForm } from "./AddressForm";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
@@ -15,9 +16,12 @@ export const Shipping = ({
   handleChange,
   setFieldValue,
 }: FormikProps<CheckoutSchemaValues>): React.ReactElement => {
+  const { t } = useTranslation();
   return (
     <Box>
-      <Typography className={styles.formTitle}>Billing Information</Typography>
+      <Typography className={styles.formTitle}>
+        {t("billingFormTitle")}
+      </Typography>
       <Box sx={{ marginBottom: "15px" }}>
         <AddressForm
           type="billingAddress"
@@ -31,7 +35,7 @@ export const Shipping = ({
 
       <Box mb="20px">
         <FormControlLabel
-          label="Same for Shipping Address"
+          label={t("sameForShippingLabel")}
           control={
             <Checkbox
               defaultChecked
@@ -50,7 +54,7 @@ export const Shipping = ({
       {!values.shippingAddress.isSameAddress && (
         <Box sx={{ marginBottom: "15px" }}>
           <Typography className={styles.formTitle}>
-            Shipping Information
+            {t("shippingFormTitle")}
           </Typography>
           <Box>
             <AddressForm

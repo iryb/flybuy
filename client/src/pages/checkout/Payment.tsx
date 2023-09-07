@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, TextField } from "@mui/material";
 import { CheckoutSchemaValues } from "@/common/types/types";
 import { FormikProps } from "formik";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
@@ -13,13 +14,16 @@ export const Payment = ({
   handleChange,
   setFieldValue,
 }: FormikProps<CheckoutSchemaValues>): React.ReactElement => {
+  const { t } = useTranslation();
   return (
     <Box sx={{ marginBottom: "15px" }}>
-      <Typography className={styles.formTitle}>Payment Information</Typography>
+      <Typography className={styles.formTitle}>
+        {t("paymentFormTitle")}
+      </Typography>
       <TextField
         fullWidth
         type="text"
-        label="Email"
+        label={t("email")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.email}
@@ -31,7 +35,7 @@ export const Payment = ({
       <TextField
         fullWidth
         type="text"
-        label="Phone Number"
+        label={t("phoneNumber")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.phoneNumber}

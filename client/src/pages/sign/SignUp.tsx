@@ -65,8 +65,7 @@ export const SignUp = (): React.ReactElement => {
 
         navigate(ApiPath.PROFILE);
       }
-    } catch (error) {
-      // @ts-expect-error
+    } catch (error: any) {
       setError(error.message);
     }
   };

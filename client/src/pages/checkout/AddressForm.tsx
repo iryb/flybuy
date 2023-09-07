@@ -2,6 +2,7 @@ import { CheckoutSchemaValues } from "@/common/types/types";
 import React from "react";
 import { FormikProps } from "formik";
 import { Box, TextField } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
@@ -28,6 +29,7 @@ export const AddressForm = ({
   handleChange,
 }: AddressFormProps &
   FormikProps<CheckoutSchemaValues>): React.ReactElement => {
+  const { t } = useTranslation();
   const formattedName = (field: string): string => `${type}.${field}`;
 
   return (
@@ -35,7 +37,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="First Name"
+        label={t("firstName")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.firstName}
@@ -52,7 +54,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="Last Name"
+        label={t("lastName")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.lastName}
@@ -69,7 +71,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="Country"
+        label={t("country")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.country}
@@ -86,7 +88,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="Street Address"
+        label={t("streetAddress")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.street1}
@@ -103,7 +105,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="Street Address 2 (Optional)"
+        label={t("streetAddress2")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.street2}
@@ -120,7 +122,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="City"
+        label={t("city")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.city}
@@ -134,7 +136,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="State"
+        label={t("state")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.state}
@@ -150,7 +152,7 @@ export const AddressForm = ({
       <TextField
         fullWidth
         type="text"
-        label="ZIP"
+        label={t("zip")}
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.zipCode}

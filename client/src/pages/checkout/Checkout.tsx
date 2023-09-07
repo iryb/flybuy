@@ -12,10 +12,12 @@ import {
 import { CheckoutSchemaValues } from "@/common/types/types";
 import { loadStripe, Stripe, StripeError } from "@stripe/stripe-js";
 import { ApiPath } from "@enums/apiPath";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
 export const Checkout = (): React.ReactElement => {
+  const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const cart = useAppSelector((state) => state.cart.cart);
   const { id: userId } = useAppSelector((state) => state.user.data);
@@ -82,14 +84,14 @@ export const Checkout = (): React.ReactElement => {
     <Box>
       <Container>
         <Typography variant="h2" textAlign="center" mt="20px" mb="20px">
-          Checkout
+          {t("checkoutPageTitle")}
         </Typography>
         <Stepper activeStep={activeStep} className={styles.steps}>
           <Step>
-            <StepLabel>Billing</StepLabel>
+            <StepLabel>{t("billingTabTitle")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Payment</StepLabel>
+            <StepLabel>{t("paymentTabTitle")}</StepLabel>
           </Step>
         </Stepper>
         <Box className={styles.pageContent}>
@@ -133,11 +135,11 @@ export const Checkout = (): React.ReactElement => {
                 <Box className={styles.checkoutButtons}>
                   {isSecondStep && (
                     <Button onClick={() => setActiveStep(activeStep - 1)}>
-                      Back
+                      {t("back")}
                     </Button>
                   )}
                   <Button type="submit">
-                    {isFirstStep ? "Next" : "Place Order"}
+                    {isFirstStep ? t("next") : t("placeOrder")}
                   </Button>
                 </Box>
               </form>
