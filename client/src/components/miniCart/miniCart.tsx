@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import React from "react";
 import { setIsCartOpen } from "@/store/cart/slice";
-import { ProductListItem } from "../productListItem/ProductListItem";
+import { ProductListItem } from "@components/productListItem/ProductListItem";
 import { formatPrice } from "@/helpers/helpers";
 import { useNavigate } from "react-router-dom";
 import { ApiPath } from "@/common/enums/apiPath";
@@ -24,6 +24,11 @@ export const MiniCart = (): React.ReactElement => {
     const price = item.count * item.price;
     return sum + price;
   }, 0);
+
+  const handleCheckout = (): void => {
+    navigate(ApiPath.CHECKOUT);
+    dispatch(setIsCartOpen());
+  };
 
   if (totalPrice === 0) {
     return (
@@ -95,10 +100,7 @@ export const MiniCart = (): React.ReactElement => {
                   {formatPrice(totalPrice)}
                 </Typography>
               </Box>
-              <Button
-                className={styles.checkoutBtn}
-                onClick={() => navigate(ApiPath.CHECKOUT)}
-              >
+              <Button className={styles.checkoutBtn} onClick={handleCheckout}>
                 {t("checkout")}
               </Button>
             </Box>
