@@ -48,6 +48,8 @@ export function useUrlParams(searchParams: URLSearchParams): {
 }
 
 export function useScrollBlock(): any {
+  const breakpoint = 900;
+
   const blockScroll = (): void => {
     document.body.style.overflow = "hidden";
   };
@@ -56,5 +58,31 @@ export function useScrollBlock(): any {
     document.body.style.overflow = "scroll";
   };
 
+  const handleWindowSizeChange = (): void => {
+    if (window.innerWidth > breakpoint) {
+      allowScroll();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+  }, []);
+
   return { blockScroll, allowScroll };
+}
+
+export function useIsMobile(breakpoint: number): {
+  isMobile: boolean;
+} {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+
+  const handleWindowSizeChange = (): void => {
+    setIsMobile(window.innerWidth <= breakpoint);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+  }, []);
+
+  return { isMobile };
 }

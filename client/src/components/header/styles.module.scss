@@ -10,6 +10,13 @@
   }
 }
 
+.drawer {
+  .link {
+    text-decoration: none;
+    color: $primaryColor;
+  }
+}
+
 .toolbar {
   justify-content: space-between;
   .menu {

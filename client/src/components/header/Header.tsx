@@ -2,7 +2,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Badge,
@@ -20,13 +20,13 @@ import { setIsCartOpen } from "@store/cart/slice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { MiniCart } from "../miniCart/miniCart";
 import { ApiPath } from "@/common/enums/apiPath";
-import { fetchUser } from "@store/user/slice";
-import { getToken } from "@/helpers/helpers";
+import { fetchUser, logout } from "@store/user/slice";
+import { getToken, removeToken } from "@/helpers/helpers";
 import { AvatarMenu } from "../avatarMenu/AvatarMenu";
 import { SearchBar } from "@/components/header/searchBar/SearchBar";
 import { LanguageSwitcher } from "./languageSwitcher/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
-import { useScrollBlock } from "@/hooks/hooks";
+import { useIsMobile, useScrollBlock } from "@/hooks/hooks";
 
 import styles from "./styles.module.scss";
 
@@ -36,6 +36,8 @@ export const Header = (): React.ReactElement => {
   const user = useAppSelector((state) => state.user.data);
   const cart = useAppSelector((state) => state.cart.cart);
   const { blockScroll, allowScroll } = useScrollBlock();
+  const navigate = useNavigate();
+  const { isMobile } = useIsMobile(900);
 
   const authToken = getToken();
 
@@ -75,11 +77,21 @@ export const Header = (): React.ReactElement => {
     }
   };
 
+  const handleLogout = (): void => {
+    removeToken();
+    dispatch(logout());
+    navigate("/");
+  };
+
   useEffect(() => {
     if (authToken) {
       void dispatch(fetchUser(authToken));
     }
   }, [authToken]);
+
+  useEffect(() => {
+    if (!isMobile) setMenuOpened(false);
+  }, [isMobile]);
 
   return (
     <>
@@ -166,12 +178,14 @@ export const Header = (): React.ReactElement => {
         variant="persistent"
         open={menuOpened}
         onClose={handleOpenNavMenu}
+        className={styles.drawer}
         sx={{
           display: { xs: "block", md: "none" },
           "& .MuiDrawer-paper": {
             width: "100%",
             height: "100%",
             top: "64px",
+            zIndex: "9",
           },
         }}
       >
@@ -182,7 +196,6 @@ export const Header = (): React.ReactElement => {
             </MenuItem>
           </Link>
         ))}
-        <Divider />
         {rightMenuPages.map(({ label, path }) => (
           <Link to={path} className="link" key={label}>
             <MenuItem onClick={handleOpenNavMenu}>
@@ -190,6 +203,11 @@ export const Header = (): React.ReactElement => {
             </MenuItem>
           </Link>
         ))}
+        <Divider />
+        <Link to={ApiPath.PROFILE} className={styles.link}>
+          <MenuItem>{t("profile")}</MenuItem>
+        </Link>
+        <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
         <Divider />
         <LanguageSwitcher className={styles.langSwitcherDark} />
       </Drawer>
