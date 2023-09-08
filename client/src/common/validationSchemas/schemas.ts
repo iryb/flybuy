@@ -3,6 +3,7 @@ import {
   CheckoutSchemaValues,
   SignInSchemaValues,
   SignUpSchemaValues,
+  SubscribeSchemaValues,
 } from "@/common/types/types";
 
 export const checkoutInitialValues: CheckoutSchemaValues = {
@@ -128,4 +129,15 @@ export const signUpSchema = yup.object().shape({
     .string()
     .required("requiredField")
     .oneOf([yup.ref("password")], "passwordsMustMatch"),
+});
+
+export const subscribeInitialValues: SubscribeSchemaValues = {
+  email: "",
+};
+
+export const subscribeSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required("requiredField")
+    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, "validEmail"),
 });

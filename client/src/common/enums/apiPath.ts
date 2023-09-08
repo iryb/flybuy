@@ -4,6 +4,7 @@ enum ApiPath {
   ITEMSAPI = "http://localhost:1337/api/items?populate=image",
   CATEGORIESAPI = "http://localhost:1337/api/categories?populate=image",
   ORDERAPI = "http://localhost:1337/api/orders",
+  SUBSCRIBERAPI = "http://localhost:1337/api/subscribers",
   CHECKOUT = "/checkout",
   PAYMENTSUCCESSFULL = "/success",
   PRODUCT = "item/:slug",

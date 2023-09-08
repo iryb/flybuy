@@ -36,4 +36,13 @@ interface SignUpSchemaValues {
   confirmPassword: string;
 }
 
-export type { CheckoutSchemaValues, SignInSchemaValues, SignUpSchemaValues };
+interface SubscribeSchemaValues {
+  email: string;
+}
+
+export type {
+  CheckoutSchemaValues,
+  SignInSchemaValues,
+  SignUpSchemaValues,
+  SubscribeSchemaValues,
+};

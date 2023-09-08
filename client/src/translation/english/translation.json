@@ -69,5 +69,8 @@
   "zip": "ZIP",
   "phoneNumber": "Phone Number",
   "paymentSuccessfull": "Payment sucessfull",
-  "goToHome": "Go to Home page"
+  "goToHome": "Go to Home page",
+  "validEmail": "Email must be valid",
+  "cantSubscribe": "Can't subscribe",
+  "sucessfullySubscribed": "Successfully subscribed"
 }
