@@ -72,5 +72,7 @@
   "goToHome": "Повернутись на Головну сторінку",
   "validEmail": "Електронна адреса має бути вірною",
   "cantSubscribe": "Неможливо підписатися",
-  "sucessfullySubscribed": "Ви успішно підписалися"
+  "sucessfullySubscribed": "Ви успішно підписалися",
+  "couponFieldLabel": "Є купон?",
+  "apply": "Застосувати"
 }

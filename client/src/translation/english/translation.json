@@ -72,5 +72,7 @@
   "goToHome": "Go to Home page",
   "validEmail": "Email must be valid",
   "cantSubscribe": "Can't subscribe",
-  "sucessfullySubscribed": "Successfully subscribed"
+  "sucessfullySubscribed": "Successfully subscribed",
+  "couponFieldLabel": "Have a coupon?",
+  "apply": "Apply"
 }

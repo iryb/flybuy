@@ -47,7 +47,9 @@ export const AddressForm = ({
           Boolean(errors.billingAddress?.firstName)
         }
         helperText={
-          touched.billingAddress?.firstName && errors.billingAddress?.firstName
+          touched.billingAddress?.firstName &&
+          errors.billingAddress?.firstName &&
+          t(errors.billingAddress.firstName)
         }
         sx={{ gridColumn: "span 2" }}
       />
@@ -64,7 +66,9 @@ export const AddressForm = ({
           Boolean(errors.billingAddress?.lastName)
         }
         helperText={
-          touched.billingAddress?.lastName && errors.billingAddress?.lastName
+          touched.billingAddress?.lastName &&
+          errors.billingAddress?.lastName &&
+          t(errors.billingAddress.lastName)
         }
         sx={{ gridColumn: "span 2" }}
       />
@@ -81,7 +85,9 @@ export const AddressForm = ({
           Boolean(errors.billingAddress?.country)
         }
         helperText={
-          touched.billingAddress?.country && errors.billingAddress?.country
+          touched.billingAddress?.country &&
+          errors.billingAddress?.country &&
+          t(errors.billingAddress.country)
         }
         sx={{ gridColumn: "span 4" }}
       />
@@ -98,7 +104,9 @@ export const AddressForm = ({
           Boolean(errors.billingAddress?.street1)
         }
         helperText={
-          touched.billingAddress?.street1 && errors.billingAddress?.street1
+          touched.billingAddress?.street1 &&
+          errors.billingAddress?.street1 &&
+          t(errors.billingAddress.street1)
         }
         sx={{ gridColumn: "span 2" }}
       />
@@ -115,7 +123,9 @@ export const AddressForm = ({
           Boolean(errors.billingAddress?.street2)
         }
         helperText={
-          touched.billingAddress?.street2 && errors.billingAddress?.street2
+          touched.billingAddress?.street2 &&
+          errors.billingAddress?.street2 &&
+          t(errors.billingAddress.street2)
         }
         sx={{ gridColumn: "span 2" }}
       />
@@ -130,7 +140,11 @@ export const AddressForm = ({
         error={
           touched.billingAddress?.city && Boolean(errors.billingAddress?.city)
         }
-        helperText={touched.billingAddress?.city && errors.billingAddress?.city}
+        helperText={
+          touched.billingAddress?.city &&
+          errors.billingAddress?.city &&
+          t(errors.billingAddress.city)
+        }
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
@@ -145,7 +159,9 @@ export const AddressForm = ({
           touched.billingAddress?.state && Boolean(errors.billingAddress?.state)
         }
         helperText={
-          touched.billingAddress?.state && errors.billingAddress?.state
+          touched.billingAddress?.state &&
+          errors.billingAddress?.state &&
+          t(errors.billingAddress.state)
         }
         sx={{ gridColumn: "1fr" }}
       />
@@ -162,7 +178,9 @@ export const AddressForm = ({
           Boolean(errors.billingAddress?.zipCode)
         }
         helperText={
-          touched.billingAddress?.zipCode && errors.billingAddress?.zipCode
+          touched.billingAddress?.zipCode &&
+          errors.billingAddress?.zipCode &&
+          t(errors.billingAddress.zipCode)
         }
         sx={{ gridColumn: "1fr" }}
       />
