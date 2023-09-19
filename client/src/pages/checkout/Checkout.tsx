@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import { useAppSelector } from "@/store/hooks";
 import { Box, Container } from "@mui/system";
-import { Step, StepLabel, Stepper, Typography, Button } from "@mui/material";
+import {
+  Step,
+  StepLabel,
+  Stepper,
+  Typography,
+  Button,
+  Divider,
+} from "@mui/material";
 import { Shipping } from "./Shipping";
 import { Payment } from "./Payment";
 import {
@@ -13,6 +20,7 @@ import { CheckoutSchemaValues } from "@/common/types/types";
 import { loadStripe, Stripe, StripeError } from "@stripe/stripe-js";
 import { ApiPath } from "@enums/apiPath";
 import { useTranslation } from "react-i18next";
+import { Cart } from "@/components/cart/Cart";
 
 import styles from "./styles.module.scss";
 
@@ -81,11 +89,13 @@ export const Checkout = (): React.ReactElement => {
   };
 
   return (
-    <Box>
+    <Box className="page">
       <Container>
-        <Typography variant="h2" textAlign="center" mt="20px" mb="20px">
+        <Typography variant="h2" textAlign="center" className="pageTitle">
           {t("checkoutPageTitle")}
         </Typography>
+        <Cart />
+        <Divider sx={{ marginBottom: "30px" }} />
         <Stepper activeStep={activeStep} className={styles.steps}>
           <Step>
             <StepLabel>{t("billingTabTitle")}</StepLabel>

@@ -40,9 +40,14 @@ interface SubscribeSchemaValues {
   email: string;
 }
 
+interface CouponSchemaValues {
+  coupon: string;
+}
+
 export type {
   CheckoutSchemaValues,
   SignInSchemaValues,
   SignUpSchemaValues,
   SubscribeSchemaValues,
+  CouponSchemaValues,
 };

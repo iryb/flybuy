@@ -27,7 +27,7 @@ module.exports = createCoreController(
         });
 
         await strapi.service("api::coupon.coupon").create({
-          data: { email, coupon: "FIRST10" },
+          data: { email, coupon: "FIRST10", percent: 0.1 },
         });
 
         return { data: { message: "sucessfullySubscribed" } };

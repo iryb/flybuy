@@ -85,7 +85,10 @@ export const MiniCart = (): React.ReactElement => {
             </Box>
             <Box className={styles.miniCartItems}>
               {cart.map((item) => (
-                <ProductListItem key={`${item.id}-${item.size}`} {...item} />
+                <ProductListItem
+                  key={`${item.id}-${item.size}`}
+                  product={item}
+                />
               ))}
             </Box>
           </Box>

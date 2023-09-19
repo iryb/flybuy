@@ -5,6 +5,7 @@ const initialState: CartState = {
   isCartOpen: false,
   cart: [],
   items: [],
+  coupon: "",
 };
 
 export const cartSlice = createSlice({
@@ -92,6 +93,9 @@ export const cartSlice = createSlice({
     setIsCartOpen: (state) => {
       state.isCartOpen = !state.isCartOpen;
     },
+    setCoupon: (state, action: PayloadAction<string>) => {
+      state.coupon = action.payload;
+    },
   },
 });
 
@@ -102,6 +106,7 @@ export const {
   decreaseCount,
   setIsCartOpen,
   addToCartById,
+  setCoupon,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

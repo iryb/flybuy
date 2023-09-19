@@ -13,14 +13,20 @@ import {
 import { ApiPath } from "@enums/apiPath";
 import { useFetch } from "@/hooks/hooks";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 import styles from "./styles.module.scss";
 
+interface ProductListItemProps {
+  product: Product;
+  smallImage?: boolean;
+}
+
 export const ProductListItem = ({
-  id,
-  count,
-  size,
-}: Product): React.ReactElement => {
+  product,
+  smallImage,
+}: ProductListItemProps): React.ReactElement => {
+  const { id, count, size } = product;
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const url = `${ApiPath.ITEMSAPI}&filters[id][$eq]=${id}`;
@@ -33,10 +39,15 @@ export const ProductListItem = ({
   if (error) return <p>Error</p>;
 
   return (
-    <Box>
+    <>
       {data && (
-        <Box className={styles.product}>
-          <Box flex="1 1 40%" className={styles.leftCol}>
+        <Box
+          className={clsx(
+            styles.product,
+            smallImage ? styles.smallImage : null,
+          )}
+        >
+          <Box className={styles.leftCol}>
             <img
               // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
               src={`${ApiPath.ROOT}${data[0].attributes.image.data?.attributes.formats.medium.url}`}
@@ -44,7 +55,7 @@ export const ProductListItem = ({
               className={styles.productImage}
             />
           </Box>
-          <Box flex="1 1 60%">
+          <Box className={styles.rightCol}>
             <Box className={styles.productTop}>
               <Typography fontWeight="bold">
                 {formatPrice(data[0].attributes.price)}
@@ -69,6 +80,6 @@ export const ProductListItem = ({
           </Box>
         </Box>
       )}
-    </Box>
+    </>
   );
 };

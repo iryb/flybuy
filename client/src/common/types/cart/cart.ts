@@ -42,6 +42,7 @@ interface CartState {
   isCartOpen: boolean;
   cart: Product[];
   items: CartItem[];
+  coupon?: string;
 }
 
 interface ProductPreview {
