@@ -101,7 +101,7 @@ export const Checkout = (): React.ReactElement => {
             <StepLabel>{t("billingTabTitle")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{t("paymentTabTitle")}</StepLabel>
+            <StepLabel>{t("orderDetailsTabTitle")}</StepLabel>
           </Step>
         </Stepper>
         <Box className={styles.pageContent}>

@@ -28,8 +28,8 @@ export const checkoutInitialValues: CheckoutSchemaValues = {
     state: "",
     zipCode: "",
   },
-  email: "",
   phoneNumber: "",
+  comment: "",
 };
 
 export const checkoutSchema = [

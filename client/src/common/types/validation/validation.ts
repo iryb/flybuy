@@ -20,8 +20,8 @@ interface CheckoutSchemaValues {
     state: string;
     zipCode: string;
   };
-  email: string;
   phoneNumber: string;
+  comment: string;
 }
 
 interface SignInSchemaValues {
