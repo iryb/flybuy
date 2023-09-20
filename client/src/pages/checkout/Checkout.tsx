@@ -21,6 +21,7 @@ import { loadStripe, Stripe, StripeError } from "@stripe/stripe-js";
 import { ApiPath } from "@enums/apiPath";
 import { useTranslation } from "react-i18next";
 import { Cart } from "@/components/cart/Cart";
+import emptyCartImg from "@images/shopping-bag.png";
 
 import styles from "./styles.module.scss";
 
@@ -87,6 +88,23 @@ export const Checkout = (): React.ReactElement => {
 
     actions.setTouched({});
   };
+
+  if (cart.length === 0) {
+    return (
+      <Box className="page">
+        <Container>
+          <Box className={styles.emptyCartContent}>
+            <img
+              src={emptyCartImg}
+              alt="Empty cart"
+              className={styles.emptyCartImage}
+            />
+            <Typography>{t("miniCartEmptyText")}</Typography>
+          </Box>
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <Box className="page">
