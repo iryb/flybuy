@@ -75,5 +75,7 @@
   "cantSubscribe": "Неможливо підписатися",
   "sucessfullySubscribed": "Ви успішно підписалися",
   "couponFieldLabel": "Є купон?",
+  "invalidCoupon": "Купон не дійсний",
+  "couponApplied": "Купон було додано",
   "apply": "Застосувати"
 }

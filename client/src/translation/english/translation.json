@@ -75,5 +75,7 @@
   "cantSubscribe": "Can't subscribe",
   "sucessfullySubscribed": "Successfully subscribed",
   "couponFieldLabel": "Have a coupon?",
+  "invalidCoupon": "Can't apply coupon",
+  "couponApplied": "Coupon was applied",
   "apply": "Apply"
 }

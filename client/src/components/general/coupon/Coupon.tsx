@@ -1,9 +1,10 @@
-import { Box, TextField, Button } from "@mui/material";
-import React from "react";
+import { Box, TextField, Button, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import clsx from "clsx";
-import { CouponSchemaValues } from "@/common/types/types";
+import { useAppDispatch } from "@/store/hooks";
+import { fetchCoupon } from "@/store/cart/slice";
 
 import styles from "./styles.module.scss";
 
@@ -13,17 +14,19 @@ export const Coupon = ({
   className?: string;
 }): React.ReactElement => {
   const { t } = useTranslation();
-
-  const handleAddCoupon = (values: CouponSchemaValues): void => {
-    console.log(values.coupon);
-  };
+  const dispatch = useAppDispatch();
+  const [message, setMessage] = useState({ text: "", status: "" });
 
   const formik = useFormik({
     initialValues: {
       coupon: "",
     },
     onSubmit: (values) => {
-      void handleAddCoupon(values);
+      setMessage({ text: "", status: "" });
+      dispatch(fetchCoupon(values.coupon))
+        .unwrap()
+        .then(() => setMessage({ text: t("couponApplied"), status: "success" }))
+        .catch(() => setMessage({ text: t("invalidCoupon"), status: "error" }));
     },
   });
 
@@ -50,6 +53,14 @@ export const Coupon = ({
           {t("apply")}
         </Button>
       </form>
+      {message.text && (
+        <Typography
+          className={message.status === "error" ? "error" : "success"}
+          sx={{ marginTop: "5px" }}
+        >
+          {message.text}
+        </Typography>
+      )}
     </Box>
   );
 };

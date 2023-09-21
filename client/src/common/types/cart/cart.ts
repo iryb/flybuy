@@ -42,7 +42,7 @@ interface CartState {
   isCartOpen: boolean;
   cart: Product[];
   items: CartItem[];
-  coupon?: string;
+  coupon?: Coupon;
 }
 
 interface ProductPreview {
@@ -62,4 +62,17 @@ interface ProductPreview {
   };
 }
 
-export type { CartItem, CartState, Size, Image, ProductPreview, Product };
+interface Coupon {
+  name: string;
+  percent: number;
+}
+
+export type {
+  CartItem,
+  CartState,
+  Size,
+  Image,
+  ProductPreview,
+  Product,
+  Coupon,
+};

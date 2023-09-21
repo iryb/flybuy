@@ -1,12 +1,37 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem, CartState } from "@/common/types/types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartItem, CartState, Coupon } from "@/common/types/types";
+import { ApiPath } from "@/common/enums/apiPath";
+import { RootState } from "@store/store";
 
 const initialState: CartState = {
   isCartOpen: false,
   cart: [],
   items: [],
-  coupon: "",
+  coupon: undefined,
 };
+
+export const fetchCoupon = createAsyncThunk(
+  `${ApiPath.API}/coupon`,
+  async (coupon: string, { getState }) => {
+    const {
+      user: {
+        data: { email },
+      },
+    } = getState() as RootState;
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const endpoint = `${ApiPath.API}/coupons?filters[email][$eq]=${email}&filters[coupon][$eq]=${coupon}`;
+    const response = await fetch(endpoint);
+
+    const res = await response.json();
+
+    const newCoupon: Coupon = {
+      name: res?.data[0].attributes.coupon,
+      percent: res?.data[0].attributes.percent,
+    };
+
+    return newCoupon;
+  },
+);
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -93,9 +118,11 @@ export const cartSlice = createSlice({
     setIsCartOpen: (state) => {
       state.isCartOpen = !state.isCartOpen;
     },
-    setCoupon: (state, action: PayloadAction<string>) => {
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCoupon.fulfilled, (state, action) => {
       state.coupon = action.payload;
-    },
+    });
   },
 });
 
@@ -106,7 +133,6 @@ export const {
   decreaseCount,
   setIsCartOpen,
   addToCartById,
-  setCoupon,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

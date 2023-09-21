@@ -18,6 +18,14 @@
       width: 100%;
       margin-bottom: 15px;
     }
+    &.hasCoupon {
+      .totalPrice {
+        text-decoration: line-through;
+      }
+    }
+    .discountPrice {
+      color: green;
+    }
   }
   .coupon {
     width: 50%;
