@@ -11,6 +11,7 @@ import { SignIn } from "@/pages/sign/SignIn";
 import { SignUp } from "@/pages/sign/SignUp";
 import { Profile } from "@/pages/profile/Profile";
 import { Search } from "@/pages/search/Search";
+import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
 
 import "@styles/global.scss";
 
@@ -32,12 +33,21 @@ const router = createBrowserRouter([
         element: <Category />,
       },
       {
-        path: ApiPath.CHECKOUT,
-        element: <Checkout />,
-      },
-      {
-        path: ApiPath.PAYMENTSUCCESSFULL,
-        element: <PaymentSuccessfull />,
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: ApiPath.PROFILE,
+            element: <Profile />,
+          },
+          {
+            path: ApiPath.CHECKOUT,
+            element: <Checkout />,
+          },
+          {
+            path: ApiPath.PAYMENTSUCCESSFULL,
+            element: <PaymentSuccessfull />,
+          },
+        ],
       },
       {
         path: ApiPath.SIGNIN,
@@ -46,10 +56,6 @@ const router = createBrowserRouter([
       {
         path: ApiPath.SIGNUP,
         element: <SignUp />,
-      },
-      {
-        path: ApiPath.PROFILE,
-        element: <Profile />,
       },
       {
         path: ApiPath.SEARCH,

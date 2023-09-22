@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import clsx from "clsx";
-// import { Navigate } from "react-router-dom";
 import { fetchOrders } from "@/store/order/slice";
 import { OrdersHistory } from "@/components/ordersHistory/OrdersHistory";
 import { useTranslation } from "react-i18next";
@@ -18,10 +17,6 @@ export const Profile = (): React.ReactElement => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(fetchOrders(user.id));
   }, [user.id]);
-
-  // if (!user.name) {
-  //   return <Navigate to="/" />;
-  // }
 
   return (
     <Box className={clsx("section", styles.pageContent)}>
