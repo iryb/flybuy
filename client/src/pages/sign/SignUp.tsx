@@ -18,8 +18,8 @@ import {
   signUpSchema,
 } from "@/common/validationSchemas/schemas";
 import { SignUpSchemaValues } from "@/common/types/types";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { setToken } from "@helpers/helpers";
+import { useAppDispatch } from "@store/hooks";
+import { getToken, setToken } from "@helpers/helpers";
 import { setUser } from "@/store/user/slice";
 import { useTranslation } from "react-i18next";
 
@@ -30,7 +30,7 @@ export const SignUp = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const user = useAppSelector((state) => state.user.data);
+  const isAuthenticated = getToken();
 
   const handleFormSubmit = async (
     values: SignUpSchemaValues,
@@ -73,7 +73,7 @@ export const SignUp = (): React.ReactElement => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   const signInText = `${t("hasAccount")}? ${t("signIn")}`;
 
-  if (user.name) {
+  if (isAuthenticated) {
     return <Navigate to="/" />;
   }
 
