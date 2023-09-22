@@ -99,7 +99,6 @@ export const checkoutSchema = [
     }),
   }),
   yup.object().shape({
-    email: yup.string().required("requiredField"),
     phoneNumber: yup.string().required("requiredField"),
   }),
 ];

@@ -29,7 +29,10 @@ export const Checkout = (): React.ReactElement => {
   const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const cart = useAppSelector((state) => state.cart.cart);
-  const { id: userId } = useAppSelector((state) => state.user.data);
+  const coupon = useAppSelector((state) => state.cart.coupon);
+  const { id: userId, email: userEmail } = useAppSelector(
+    (state) => state.user.data,
+  );
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
 
@@ -46,13 +49,19 @@ export const Checkout = (): React.ReactElement => {
     const requestBody = {
       userName: [values.firstName, values.lastName].join(" "),
       userId: userId.toString(),
-      email: values.email,
+      email: userEmail,
       products: cart.map(({ id, count, size, sku }) => ({
         id,
         count,
         size,
         sku,
       })),
+      discount: {
+        percent: coupon?.percent ?? 0,
+        name: coupon?.name,
+      },
+      phoneNumber: values.phoneNumber,
+      comment: values.comment,
     };
 
     const response = await fetch(ApiPath.ORDERAPI, {

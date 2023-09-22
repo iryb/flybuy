@@ -9,7 +9,15 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
-    const { products, userName, userId, email } = ctx.request.body;
+    const {
+      products,
+      userName,
+      userId,
+      email,
+      discount,
+      phoneNumber,
+      comment,
+    } = ctx.request.body;
 
     try {
       const lineItems = await Promise.all(
@@ -18,13 +26,16 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
             .service("api::item.item")
             .findOne(product.id);
 
+          const finalPrice = item.price - item.price * discount.percent;
+          const priceInCents = finalPrice * 100;
+
           return {
             price_data: {
               currency: "usd",
               product_data: {
                 name: item.name,
               },
-              unit_amount: item.price * 100,
+              unit_amount: priceInCents,
             },
             quantity: product.count,
           };
@@ -41,8 +52,29 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       });
 
       await strapi.service("api::order.order").create({
-        data: { userName, products, userId, stripeSessionId: session.id },
+        data: {
+          userName,
+          products,
+          userId,
+          stripeSessionId: session.id,
+          phoneNumber,
+          comment,
+        },
       });
+
+      if (discount.name) {
+        const coupon = await strapi.entityService.findMany(
+          "api::coupon.coupon",
+          {
+            filters: {
+              email,
+              coupon: discount.name,
+            },
+          }
+        );
+
+        await strapi.entityService.delete("api::coupon.coupon", coupon[0].id);
+      }
 
       return { id: session.id };
     } catch (error) {
