@@ -27,6 +27,7 @@ interface CheckoutSchemaValues {
 interface SignInSchemaValues {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 
 interface SignUpSchemaValues {

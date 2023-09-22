@@ -19,7 +19,7 @@ import {
 } from "@/common/validationSchemas/schemas";
 import { SignInSchemaValues } from "@/common/types/types";
 import { useAppDispatch } from "@store/hooks";
-import { getToken, setToken } from "@helpers/helpers";
+import { getToken, setTemporaryToken, setToken } from "@helpers/helpers";
 import { setUser } from "@/store/user/slice";
 import { useTranslation } from "react-i18next";
 
@@ -52,7 +52,11 @@ export const SignIn = (): React.ReactElement => {
       if (data?.error) {
         throw data?.error;
       } else {
-        setToken(data.jwt);
+        if (values.rememberMe) {
+          setToken(data.jwt);
+        } else {
+          setTemporaryToken(data.jwt);
+        }
 
         dispatch(
           setUser({
@@ -127,7 +131,15 @@ export const SignIn = (): React.ReactElement => {
                 sx={{ marginBottom: "15px" }}
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={
+                  <Checkbox
+                    name="rememberMe"
+                    color="primary"
+                    value={values.rememberMe}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  />
+                }
                 label={t("rememberUser")}
               />
               <Button className={styles.button} type="submit">

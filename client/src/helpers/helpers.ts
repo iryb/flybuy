@@ -42,12 +42,18 @@ export const getProductImage = (item: Image): string => {
 };
 
 export const getToken = (): string | null => {
-  return localStorage.getItem(Auth.TOKEN);
+  return localStorage.getItem(Auth.TOKEN) ?? sessionStorage.getItem(Auth.TOKEN);
 };
 
 export const setToken = (token: string): void => {
   if (token) {
     localStorage.setItem(Auth.TOKEN, token);
+  }
+};
+
+export const setTemporaryToken = (token: string): void => {
+  if (token) {
+    sessionStorage.setItem(Auth.TOKEN, token);
   }
 };
 

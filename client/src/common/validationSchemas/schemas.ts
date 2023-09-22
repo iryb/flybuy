@@ -106,6 +106,7 @@ export const checkoutSchema = [
 export const signInInitialValues: SignInSchemaValues = {
   email: "",
   password: "",
+  rememberMe: false,
 };
 
 export const signInSchema = yup.object().shape({
