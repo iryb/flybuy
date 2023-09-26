@@ -1,6 +1,8 @@
 import * as yup from "yup";
 import {
   CheckoutSchemaValues,
+  ForgotPasswordSchemaValues,
+  ResetPasswordSchemaValues,
   SignInSchemaValues,
   SignUpSchemaValues,
   SubscribeSchemaValues,
@@ -140,4 +142,28 @@ export const subscribeSchema = yup.object().shape({
     .string()
     .required("requiredField")
     .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, "validEmail"),
+});
+
+export const forgotPasswordSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required("requiredField")
+    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, "validEmail"),
+});
+
+export const forgotPasswordInitialValues: ForgotPasswordSchemaValues = {
+  email: "",
+};
+
+export const resetPasswordInitialValues: ResetPasswordSchemaValues = {
+  password: "",
+  confirmPassword: "",
+};
+
+export const resetPasswordSchema = yup.object().shape({
+  password: yup.string().required("requiredField"),
+  confirmPassword: yup
+    .string()
+    .required("requiredField")
+    .oneOf([yup.ref("password")], "passwordsMustMatch"),
 });

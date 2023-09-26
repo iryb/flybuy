@@ -150,7 +150,7 @@ export const SignIn = (): React.ReactElement => {
         </Formik>
         <Grid container className={styles.linksContainer}>
           <Grid item xs>
-            <Link to="/" className={styles.link}>
+            <Link to={ApiPath.FORGOTPASSWORD} className={styles.link}>
               {t("forgotPassword")}
             </Link>
           </Grid>

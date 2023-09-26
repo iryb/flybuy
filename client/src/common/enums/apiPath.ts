@@ -11,6 +11,8 @@ enum ApiPath {
   CATEGORY = "category/:slug",
   SIGNIN = "/signin",
   SIGNUP = "/signup",
+  FORGOTPASSWORD = "/forgot-password",
+  RESETPASSWORD = "/reset-password",
   PROFILE = "/profile",
   SEARCH = "/search",
 }

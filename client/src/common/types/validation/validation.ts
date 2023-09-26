@@ -45,10 +45,21 @@ interface CouponSchemaValues {
   coupon: string;
 }
 
+interface ForgotPasswordSchemaValues {
+  email: string;
+}
+
+interface ResetPasswordSchemaValues {
+  password: string;
+  confirmPassword: string;
+}
+
 export type {
   CheckoutSchemaValues,
   SignInSchemaValues,
   SignUpSchemaValues,
   SubscribeSchemaValues,
   CouponSchemaValues,
+  ForgotPasswordSchemaValues,
+  ResetPasswordSchemaValues,
 };
