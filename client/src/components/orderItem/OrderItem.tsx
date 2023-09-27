@@ -125,9 +125,11 @@ export const OrderItem = ({ item }: OrderItemProps): React.ReactElement => {
                   <Typography className={styles.count}>
                     {t("count")}: {item?.count}
                   </Typography>
-                  <Typography className={styles.size}>
-                    {t("size")}: {item?.attributes.size}
-                  </Typography>
+                  {item?.attributes.size && (
+                    <Typography className={styles.size}>
+                      {t("size")}: {item?.attributes.size}
+                    </Typography>
+                  )}
                 </Box>
                 <Box className={styles.rightCol}>
                   <Typography className={styles.price}>

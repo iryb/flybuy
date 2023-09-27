@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 export const PaymentSuccessfull = (): React.ReactElement => {
   const { t } = useTranslation();
   return (
-    <Box sx={{ padding: "80px 0" }}>
+    <Box className="page alignCenter">
       <Container>
         <Box
           sx={{
