@@ -91,5 +91,7 @@
   "couponFieldLabel": "Є купон?",
   "invalidCoupon": "Купон не дійсний",
   "couponApplied": "Купон було додано",
-  "apply": "Застосувати"
+  "apply": "Застосувати",
+  "noOrders": "Ви ще нічого не замовляли",
+  "profileSettings": "Налаштування"
 }

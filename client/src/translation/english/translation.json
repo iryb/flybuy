@@ -91,5 +91,7 @@
   "couponFieldLabel": "Have a coupon?",
   "invalidCoupon": "Can't apply coupon",
   "couponApplied": "Coupon was applied",
-  "apply": "Apply"
+  "apply": "Apply",
+  "noOrders": "You have no orders yet",
+  "profileSettings": "Settings"
 }

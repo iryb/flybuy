@@ -10,6 +10,8 @@ export const OrdersHistory = (): React.ReactElement => {
   const { t } = useTranslation();
   const orders = useAppSelector((state) => state.order.data);
 
+  if (orders.length === 0) return <Typography>{t("noOrders")}</Typography>;
+
   return (
     <Box className={styles.pageContent}>
       <Typography variant="h3" className={styles.ordersTitle}>
