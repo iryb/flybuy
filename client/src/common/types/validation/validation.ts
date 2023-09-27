@@ -54,6 +54,14 @@ interface ResetPasswordSchemaValues {
   confirmPassword: string;
 }
 
+interface EditProfileSchemaValues {
+  username: string;
+  email: string;
+  password: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
 export type {
   CheckoutSchemaValues,
   SignInSchemaValues,
@@ -62,4 +70,5 @@ export type {
   CouponSchemaValues,
   ForgotPasswordSchemaValues,
   ResetPasswordSchemaValues,
+  EditProfileSchemaValues,
 };

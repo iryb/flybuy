@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { fetchOrders } from "@/store/order/slice";
 import { OrdersHistory } from "@/components/ordersHistory/OrdersHistory";
 import { useTranslation } from "react-i18next";
+import { ProfileSettings } from "@/components/profileSettings/ProfileSettings";
 
 import styles from "./styles.module.scss";
 
@@ -28,6 +29,7 @@ export const Profile = (): React.ReactElement => {
           {t("profileGreeting")}, {user.name}!
         </Typography>
         <OrdersHistory />
+        <ProfileSettings />
       </Container>
     </Box>
   );

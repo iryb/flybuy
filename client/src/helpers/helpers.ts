@@ -59,8 +59,26 @@ export const setTemporaryToken = (token: string): void => {
 
 export const removeToken = (): void => {
   localStorage.removeItem(Auth.TOKEN);
+  sessionStorage.removeItem(Auth.TOKEN);
 };
 
 export const formatDate = (date: string): string => {
   return new Date(date).toLocaleDateString("en-US");
+};
+
+export const getDirtyValues = <T>(values: any, initialObject: T): object => {
+  const data = { ...values };
+  const keyValues = Object.keys(data);
+
+  const dirtyValues = keyValues.filter(
+    // @ts-expect-error
+    (keyValue) => data[keyValue] !== initialObject[keyValue],
+  );
+
+  keyValues.forEach((key) => {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    if (!dirtyValues.includes(key)) delete data[key];
+  });
+
+  return data;
 };
