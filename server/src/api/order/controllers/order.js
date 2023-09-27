@@ -11,10 +11,16 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
     const {
       products,
-      userName,
+      name,
       userId,
       email,
       discount,
+      country,
+      city,
+      state,
+      streetAddress,
+      streetAddress2,
+      zip,
       phoneNumber,
       comment,
     } = ctx.request.body;
@@ -53,10 +59,16 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
 
       await strapi.service("api::order.order").create({
         data: {
-          userName,
+          name,
           products,
           userId,
           stripeSessionId: session.id,
+          country,
+          city,
+          state,
+          streetAddress,
+          streetAddress2,
+          zip,
           phoneNumber,
           comment,
         },

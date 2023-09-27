@@ -41,13 +41,12 @@ export const Checkout = (): React.ReactElement => {
   );
 
   const makePayment = async (
-    values: any,
+    values: CheckoutSchemaValues,
   ): Promise<{
     error: StripeError;
   }> => {
     const stripe = (await stripePromise) as Stripe;
     const requestBody = {
-      userName: [values.firstName, values.lastName].join(" "),
       userId: userId.toString(),
       email: userEmail,
       products: cart.map(({ id, count, size, sku }) => ({
@@ -60,6 +59,16 @@ export const Checkout = (): React.ReactElement => {
         percent: coupon?.percent ?? 0,
         name: coupon?.name,
       },
+      name: [
+        values.shippingAddress.firstName,
+        values.shippingAddress.lastName,
+      ].join(" "),
+      country: values.shippingAddress.country,
+      city: values.shippingAddress.city,
+      state: values.shippingAddress.state,
+      streetAddress: values.shippingAddress.street1,
+      streetAddress2: values.shippingAddress.street2,
+      zip: values.shippingAddress.zipCode,
       phoneNumber: values.phoneNumber,
       comment: values.comment,
     };
