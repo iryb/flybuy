@@ -3,9 +3,13 @@ import { CartItem, CartState, Coupon } from "@/common/types/types";
 import { ApiPath } from "@/common/enums/apiPath";
 import { RootState } from "@store/store";
 
+const savedCartItems = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems") as string)
+  : [];
+
 const initialState: CartState = {
   isCartOpen: false,
-  cart: [],
+  cart: savedCartItems,
   items: [],
   coupon: undefined,
 };

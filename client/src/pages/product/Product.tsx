@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { ApiPath } from "@enums/apiPath";
 import {
   Box,
@@ -25,6 +25,7 @@ export const Product = (): React.ReactElement => {
   const { t } = useTranslation();
   const { slug } = useParams() as { slug: string };
   const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.cart);
   const [count, setCount] = useState(1);
   const [size, setSize] = useState("");
   const [error, setError] = useState<string>();
@@ -70,6 +71,10 @@ export const Product = (): React.ReactElement => {
       }),
     );
   };
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+  }, [cart]);
 
   if (requestErr) return <p>Error</p>;
 

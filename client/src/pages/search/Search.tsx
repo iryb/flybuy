@@ -21,18 +21,6 @@ export const Search = (): React.ReactElement => {
   const queryParams = new URL(
     `${ApiPath.ROOT}/api/items?filters[name][$contains]=${querySearch}&populate=image&pagination[page]=${page}&pagination[pageSize]=9`,
   );
-  //   const filteredItems = await fetch(queryParams, {
-  //     method: "GET",
-  //   });
-  //   const filteredItemsData = await filteredItems.json();
-  //   dispatch(setItems(filteredItemsData.data));
-  //   return filteredItemsData;
-  // }
-
-  // useEffect(() => {
-  //   // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  //   getItems();
-  // }, [searchParams]);
 
   const {
     data: items,

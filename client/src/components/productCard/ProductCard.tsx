@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addToCartById } from "@store/cart/slice";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { CartItem } from "@/common/types/types";
 import { Box, Button, Typography } from "@mui/material";
 import {
@@ -21,6 +21,7 @@ interface ProductCardProps {
 export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.cart);
   const [choseSize, setChoseSize] = useState<string>("");
   const [error, setError] = useState<string>();
   const { t } = useTranslation();
@@ -53,6 +54,10 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
     setError("");
     setChoseSize(s);
   };
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <Box>

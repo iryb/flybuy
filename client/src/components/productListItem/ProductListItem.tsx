@@ -40,7 +40,7 @@ export const ProductListItem = ({
 
   return (
     <>
-      {data && (
+      {data && data.length > 0 && (
         <Box
           className={clsx(
             styles.product,
