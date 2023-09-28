@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
 import { useFetch, useUrlParams } from "@/hooks/hooks";
 import { useTranslation } from "react-i18next";
+import { Loader } from "@components/general/loader/Loader";
 
 import styles from "./styles.module.scss";
 
@@ -120,7 +121,7 @@ export const Category = (): React.ReactElement => {
     setPage(value);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
 
   return (
     <Box className={styles.pageContent}>

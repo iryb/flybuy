@@ -14,6 +14,7 @@ import { ApiPath } from "@enums/apiPath";
 import { useFetch } from "@/hooks/hooks";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
+import { Loader } from "@components/general/loader/Loader";
 
 import styles from "./styles.module.scss";
 
@@ -34,7 +35,7 @@ export const ProductListItem = ({
   // eslint-disable-next-line
   const { data, loading, error } = useFetch(url);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
 
   if (error) return <p>Error</p>;
 

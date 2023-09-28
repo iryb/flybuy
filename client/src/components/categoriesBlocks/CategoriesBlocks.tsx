@@ -6,13 +6,14 @@ import { getProductImage } from "@helpers/helpers";
 import { Link } from "react-router-dom";
 import { useFetch } from "@/hooks/hooks";
 import { Category } from "@/common/types/types";
+import { Loader } from "@components/general/loader/Loader";
 
 import styles from "./styles.module.scss";
 
 export const CategoriesBlocks = (): React.ReactElement => {
   const { data, loading, error } = useFetch(`${ApiPath.CATEGORIESAPI}`);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
 
   return (
     <>

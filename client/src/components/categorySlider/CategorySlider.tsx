@@ -10,6 +10,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { CartItem } from "@/common/types/types";
 import { ProductCard } from "@components/productCard/ProductCard";
+import { Loader } from "@components/general/loader/Loader";
 
 import styles from "./styles.module.scss";
 
@@ -24,7 +25,7 @@ export const CategorySlider = ({
   slides,
   loading,
 }: CategorySliderProps): React.ReactElement => {
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
 
   return (
     <>

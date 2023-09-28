@@ -19,6 +19,7 @@ import { addToCartById } from "@/store/cart/slice";
 import { useTranslation } from "react-i18next";
 import { useFetch } from "@/hooks/hooks";
 import clsx from "clsx";
+import { Loader } from "@components/general/loader/Loader";
 
 import styles from "./styles.module.scss";
 
@@ -79,7 +80,7 @@ export const Product = (): React.ReactElement => {
 
   if (requestErr) return <p>Error</p>;
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
 
   return (
     <>
