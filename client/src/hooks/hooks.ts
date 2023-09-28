@@ -55,7 +55,7 @@ export function useScrollBlock(): any {
   };
 
   const allowScroll = (): void => {
-    document.body.style.overflow = "scroll";
+    document.body.style.overflowY = "scroll";
   };
 
   const handleWindowSizeChange = (): void => {

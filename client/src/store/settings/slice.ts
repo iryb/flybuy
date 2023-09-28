@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SettingsState } from "@/common/types/types";
 
 const initialState: SettingsState = {
-  language: "us",
+  language: "en",
 };
 
 export const settingsSlice = createSlice({

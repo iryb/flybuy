@@ -12,12 +12,13 @@ import {
   ToggleButton,
   Badge,
 } from "@mui/material";
-import { formatStringCapitalize, formatPrice } from "@helpers/helpers";
+import { formatPrice } from "@helpers/helpers";
 import { Quantity } from "@/components/general/quantity/Quantity";
 import { v4 as uuidv4 } from "uuid";
 import { addToCartById } from "@/store/cart/slice";
 import { useTranslation } from "react-i18next";
 import { useFetch } from "@/hooks/hooks";
+import clsx from "clsx";
 
 import styles from "./styles.module.scss";
 
@@ -83,7 +84,7 @@ export const Product = (): React.ReactElement => {
   return (
     <>
       {item && (
-        <Box className={styles.section}>
+        <Box className={clsx("page", styles.section)}>
           <Container>
             <Grid container spacing={8}>
               {item[0].attributes.image.data && (
@@ -114,11 +115,6 @@ export const Product = (): React.ReactElement => {
                       className={styles.mainImage}
                     />
                   </Box>
-                )}
-                {item[0].attributes.category && (
-                  <Typography className={styles.category}>
-                    {formatStringCapitalize(item[0].attributes.category)}
-                  </Typography>
                 )}
                 <Typography className={styles.price}>
                   {formatPrice(item[0].attributes.price)}

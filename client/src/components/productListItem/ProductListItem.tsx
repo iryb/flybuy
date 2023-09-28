@@ -26,10 +26,10 @@ export const ProductListItem = ({
   product,
   smallImage,
 }: ProductListItemProps): React.ReactElement => {
-  const { id, count, size } = product;
+  const { id, count, size, sku } = product;
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const url = `${ApiPath.ITEMSAPI}&filters[id][$eq]=${id}`;
+  const url = `${ApiPath.ITEMSAPI}&filters[sku][$eq]=${sku}`;
 
   // eslint-disable-next-line
   const { data, loading, error } = useFetch(url);
