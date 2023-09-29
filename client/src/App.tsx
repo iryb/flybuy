@@ -14,6 +14,9 @@ import { Search } from "@pages/search/Search";
 import { PrivateRoute } from "@components/privateRoute/PrivateRoute";
 import { ForgotPassword } from "@pages/forgotPassword/ForgotPassword";
 import { ResetPassword } from "@pages/resetPassword/ResetPassword";
+import { NotFound } from "@pages/notFound/NotFound";
+import { About } from "@pages/about/About";
+import { Contact } from "@pages/contact/Contact";
 
 import "@styles/global.scss";
 
@@ -70,6 +73,18 @@ const router = createBrowserRouter([
       {
         path: ApiPath.SEARCH,
         element: <Search />,
+      },
+      {
+        path: ApiPath.ABOUT,
+        element: <About />,
+      },
+      {
+        path: ApiPath.CONTACT,
+        element: <Contact />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

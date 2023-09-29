@@ -93,5 +93,11 @@
   "couponApplied": "Coupon was applied",
   "apply": "Apply",
   "noOrders": "You have no orders yet",
-  "profileSettings": "Settings"
+  "profileSettings": "Settings",
+  "pageNotFoundTitle": "Page not found",
+  "pageNotFoundText": "We couldn’t find that page, please check the URL and try again",
+  "aboutPageTitle": "About",
+  "aboutPageText": "At FlyBuy, we're passionate about fashion and committed to helping you look and feel your best. We believe that clothing is more than just fabric; it's a means of self-expression, confidence, and creativity. Our store is your one-stop destination for all your fashion needs, whether you're searching for the perfect outfit for a special occasion or simply updating your everyday wardrobe.",
+  "contactPageTitle": "Contact",
+  "contactPageText": "We’re here to assist you with any questions, concerns, or inquiries you may have. Feel free to reach out to us using the contact information below, and we'll do our best to respond promptly. \n\nCustomer Support Email: flybuy@gmail.com \n\nPhone: 900 456 003 \n\nOur customer support team is available during our business hours to provide you with the assistance you need. You can also connect with us on social media. \nYour feedback and questions are important to us, and we look forward to hearing from you. Thank you for choosing FlyBuy!"
 }

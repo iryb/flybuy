@@ -15,6 +15,8 @@ enum ApiPath {
   RESETPASSWORD = "/reset-password",
   PROFILE = "/profile",
   SEARCH = "/search",
+  ABOUT = "/about",
+  CONTACT = "/contact",
 }
 
 export { ApiPath };
