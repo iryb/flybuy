@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 import {
   Box,
   Button,
@@ -36,7 +36,7 @@ export const Product = (): React.ReactElement => {
     data: item,
     loading,
     error: requestErr,
-  } = useFetch(`${ApiPath.ITEMSAPI}&filters[slug][$eq]=${slug}`);
+  } = useFetch(`${ROOT}${ApiPath.ITEMSAPI}&filters[slug][$eq]=${slug}`);
 
   const descreaseCount = (): void => {
     setCount(Math.max(count - 1, 1));
@@ -97,7 +97,7 @@ export const Product = (): React.ReactElement => {
                 >
                   <img
                     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                    src={`${ApiPath.ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
+                    src={`${ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
                     alt={item[0].attributes.name}
                     className={styles.mainImage}
                   />
@@ -111,7 +111,7 @@ export const Product = (): React.ReactElement => {
                   <Box className={styles.mobileImgContainer}>
                     <img
                       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                      src={`${ApiPath.ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
+                      src={`${ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
                       alt={item[0].attributes.name}
                       className={styles.mainImage}
                     />

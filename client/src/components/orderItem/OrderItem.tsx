@@ -1,4 +1,4 @@
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { Order, ProductPreview } from "@/common/types/types";
 import { formatDate, formatPrice, getProductImage } from "@/helpers/helpers";
 import { Box, Typography } from "@mui/material";
@@ -25,7 +25,7 @@ export const OrderItem = ({ item }: OrderItemProps): React.ReactElement => {
   const language = useAppSelector((state) => state.settings.language);
 
   const fetchProduct = async (sku: string): Promise<ProductPreview[]> => {
-    let query = `${ApiPath.API}/items?filters[sku][$eq]=${sku}&populate=image`;
+    let query = `${ROOT}${ApiPath.ITEMSAPI}?filters[sku][$eq]=${sku}`;
     if (language) {
       query += `&locale=${language}`;
     }

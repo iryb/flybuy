@@ -1,7 +1,7 @@
 import { Box, Container, Typography, Grid, Pagination } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
 import { useFetch } from "@/hooks/hooks";
@@ -19,7 +19,7 @@ export const Search = (): React.ReactElement => {
   const querySearch = searchParams.get("s") as string;
 
   const queryParams = new URL(
-    `${ApiPath.ROOT}/api/items?filters[name][$contains]=${querySearch}&populate=image&pagination[page]=${page}&pagination[pageSize]=9`,
+    `${ROOT}${ApiPath.ITEMSAPI}&filters[name][$contains]=${querySearch}&pagination[page]=${page}&pagination[pageSize]=9`,
   );
 
   const {

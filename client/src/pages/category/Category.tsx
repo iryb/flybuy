@@ -8,13 +8,14 @@ import {
 } from "@mui/material";
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 import { ProductCard } from "@components/productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
 import { useFetch, useUrlParams } from "@/hooks/hooks";
 import { useTranslation } from "react-i18next";
 import { Loader } from "@components/general/loader/Loader";
+import { CartItem } from "@/common/types/types";
 
 import styles from "./styles.module.scss";
 
@@ -28,7 +29,7 @@ export const Category = (): React.ReactElement => {
     useUrlParams(searchParams);
 
   const queryParams = new URL(
-    `${ApiPath.ROOT}/api/items?filters[personCategory][$eq]=${slug}&populate=image&pagination[page]=${page}&pagination[pageSize]=9`,
+    `${ROOT}${ApiPath.ITEMSAPI}&filters[personCategory][$eq]=${slug}&pagination[page]=${page}&pagination[pageSize]=9`,
   );
 
   querySizes?.forEach((s) => {
@@ -159,11 +160,12 @@ export const Category = (): React.ReactElement => {
             </Box>
 
             <Grid container spacing={2} mt={2}>
-              {data?.map((item: any) => (
-                <Grid item sm={4} xs={12} key={uuidv4()}>
-                  <ProductCard item={item} />
-                </Grid>
-              ))}
+              {!!data &&
+                data.map((item: CartItem) => (
+                  <Grid item sm={4} xs={12} key={item.id}>
+                    <ProductCard item={item} />
+                  </Grid>
+                ))}
             </Grid>
             {pageCount > 1 && (
               <Grid container mt={4} className={styles.paginationContainer}>

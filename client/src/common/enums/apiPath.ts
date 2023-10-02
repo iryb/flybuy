@@ -1,7 +1,8 @@
+const ROOT = process.env.REACT_APP_ROOTURL ?? "/";
+
 enum ApiPath {
-  ROOT = "http://localhost:1337",
-  API = "http://localhost:1337/api",
-  ITEMSAPI = "http://localhost:1337/api/items?populate=image",
+  API = "/api",
+  ITEMSAPI = "/api/items?populate=image",
   CATEGORIESAPI = "http://localhost:1337/api/categories?populate=image",
   ORDERAPI = "http://localhost:1337/api/orders",
   SUBSCRIBERAPI = "http://localhost:1337/api/subscribers",
@@ -19,4 +20,4 @@ enum ApiPath {
   CONTACT = "/contact",
 }
 
-export { ApiPath };
+export { ApiPath, ROOT };
