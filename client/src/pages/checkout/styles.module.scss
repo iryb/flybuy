@@ -1,0 +1,44 @@
+@import "@styles/variables.scss";
+
+.pageContent {
+  padding-bottom: 80px;
+  .formTitle {
+    margin: 20px 0 20px;
+    font-weight: 700;
+  }
+}
+
+.steps {
+  margin-bottom: 30px;
+}
+
+.form {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column: span 4;
+  @media (max-width: $screen-sm) {
+    grid-column: initial;
+  }
+}
+
+.checkoutButtons {
+  display: flex;
+  gap: 15px;
+}
+
+.emptyCartContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 50vh;
+}
+
+.emptyCartImage {
+  max-width: 100%;
+  width: 200px;
+  height: auto;
+  opacity: 0.8;
+}

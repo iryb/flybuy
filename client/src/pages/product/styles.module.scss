@@ -1,0 +1,65 @@
+@import "@styles/variables.scss";
+
+.section {
+  padding: 80px 0;
+  .productTitle {
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .price {
+    padding-top: 15px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .button {
+    width: 240px;
+    margin-top: 15px;
+    @media (max-width: $screen-sm) {
+      width: 100%;
+    }
+  }
+  .category {
+    background-color: rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 5px 10px;
+    max-width: max-content;
+    margin: 15px 0 0;
+  }
+  .mobileImgContainer {
+    display: none;
+    @media (max-width: $screen-sm) {
+      display: block;
+      padding: 30px 0 10px;
+    }
+  }
+  .desktopImgContainer {
+    @media (max-width: $screen-sm) {
+      display: none;
+    }
+  }
+}
+
+.mainImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.description {
+  padding: 15px 0;
+}
+
+.sizeContainer {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sizeButtons {
+  .sizeLabel {
+    border-radius: 0;
+    padding: 3px;
+    height: 30px;
+  }
+}

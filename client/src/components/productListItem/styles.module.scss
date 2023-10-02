@@ -1,0 +1,30 @@
+.product {
+  padding: 15px 0;
+  display: flex;
+  &.smallImage {
+    .leftCol {
+      width: 150px;
+    }
+    .rightCol {
+      width: calc(100% - 150px);
+    }
+  }
+  .leftCol {
+    padding-right: 15px;
+    width: 40%;
+  }
+  .rightCol {
+    width: 60%;
+  }
+}
+
+.productTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productImage {
+  max-width: 100%;
+  height: auto;
+}

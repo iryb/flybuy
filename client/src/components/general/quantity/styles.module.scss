@@ -1,0 +1,8 @@
+@import "@styles/variables.scss";
+
+.quantity {
+  border: 1px solid $primaryColor;
+  border-radius: 5px;
+  max-width: max-content;
+  margin: 15px 0;
+}

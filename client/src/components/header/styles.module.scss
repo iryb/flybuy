@@ -1,4 +1,21 @@
-@import "../../assets/styles/variables.scss";
+@import "@styles/variables.scss";
+
+.header {
+  z-index: 10;
+  .langSwitcherLight {
+    color: #fff;
+  }
+  .langSwitcherDark {
+    color: $primaryColor;
+  }
+}
+
+.drawer {
+  .link {
+    text-decoration: none;
+    color: $primaryColor;
+  }
+}
 
 .toolbar {
   justify-content: space-between;
@@ -8,11 +25,6 @@
     gap: 25px;
   }
 
-  .centerCol {
-    width: 33.33%;
-    text-align: center;
-  }
-
   .leftCol,
   .rightCol {
     width: 33.33%;
@@ -20,10 +32,29 @@
     align-items: center;
   }
 
-  .rightCol {
+  .centerCol {
+    width: 33.33%;
+    text-align: center;
     @media (max-width: $screen-md) {
-      justify-content: flex-end;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: auto;
     }
+  }
+
+  .leftCol {
+    @media (max-width: $screen-md) {
+      display: none;
+    }
+    .menu {
+      padding-left: 20px;
+    }
+  }
+
+  .rightCol {
+    justify-content: flex-end;
   }
 
   .siteLogo {
@@ -31,10 +62,13 @@
   }
 
   .siteLogoText {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: 3px;
     color: white;
+    @media (min-width: $screen-sm) {
+      font-size: 24px;
+    }
     @media (min-width: $screen-md) {
       font-size: 40px;
       letter-spacing: 5px;
@@ -58,6 +92,13 @@
   margin-left: 25px;
   align-items: center;
   gap: 10px;
+  .link {
+    color: #fff;
+    transition: all 300ms;
+    &:hover {
+      color: $secondaryColor;
+    }
+  }
 }
 
 .cart {

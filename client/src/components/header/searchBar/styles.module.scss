@@ -1,0 +1,28 @@
+@import "@styles/variables.scss";
+
+.searchBar {
+  .modalToggler {
+    background-color: transparent;
+    padding: 8px;
+    min-width: 40px;
+  }
+}
+
+.form {
+  display: flex;
+  .searchInput {
+    padding-left: 15px;
+  }
+  .button {
+    width: 50px;
+    background: transparent;
+    color: $primaryColor;
+    padding: 10px;
+    min-width: 50px;
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      color: $secondaryColor;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+@import "@styles/variables.scss";
+
+.section {
+  .title {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+}
+
+.carousel {
+  .arrowPrev {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    @media (max-width: $screen-sm) {
+      top: initial;
+      bottom: 15px;
+      left: calc(50% - 30px);
+    }
+    &:hover {
+      background-color: transparent;
+      color: $secondaryColor;
+    }
+  }
+
+  .arrowNext {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    @media (max-width: $screen-sm) {
+      top: initial;
+      bottom: 15px;
+      right: calc(50% - 30px);
+    }
+    &:hover {
+      background-color: transparent;
+      color: $secondaryColor;
+    }
+  }
+}
+
+.carouselImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.arrowsContainer {
+  padding-top: 20px;
+  padding-left: 0;
+  text-align: center;
+}

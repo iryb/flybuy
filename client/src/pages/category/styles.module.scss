@@ -1,0 +1,24 @@
+.pageContent {
+  padding: 40px 0;
+  .pageTitle {
+    text-transform: capitalize;
+    font-size: 30px;
+    font-weight: 700;
+    padding-bottom: 30px;
+  }
+}
+
+.filtersTitle {
+  font-weight: 700;
+  padding-bottom: 30px;
+}
+
+.paginationContainer {
+  justify-content: center;
+}
+
+.filterPillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
