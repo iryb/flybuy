@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setItems } from "@store/cart/slice";
 import { ProductCard } from "../productCard/ProductCard";
 import { v4 as uuidv4 } from "uuid";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 import { ItemsCategories } from "@enums/itemsCategories";
 
 import styles from "./styles.module.scss";
@@ -24,7 +24,7 @@ export const CategoriesTabs = (): React.ReactElement => {
   };
 
   async function getItems(): Promise<void> {
-    const items = await fetch(ApiPath.ITEMSAPI, {
+    const items = await fetch(`${ROOT}${ApiPath.ITEMSAPI}`, {
       method: "GET",
     });
     const itemsData = await items.json();

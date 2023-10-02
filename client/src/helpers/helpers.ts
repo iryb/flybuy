@@ -1,5 +1,5 @@
 import { CartItem, Image } from "@/common/types/types";
-import { ApiPath } from "@enums/apiPath";
+import { ROOT } from "@enums/apiPath";
 import { Auth } from "@enums/auth";
 import placeholder from "@images/productPlaceholder.jpg";
 
@@ -36,7 +36,7 @@ export const getPriceRange = (items: CartItem[]): [number, number] => {
 export const getProductImage = (item: Image): string => {
   const url = item?.data?.attributes.formats.medium.url as string | null;
 
-  const imagePlaceholder = url ? `${ApiPath.ROOT}${url}` : placeholder;
+  const imagePlaceholder = url ? `${ROOT}${url}` : placeholder;
 
   return imagePlaceholder;
 };

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { User, UserState } from "@/common/types/types";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { Auth } from "@/common/enums/auth";
 
 const initialState: UserState = {
@@ -12,9 +12,9 @@ const initialState: UserState = {
 };
 
 export const fetchUser = createAsyncThunk(
-  `${ApiPath.API}/users/me`,
+  `${ROOT}${ApiPath.USERAPI}/me`,
   async (authToken: string) => {
-    const response = await fetch(`${ApiPath.API}/users/me`, {
+    const response = await fetch(`${ROOT}${ApiPath.USERAPI}/me`, {
       headers: { Authorization: `${Auth.BEARER} ${authToken}` },
     });
 

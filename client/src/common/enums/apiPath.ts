@@ -1,10 +1,14 @@
+const ROOT = process.env.REACT_APP_ROOTURL ?? "/";
+
 enum ApiPath {
-  ROOT = "http://localhost:1337",
-  API = "http://localhost:1337/api",
-  ITEMSAPI = "http://localhost:1337/api/items?populate=image",
-  CATEGORIESAPI = "http://localhost:1337/api/categories?populate=image",
-  ORDERAPI = "http://localhost:1337/api/orders",
-  SUBSCRIBERAPI = "http://localhost:1337/api/subscribers",
+  ITEMSAPI = "/api/items?populate=image",
+  CATEGORIESAPI = "/api/categories",
+  ORDERAPI = "/api/orders",
+  SUBSCRIBERAPI = "/api/subscribers",
+  USERAPI = "/api/users",
+  AUTHAPI = "/api/auth",
+  BANNERAPI = "/api/banners",
+  COUPONAPI = "/api/coupons",
   CHECKOUT = "/checkout",
   PAYMENTSUCCESSFULL = "/success",
   PRODUCT = "item/:slug",
@@ -19,4 +23,4 @@ enum ApiPath {
   CONTACT = "/contact",
 }
 
-export { ApiPath };
+export { ApiPath, ROOT };

@@ -10,7 +10,7 @@ import {
   increaseCount,
   removeFromCart,
 } from "@/store/cart/slice";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 import { useFetch } from "@/hooks/hooks";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
@@ -30,7 +30,7 @@ export const ProductListItem = ({
   const { id, count, size, sku } = product;
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const url = `${ApiPath.ITEMSAPI}&filters[sku][$eq]=${sku}`;
+  const url = `${ROOT}${ApiPath.ITEMSAPI}&filters[sku][$eq]=${sku}`;
 
   // eslint-disable-next-line
   const { data, loading, error } = useFetch(url);
@@ -51,7 +51,7 @@ export const ProductListItem = ({
           <Box className={styles.leftCol}>
             <img
               // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-              src={`${ApiPath.ROOT}${data[0].attributes.image.data?.attributes.formats.medium.url}`}
+              src={`${ROOT}${data[0].attributes.image.data?.attributes.formats.medium.url}`}
               alt={data[0].attributes.name}
               className={styles.productImage}
             />

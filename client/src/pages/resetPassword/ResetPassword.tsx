@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getToken } from "@/helpers/helpers";
 import { Navigate, useSearchParams } from "react-router-dom";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { ResetPasswordSchemaValues } from "@/common/types/types";
 import {
   resetPasswordInitialValues,
@@ -27,7 +27,7 @@ export const ResetPassword = (): React.ReactElement => {
         password: values.password,
         passwordConfirmation: values.confirmPassword,
       };
-      const response = await fetch(`${ApiPath.API}/auth/reset-password`, {
+      const response = await fetch(`${ROOT}${ApiPath.AUTHAPI}/reset-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

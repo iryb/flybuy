@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartItem, CartState, Coupon } from "@/common/types/types";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { RootState } from "@store/store";
 
 const savedCartItems = localStorage.getItem("cartItems")
@@ -15,7 +15,7 @@ const initialState: CartState = {
 };
 
 export const fetchCoupon = createAsyncThunk(
-  `${ApiPath.API}/coupon`,
+  `${ROOT}${ApiPath.COUPONAPI}`,
   async (coupon: string, { getState }) => {
     const {
       user: {
@@ -23,7 +23,7 @@ export const fetchCoupon = createAsyncThunk(
       },
     } = getState() as RootState;
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const endpoint = `${ApiPath.API}/coupons?filters[email][$eq]=${email}&filters[coupon][$eq]=${coupon}`;
+    const endpoint = `${ROOT}${ApiPath.COUPONAPI}?filters[email][$eq]=${email}&filters[coupon][$eq]=${coupon}`;
     const response = await fetch(endpoint);
 
     const res = await response.json();

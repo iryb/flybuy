@@ -18,7 +18,7 @@ import {
 } from "@/common/validationSchemas/schemas";
 import { CheckoutSchemaValues } from "@/common/types/types";
 import { loadStripe, Stripe, StripeError } from "@stripe/stripe-js";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 import { useTranslation } from "react-i18next";
 import { Cart } from "@/components/cart/Cart";
 import emptyCartImg from "@images/shopping-bag.png";
@@ -73,7 +73,7 @@ export const Checkout = (): React.ReactElement => {
       comment: values.comment,
     };
 
-    const response = await fetch(ApiPath.ORDERAPI, {
+    const response = await fetch(`${ROOT}${ApiPath.ORDERAPI}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Category, CategoriesState } from "@/common/types/types";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { RootState } from "@store/store";
 
 const initialState: CategoriesState = {
@@ -9,11 +9,11 @@ const initialState: CategoriesState = {
 };
 
 export const fetchSubcategories = createAsyncThunk(
-  `${ApiPath.API}/categories`,
+  `${ROOT}${ApiPath.CATEGORIESAPI}`,
   async (_, { getState }) => {
     const { settings } = getState() as RootState;
     const response = await fetch(
-      `${ApiPath.API}/categories?populate=*&locale=${settings.language}`,
+      `${ROOT}${ApiPath.CATEGORIESAPI}?populate=*&locale=${settings.language}`,
     );
 
     const categories = await response.json();

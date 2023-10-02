@@ -9,7 +9,7 @@ import {
   subscribeSchema,
 } from "@/common/validationSchemas/schemas";
 import { SubscribeSchemaValues } from "@/common/types/types";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 
 export const Subscribe = (): React.ReactElement => {
   const [message, setMessage] = useState({ text: "", status: "" });
@@ -24,7 +24,7 @@ export const Subscribe = (): React.ReactElement => {
       email: values.email,
     };
 
-    const response = await fetch(ApiPath.SUBSCRIBERAPI, {
+    const response = await fetch(`${ROOT}${ApiPath.SUBSCRIBERAPI}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),

@@ -4,12 +4,12 @@ import { Box } from "@mui/material";
 import { Container } from "@mui/system";
 import { useTranslation } from "react-i18next";
 import { useFetch } from "@/hooks/hooks";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 
 export const NewArrivalsSlider = (): React.ReactElement => {
   const { t } = useTranslation();
   const { data, loading, error } = useFetch(
-    `${ApiPath.ITEMSAPI}&filters[category][$eq]=newArrivals`,
+    `${ROOT}${ApiPath.ITEMSAPI}&filters[category][$eq]=newArrivals`,
   );
 
   return (
