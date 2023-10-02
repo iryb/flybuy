@@ -13,6 +13,7 @@
     "@strapi/plugin-i18n": "4.8.2",
     "@strapi/plugin-users-permissions": "4.8.2",
     "@strapi/provider-email-nodemailer": "^4.13.7",
+    "@strapi/provider-upload-cloudinary": "^4.14.0",
     "@strapi/strapi": "4.8.2",
     "better-sqlite3": "8.0.1",
     "stripe": "^11.16.0"
