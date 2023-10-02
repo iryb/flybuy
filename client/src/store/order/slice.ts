@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Order, OrderState } from "@/common/types/types";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 
 const initialState: OrderState = {
   data: [],
 };
 
 export const fetchOrders = createAsyncThunk(
-  `${ApiPath.API}/api/orders`,
+  `${ROOT}${ApiPath.ORDERAPI}`,
   async (userId: string) => {
     const response = await fetch(
-      `${ApiPath.API}/orders?filters[userId][$eq]=${userId}`,
+      `${ROOT}${ApiPath.ORDERAPI}?filters[userId][$eq]=${userId}`,
     );
 
     const orders: Promise<OrderState> = await response.json();

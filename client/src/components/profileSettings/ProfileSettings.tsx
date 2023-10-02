@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { EditProfileSchemaValues } from "@/common/types/types";
 import { getDirtyValues, getToken } from "@/helpers/helpers";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { Auth } from "@/common/enums/auth";
 import { fetchUser } from "@/store/user/slice";
 
@@ -37,7 +37,7 @@ export const ProfileSettings = (): React.ReactElement => {
     );
 
     try {
-      const response = await fetch(`${ApiPath.API}/users/${user.id}`, {
+      const response = await fetch(`${ROOT}${ApiPath.USERAPI}/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -63,14 +63,17 @@ export const ProfileSettings = (): React.ReactElement => {
           password: values.newPassword,
           passwordConfirmation: values.confirmNewPassword,
         };
-        const response = await fetch(`${ApiPath.API}/auth/change-password`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `${Auth.BEARER} ${authToken}`,
+        const response = await fetch(
+          `${ROOT}${ApiPath.AUTHAPI}/change-password`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `${Auth.BEARER} ${authToken}`,
+            },
+            body: JSON.stringify(value),
           },
-          body: JSON.stringify(value),
-        });
+        );
 
         const data = await response.json();
         if (data?.error) {

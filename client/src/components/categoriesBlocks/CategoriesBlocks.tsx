@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import { ApiPath } from "@enums/apiPath";
+import { ApiPath, ROOT } from "@enums/apiPath";
 import { v4 as uuidv4 } from "uuid";
 import { getProductImage } from "@helpers/helpers";
 import { Link } from "react-router-dom";
@@ -11,7 +11,9 @@ import { Loader } from "@components/general/loader/Loader";
 import styles from "./styles.module.scss";
 
 export const CategoriesBlocks = (): React.ReactElement => {
-  const { data, loading, error } = useFetch(`${ApiPath.CATEGORIESAPI}`);
+  const { data, loading, error } = useFetch(
+    `${ROOT}${ApiPath.CATEGORIESAPI}?populate=image`,
+  );
 
   if (loading) return <Loader />;
 

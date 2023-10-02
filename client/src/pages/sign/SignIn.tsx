@@ -11,7 +11,7 @@ import {
   Alert,
 } from "@mui/material";
 import { Link, useNavigate, Navigate } from "react-router-dom";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { Formik } from "formik";
 import {
   signInInitialValues,
@@ -40,7 +40,7 @@ export const SignIn = (): React.ReactElement => {
         identifier: values.email,
         password: values.password,
       };
-      const response = await fetch(`${ApiPath.API}/auth/local`, {
+      const response = await fetch(`${ROOT}${ApiPath.AUTHAPI}/local`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getToken } from "@/helpers/helpers";
 import { Navigate } from "react-router-dom";
-import { ApiPath } from "@/common/enums/apiPath";
+import { ApiPath, ROOT } from "@/common/enums/apiPath";
 import { ForgotPasswordSchemaValues } from "@/common/types/types";
 import {
   forgotPasswordInitialValues,
@@ -23,13 +23,16 @@ export const ForgotPassword = (): React.ReactElement => {
       const value = {
         email: values.email,
       };
-      const response = await fetch(`${ApiPath.API}/auth/forgot-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${ROOT}${ApiPath.AUTHAPI}/forgot-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(value),
         },
-        body: JSON.stringify(value),
-      });
+      );
 
       const data = await response.json();
       if (data?.error) {

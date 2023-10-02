@@ -8,10 +8,10 @@ const initialState: BannerState = {
 };
 
 export const fetchBannerSlides = createAsyncThunk(
-  `${ApiPath.API}/banner`,
+  `${ROOT}${ApiPath.BANNERAPI}`,
   async (_, { getState }) => {
     const { settings } = getState() as RootState;
-    const endpoint = `${ROOT}${ApiPath.API}/banners?populate=image&locale=${settings.language}`;
+    const endpoint = `${ROOT}${ApiPath.BANNERAPI}?populate=image&locale=${settings.language}`;
     const response = await fetch(endpoint);
 
     const slides = await response.json();
