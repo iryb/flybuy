@@ -10,7 +10,9 @@ export const Contact = (): React.ReactElement => {
         <Typography variant="h1" className="pageTitle">
           {t("contactPageTitle")}
         </Typography>
-        <Typography>{t("contactPageText")}</Typography>
+        <Typography className="textFormatted">
+          {t("contactPageText")}
+        </Typography>
       </Container>
     </Box>
   );
