@@ -120,7 +120,9 @@ export const Product = (): React.ReactElement => {
                 <Typography className={styles.price}>
                   {formatPrice(item[0].attributes.price)}
                 </Typography>
-                <Typography className={styles.description}>
+                <Typography
+                  className={clsx("textFormatted", styles.description)}
+                >
                   {item[0].attributes.fullDescription}
                 </Typography>
                 <Quantity

@@ -10,7 +10,7 @@ export const About = (): React.ReactElement => {
         <Typography variant="h1" className="pageTitle">
           {t("aboutPageTitle")}
         </Typography>
-        <Typography>{t("aboutPageText")}</Typography>
+        <Typography className="textFormatted">{t("aboutPageText")}</Typography>
       </Container>
     </Box>
   );

@@ -10,7 +10,6 @@ import clsx from "clsx";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
-import { ROOT } from "@/common/enums/apiPath";
 import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
@@ -38,7 +37,7 @@ export const FullWidthCarousel = (): React.ReactElement => {
         <SwiperSlide key={uuidv4()}>
           <img
             className={styles.carouselImage}
-            src={`${ROOT}${image}`}
+            src={`${process.env.REACT_APP_IMAGE_ROOTURL as string}${image}`}
             alt=""
           />
           <Container sx={{ position: "relative", height: "100%" }}>
