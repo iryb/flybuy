@@ -34,7 +34,7 @@ export const getPriceRange = (items: CartItem[]): [number, number] => {
 };
 
 export const getProductImage = (item: Image): string => {
-  const url = item?.data?.attributes.formats.medium.url as string | null;
+  const url = item?.data?.attributes.url as string | null;
 
   const imagePlaceholder = url ? `${ROOT}${url}` : placeholder;
 
