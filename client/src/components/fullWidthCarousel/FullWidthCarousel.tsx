@@ -3,10 +3,7 @@ import { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { v4 as uuidv4 } from "uuid";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Box, Button, Container, IconButton, Typography } from "@mui/material";
-import clsx from "clsx";
+import { Box, Button, Container, Typography } from "@mui/material";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
@@ -41,16 +38,6 @@ export const FullWidthCarousel = (): React.ReactElement => {
             alt=""
           />
           <Container sx={{ position: "relative", height: "100%" }}>
-            <IconButton
-              className={clsx("swiper-button-prev", styles.arrowPrev)}
-            >
-              <ArrowBackIosIcon />
-            </IconButton>
-            <IconButton
-              className={clsx("swiper-button-next", styles.arrowNext)}
-            >
-              <ArrowForwardIosIcon />
-            </IconButton>
             {(title ?? link) && (
               <Box className={styles.carouselCaption}>
                 {title && (

@@ -1,11 +1,9 @@
+import { Image } from "../types";
+
 interface Category {
   attributes: {
     title: string;
-    image: {
-      data: {
-        attributes: { formats: { medium: { url: string } } };
-      } | null;
-    };
+    image: Image;
     link: string;
   };
 }

@@ -5,7 +5,7 @@ interface Size {
 
 interface Image {
   data: {
-    attributes: { formats: { medium: { url: string } } };
+    attributes: { url: string };
   } | null;
 }
 
@@ -16,11 +16,7 @@ interface CartItem {
     name: string;
     category?: string;
     price: number;
-    image: {
-      data: {
-        attributes: { formats: { medium: { url: string } } };
-      } | null;
-    };
+    image: Image;
     fullDescription: string;
     size: {
       data: Size[];
@@ -51,11 +47,7 @@ interface ProductPreview {
   attributes: {
     name: string;
     price: number;
-    image: {
-      data: {
-        attributes: { formats: { medium: { url: string } } };
-      } | null;
-    };
+    image: Image;
     size: string;
     sku: string;
     slug: string;
