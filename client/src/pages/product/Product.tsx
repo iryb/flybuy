@@ -12,7 +12,7 @@ import {
   ToggleButton,
   Badge,
 } from "@mui/material";
-import { formatPrice } from "@helpers/helpers";
+import { formatPrice, getProductImage } from "@helpers/helpers";
 import { Quantity } from "@/components/general/quantity/Quantity";
 import { v4 as uuidv4 } from "uuid";
 import { addToCartById } from "@/store/cart/slice";
@@ -96,8 +96,7 @@ export const Product = (): React.ReactElement => {
                   className={styles.desktopImgContainer}
                 >
                   <img
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                    src={`${ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
+                    src={getProductImage(item[0].attributes.image)}
                     alt={item[0].attributes.name}
                     className={styles.mainImage}
                   />
@@ -110,8 +109,7 @@ export const Product = (): React.ReactElement => {
                 {item[0].attributes.image.data && (
                   <Box className={styles.mobileImgContainer}>
                     <img
-                      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                      src={`${ROOT}${item[0].attributes.image.data.attributes.formats.medium.url}`}
+                      src={getProductImage(item[0].attributes.image)}
                       alt={item[0].attributes.name}
                       className={styles.mainImage}
                     />

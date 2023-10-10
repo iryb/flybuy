@@ -2,7 +2,7 @@ import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Product } from "@/common/types/types";
 import { useAppDispatch } from "@store/hooks";
-import { formatPrice } from "@/helpers/helpers";
+import { formatPrice, getProductImage } from "@/helpers/helpers";
 import { Quantity } from "@components/general/quantity/Quantity";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import {
@@ -32,7 +32,6 @@ export const ProductListItem = ({
   const dispatch = useAppDispatch();
   const url = `${ROOT}${ApiPath.ITEMSAPI}&filters[sku][$eq]=${sku}`;
 
-  // eslint-disable-next-line
   const { data, loading, error } = useFetch(url);
 
   if (loading) return <Loader />;
@@ -50,8 +49,7 @@ export const ProductListItem = ({
         >
           <Box className={styles.leftCol}>
             <img
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-              src={`${ROOT}${data[0].attributes.image.data?.attributes.formats.medium.url}`}
+              src={getProductImage(data[0].attributes.image)}
               alt={data[0].attributes.name}
               className={styles.productImage}
             />
