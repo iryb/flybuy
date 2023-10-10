@@ -1,5 +1,4 @@
-import { CartItem, Image } from "@/common/types/types";
-import { ROOT } from "@enums/apiPath";
+import { Image } from "@/common/types/types";
 import { Auth } from "@enums/auth";
 import placeholder from "@images/productPlaceholder.jpg";
 
@@ -13,30 +12,12 @@ export const formatStringCapitalize = (str: string): string => {
     .replace(/^./g, (word) => word.toUpperCase());
 };
 
-export const getUniqueSizes = (items: CartItem[]): string[] => {
-  const sizes = items.map((item) => item.attributes.size?.data);
-  const uniqueSizes = new Set<string>();
-
-  sizes.forEach((size) => {
-    size?.forEach((s) => (s.count > 0 ? uniqueSizes.add(s.size) : null));
-  });
-
-  return Array.from(uniqueSizes);
-};
-
-export const getPriceRange = (items: CartItem[]): [number, number] => {
-  const prices = items.map((item) => item.attributes.price);
-  const uniquePrices = new Set(prices);
-  const min = Math.min(...Array.from(uniquePrices));
-  const max = Math.max(...Array.from(uniquePrices));
-
-  return [min, max];
-};
-
 export const getProductImage = (item: Image): string => {
   const url = item?.data?.attributes.url as string | null;
 
-  const imagePlaceholder = url ? `${ROOT}${url}` : placeholder;
+  const imagePlaceholder = url
+    ? `${process.env.REACT_APP_IMAGE_ROOTURL as string}${url}`
+    : placeholder;
 
   return imagePlaceholder;
 };
