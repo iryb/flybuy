@@ -16,15 +16,15 @@ export const Footer = (): React.ReactElement => {
   const menu = [
     {
       label: t("men"),
-      path: "/products/men",
+      path: "/category/men",
     },
     {
       label: t("women"),
-      path: "/products/women",
+      path: "/category/women",
     },
     {
       label: t("children"),
-      path: "/products/children",
+      path: "/category/children",
     },
   ];
 
