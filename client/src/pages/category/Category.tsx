@@ -33,7 +33,7 @@ export const Category = (): React.ReactElement => {
   );
 
   querySizes?.forEach((s) => {
-    queryParams.searchParams.append("filters[size][$contains]", s);
+    queryParams.searchParams.append("filters[size][$containsi]", s);
   });
 
   if (queryMaxPrice) {
