@@ -24,11 +24,14 @@
 }
 
 .filters {
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 85px);
   @media (max-width: $screen-md) {
     position: fixed;
     left: 0;
     top: $headerHeight;
-    max-width: 100%;
+    width: 100%;
     padding: 15px;
     transform: translateY(-100%);
     background: #fff;
@@ -53,9 +56,34 @@
     color: $primaryColor;
     border-radius: 0;
     padding: 8px 16px;
+    margin-left: 0 !important;
+    @media (max-width: $screen-md) {
+      width: max-content;
+    }
     &.active {
       background-color: $primaryColor;
       color: #fff;
+    }
+  }
+  .filtersContent {
+    position: absolute;
+    width: 100%;
+    max-height: calc(100% - 110px);
+    overflow-y: auto;
+    @media (max-width: $screen-md) {
+      width: calc(100% - 30px);
+    }
+  }
+  .filtersFooter {
+    border-top: 1px solid #e9e9e9;
+    background-color: #fff;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    height: 88px;
+    padding: 15px 0;
+    @media (max-width: $screen-md) {
+      width: calc(100% - 30px);
     }
   }
   .filtersCloseBtn {
@@ -65,11 +93,15 @@
       position: absolute;
       right: 0;
       top: 15px;
+      padding: 0;
+      z-index: 2;
     }
   }
 }
 
 .filtersTitle {
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 10px;
   @media (max-width: $screen-md) {
     display: none;
   }
