@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { ApiPath, ROOT } from "@enums/apiPath";
-import { v4 as uuidv4 } from "uuid";
 import { getProductImage } from "@helpers/helpers";
 import { Link } from "react-router-dom";
 import { useFetch } from "@/hooks/hooks";
@@ -22,8 +21,8 @@ export const CategoriesBlocks = (): React.ReactElement => {
       {data && (
         <Box className={styles.section}>
           <Grid container>
-            {data.map((category: Category) => (
-              <Grid item sm={4} key={uuidv4()} className={styles.category}>
+            {data.map((category: Category, index: number) => (
+              <Grid item sm={4} key={index} className={styles.category}>
                 <Link
                   to={`category${category.attributes.link}`}
                   className={styles.link}

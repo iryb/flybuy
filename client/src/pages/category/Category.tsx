@@ -10,7 +10,6 @@ import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { ApiPath, ROOT } from "@enums/apiPath";
 import { ProductCard } from "@components/productCard/ProductCard";
-import { v4 as uuidv4 } from "uuid";
 import { Filters } from "@/components/filters/Filters";
 import { useFetch, useUrlParams } from "@/hooks/hooks";
 import { useTranslation } from "react-i18next";
@@ -47,7 +46,7 @@ export const Category = (): React.ReactElement => {
     );
   });
 
-  const { data, meta, loading, error } = useFetch(queryParams.toString());
+  const { data, meta } = useFetch(queryParams.toString());
 
   useEffect(() => {
     setPageCount(meta?.pagination?.pageCount);
@@ -122,8 +121,6 @@ export const Category = (): React.ReactElement => {
     setPage(value);
   };
 
-  if (loading) return <Loader />;
-
   return (
     <Box className={styles.pageContent}>
       <Container>
@@ -138,7 +135,7 @@ export const Category = (): React.ReactElement => {
             <Box className={styles.filterPillsContainer}>
               {querySizes?.map((s) => (
                 <Chip
-                  key={uuidv4()}
+                  key={s}
                   label={s}
                   onDelete={() => handleRemoveSizeFilter(s)}
                 />
@@ -152,7 +149,7 @@ export const Category = (): React.ReactElement => {
               )}
               {querySubcategories?.map((s) => (
                 <Chip
-                  key={uuidv4()}
+                  key={s}
                   label={s}
                   onDelete={() => handleRemoveSubcategoryFilter(s)}
                 />
@@ -160,12 +157,15 @@ export const Category = (): React.ReactElement => {
             </Box>
 
             <Grid container spacing={2} mt={2}>
-              {!!data &&
+              {data ? (
                 data.map((item: CartItem) => (
                   <Grid item sm={4} xs={12} key={item.id}>
                     <ProductCard item={item} />
                   </Grid>
-                ))}
+                ))
+              ) : (
+                <Loader />
+              )}
             </Grid>
             {pageCount > 1 && (
               <Grid container mt={4} className={styles.paginationContainer}>
