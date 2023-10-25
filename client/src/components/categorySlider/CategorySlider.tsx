@@ -1,16 +1,15 @@
 import React from "react";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Skeleton, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import clsx from "clsx";
 import { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { v4 as uuidv4 } from "uuid";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { CartItem } from "@/common/types/types";
 import { ProductCard } from "@components/productCard/ProductCard";
-import { Loader } from "@components/general/loader/Loader";
+import { CategorySliderSkeleton } from "./CategorySliderSkeleton";
 
 import styles from "./styles.module.scss";
 
@@ -25,17 +24,18 @@ export const CategorySlider = ({
   slides,
   loading,
 }: CategorySliderProps): React.ReactElement => {
-  if (loading) return <Loader />;
-
   return (
     <>
-      {slides && (
-        <Box className={styles.section}>
-          {title && (
-            <Typography variant="h3" className={styles.title}>
-              {title}
-            </Typography>
-          )}
+      <Box className={styles.section}>
+        {title && (
+          <Typography variant="h3" className={styles.title}>
+            {title}
+          </Typography>
+        )}
+
+        {loading ? (
+          <CategorySliderSkeleton />
+        ) : (
           <Swiper
             modules={[Navigation, Autoplay]}
             spaceBetween={0}
@@ -58,29 +58,26 @@ export const CategorySlider = ({
             }}
             className={styles.carousel}
           >
-            {slides.map((slide) => (
-              <SwiperSlide key={uuidv4()}>
-                <ProductCard key={uuidv4()} item={slide} />
+            {slides?.map((slide, index) => (
+              <SwiperSlide key={index}>
+                <ProductCard item={slide} />
               </SwiperSlide>
             ))}
           </Swiper>
-          <Container
-            sx={{ position: "relative", height: "100%" }}
-            className={styles.arrowsContainer}
-          >
-            <IconButton
-              className={clsx("swiper-button-prev", styles.arrowPrev)}
-            >
-              <ArrowBackIosIcon />
-            </IconButton>
-            <IconButton
-              className={clsx("swiper-button-next", styles.arrowNext)}
-            >
-              <ArrowForwardIosIcon />
-            </IconButton>
-          </Container>
-        </Box>
-      )}
+        )}
+
+        <Container
+          sx={{ position: "relative", height: "100%" }}
+          className={styles.arrowsContainer}
+        >
+          <IconButton className={clsx("swiper-button-prev", styles.arrowPrev)}>
+            <ArrowBackIosIcon />
+          </IconButton>
+          <IconButton className={clsx("swiper-button-next", styles.arrowNext)}>
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </Container>
+      </Box>
     </>
   );
 };
