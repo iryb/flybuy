@@ -20,7 +20,7 @@ export const CategoriesBlocks = (): React.ReactElement => {
         {loading ? (
           <Skeleton variant="rectangular" width={"100%"} height={600} />
         ) : (
-          data.map((category: Category, index: number) => (
+          data?.map((category: Category, index: number) => (
             <Grid item sm={4} key={index} className={styles.category}>
               <Link
                 to={`category${category.attributes.link}`}
