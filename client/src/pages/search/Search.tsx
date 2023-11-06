@@ -19,7 +19,7 @@ export const Search = (): React.ReactElement => {
   const querySearch = searchParams.get("s") as string;
 
   const queryParams = new URL(
-    `${ROOT}${ApiPath.ITEMSAPI}&filters[name][$contains]=${querySearch}&pagination[page]=${page}&pagination[pageSize]=9`,
+    `${ROOT}${ApiPath.ITEMSAPI}&filters[name][$containsi]=${querySearch}&pagination[page]=${page}&pagination[pageSize]=9`,
   );
 
   const {

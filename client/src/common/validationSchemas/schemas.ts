@@ -113,7 +113,10 @@ export const signInInitialValues: SignInSchemaValues = {
 };
 
 export const signInSchema = yup.object().shape({
-  email: yup.string().required("requiredField"),
+  email: yup
+    .string()
+    .required("requiredField")
+    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, "validEmail"),
   password: yup.string().required("requiredField"),
 });
 

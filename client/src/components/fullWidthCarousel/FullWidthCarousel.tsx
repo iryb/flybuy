@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { v4 as uuidv4 } from "uuid";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Skeleton, Typography } from "@mui/material";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useTranslation } from "react-i18next";
+import { fetchBannerSlides } from "@/store/banner/slice";
+import { Image } from "@components/general/image/Image";
 
 import styles from "./styles.module.scss";
 
@@ -15,6 +16,16 @@ export const FullWidthCarousel = (): React.ReactElement => {
   const navigate = useNavigate();
   const slides = useAppSelector((state) => state.banner.data);
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const language = useAppSelector((state) => state.settings.language);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    dispatch(fetchBannerSlides());
+  }, [language]);
+
+  if (!slides)
+    return <Skeleton variant="rectangular" width={"100%"} height={500} />;
 
   return (
     <Swiper
@@ -30,12 +41,13 @@ export const FullWidthCarousel = (): React.ReactElement => {
       autoplay
       className={styles.carousel}
     >
-      {slides?.map(({ image, title, link }) => (
-        <SwiperSlide key={uuidv4()}>
-          <img
+      {slides?.map(({ image, title, link }, index) => (
+        <SwiperSlide key={index}>
+          <Image
             className={styles.carouselImage}
             src={`${process.env.REACT_APP_IMAGE_ROOTURL as string}${image}`}
-            alt=""
+            width="100%"
+            height="500px"
           />
           <Container sx={{ position: "relative", height: "100%" }}>
             {(title ?? link) && (

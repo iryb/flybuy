@@ -3,7 +3,6 @@ import { Order, ProductPreview } from "@/common/types/types";
 import { formatDate, formatPrice, getProductImage } from "@/helpers/helpers";
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -99,7 +98,7 @@ export const OrderItem = ({ item }: OrderItemProps): React.ReactElement => {
             <span>{formatDate(createdAt)}</span>
           </Typography>
           {productsData?.map((item) => (
-            <Box key={uuidv4()} className={styles.details}>
+            <Box key={item.id} className={styles.details}>
               <Box className={styles.image}>
                 <Link // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                   to={`/item/${item.attributes.slug}`}

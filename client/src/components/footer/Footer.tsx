@@ -16,20 +16,20 @@ export const Footer = (): React.ReactElement => {
   const menu = [
     {
       label: t("men"),
-      path: "/products/men",
+      path: "/category/men",
     },
     {
       label: t("women"),
-      path: "/products/women",
+      path: "/category/women",
     },
     {
       label: t("children"),
-      path: "/products/children",
+      path: "/category/children",
     },
   ];
 
   return (
-    <Box className={styles.footer}>
+    <footer className={styles.footer}>
       <Container>
         <Grid container className={styles.footerInner}>
           <Grid item sm={5} xs={12}>
@@ -93,6 +93,6 @@ export const Footer = (): React.ReactElement => {
           <Typography>{`© ${new Date().getFullYear()} FlyBuy`}</Typography>
         </Box>
       </Container>
-    </Box>
+    </footer>
   );
 };

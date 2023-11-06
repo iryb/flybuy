@@ -130,91 +130,102 @@ export const Filters = (): React.ReactElement => {
         <Typography variant="h5" className={styles.filtersTitle}>
           {t("filters")}:
         </Typography>
-        <IconButton
-          className={styles.filtersCloseBtn}
-          onClick={handleMobileFiltersClick}
-        >
-          <CloseIcon />
-        </IconButton>
-        {sizes && (
-          <Box className={styles.container}>
-            <Typography className={styles.filterTitle}>{t("size")}</Typography>
-            <ButtonGroup
-              className={clsx(styles.filtersGroup, styles.sizesContainer)}
-            >
-              {sizes.map((s: string) => (
-                <Button
-                  key={uuidv4()}
-                  onClick={() => handleSizeFilter(s)}
-                  className={clsx(
-                    styles.filter,
-                    sizeFilter?.includes(s) ? styles.active : "",
-                  )}
-                  sx={{
-                    borderRightColor: "rgba(29, 29, 29, 0.5)!important",
-                  }}
-                >
-                  {s}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Box>
-        )}
-        {priceRange && (
-          <Box className={styles.container}>
-            <Typography className={styles.filterTitle}>{t("price")}</Typography>
-            <ButtonGroup
-              className={clsx(styles.filtersGroup, styles.priceContainer)}
-            >
-              {priceRange.map((price: string) => (
-                <Button
-                  key={uuidv4()}
-                  onClick={() => handlePriceFilter(price)}
-                  className={clsx(
-                    styles.filter,
-                    priceFilter === parseInt(price) ? styles.active : "",
-                  )}
-                  sx={{
-                    borderRightColor: "rgba(29, 29, 29, 0.5)!important",
-                  }}
-                >
-                  {t("upTo")} ${price}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Box>
-        )}
-        {subcategoriesList && (
-          <Box className={styles.container}>
-            <Typography className={styles.filterTitle}>
-              {t("category")}
-            </Typography>
-            <ButtonGroup
-              className={clsx(styles.filtersGroup, styles.subcategories)}
-            >
-              {subcategoriesList[0]?.items.map((item: any) => (
-                <Button
-                  key={uuidv4()}
-                  onClick={() => handleSubcategoryFilter(item)}
-                  className={clsx(
-                    styles.filter,
-                    subcategoryFilter?.includes(item.toLowerCase())
-                      ? styles.active
-                      : "",
-                  )}
-                  sx={{
-                    borderRightColor: "rgba(29, 29, 29, 0.5)!important",
-                  }}
-                >
-                  {item}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Box>
-        )}
-        <Button onClick={() => handleApplyFilters()}>
-          {t("applyFiltersBtn")}
-        </Button>
+        <Box className={styles.filtersContent}>
+          <IconButton
+            className={styles.filtersCloseBtn}
+            onClick={handleMobileFiltersClick}
+          >
+            <CloseIcon />
+          </IconButton>
+          {sizes && (
+            <Box className={styles.container}>
+              <Typography className={styles.filterTitle}>
+                {t("size")}
+              </Typography>
+              <ButtonGroup
+                className={clsx(styles.filtersGroup, styles.sizesContainer)}
+              >
+                {sizes.map((s: string) => (
+                  <Button
+                    key={uuidv4()}
+                    onClick={() => handleSizeFilter(s)}
+                    className={clsx(
+                      styles.filter,
+                      sizeFilter?.includes(s) ? styles.active : "",
+                    )}
+                    sx={{
+                      borderRightColor: "rgba(29, 29, 29, 0.5)!important",
+                    }}
+                  >
+                    {s}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Box>
+          )}
+          {priceRange && (
+            <Box className={styles.container}>
+              <Typography className={styles.filterTitle}>
+                {t("price")}
+              </Typography>
+              <ButtonGroup
+                className={clsx(styles.filtersGroup, styles.priceContainer)}
+              >
+                {priceRange.map((price: string) => (
+                  <Button
+                    key={uuidv4()}
+                    onClick={() => handlePriceFilter(price)}
+                    className={clsx(
+                      styles.filter,
+                      priceFilter === parseInt(price) ? styles.active : "",
+                    )}
+                    sx={{
+                      borderRightColor: "rgba(29, 29, 29, 0.5)!important",
+                    }}
+                  >
+                    {t("upTo")} ${price}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Box>
+          )}
+          {subcategoriesList && (
+            <Box className={styles.container}>
+              <Typography className={styles.filterTitle}>
+                {t("category")}
+              </Typography>
+              <ButtonGroup
+                className={clsx(styles.filtersGroup, styles.subcategories)}
+              >
+                {subcategoriesList[0]?.items.map((item: any) => (
+                  <Button
+                    key={uuidv4()}
+                    onClick={() => handleSubcategoryFilter(item)}
+                    className={clsx(
+                      styles.filter,
+                      subcategoryFilter?.includes(item.toLowerCase())
+                        ? styles.active
+                        : "",
+                    )}
+                    sx={{
+                      borderRightColor: "rgba(29, 29, 29, 0.5)!important",
+                    }}
+                  >
+                    {item}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Box>
+          )}
+        </Box>
+        <Box className={styles.filtersFooter}>
+          <Button
+            className={styles.filtersBtn}
+            onClick={() => handleApplyFilters()}
+          >
+            {t("applyFiltersBtn")}
+          </Button>
+        </Box>
       </Box>
     </>
   );

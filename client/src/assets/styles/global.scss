@@ -9,6 +9,14 @@
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .textFormatted {
@@ -59,4 +67,8 @@ body {
 
 .success {
   color: green;
+}
+
+.loading {
+  display: none;
 }

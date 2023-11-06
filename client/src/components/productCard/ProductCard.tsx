@@ -11,6 +11,7 @@ import {
 } from "@helpers/helpers";
 import { Sizes } from "../general/sizes/Sizes";
 import { useTranslation } from "react-i18next";
+import { Image } from "@components/general/image/Image";
 
 import styles from "./styles.module.scss";
 
@@ -60,41 +61,35 @@ export const ProductCard = ({ item }: ProductCardProps): React.ReactElement => {
   }, [cart]);
 
   return (
-    <Box>
-      <Box className={styles.card}>
-        <Box>
-          <Box className={styles.cardHeader}>
-            <img
-              src={getProductImage(item.attributes.image)}
-              alt={name}
-              width="300"
-              height="400"
-              className={styles.cardImage}
-              onClick={() => navigate(productLink)}
-            />
-            <Box className={styles.cardButtonWrapper}>
-              {error && (
-                <Typography className={styles.error}>{error}</Typography>
-              )}
-              {size && (
-                <Box className={styles.sizesContainer}>
-                  <Sizes items={size.data} callback={handleSizeClick} />
-                </Box>
-              )}
-              <Button onClick={handleAddToCart}>{t("addToCardText")}</Button>
+    <Box className={styles.card}>
+      <Box className={styles.cardHeader}>
+        <Image
+          src={getProductImage(item.attributes.image)}
+          alt={name}
+          width="277px"
+          height="350px"
+          className={styles.cardImage}
+          onClick={() => navigate(productLink)}
+        />
+        <Box className={styles.cardButtonWrapper}>
+          {error && <Typography className={styles.error}>{error}</Typography>}
+          {size && (
+            <Box className={styles.sizesContainer}>
+              <Sizes items={size.data} callback={handleSizeClick} />
             </Box>
-          </Box>
-          {category && (
-            <Typography className={styles.category}>
-              {formatStringCapitalize(category)}
-            </Typography>
           )}
-          <Typography variant="h5" className={styles.title}>
-            <Link to={productLink}>{name}</Link>
-          </Typography>
-          <Typography fontWeight="bold">{formatPrice(price)}</Typography>
+          <Button onClick={handleAddToCart}>{t("addToCardText")}</Button>
         </Box>
       </Box>
+      {category && (
+        <Typography className={styles.category}>
+          {formatStringCapitalize(category)}
+        </Typography>
+      )}
+      <Typography variant="h5" className={styles.title}>
+        <Link to={productLink}>{name}</Link>
+      </Typography>
+      <Typography fontWeight="bold">{formatPrice(price)}</Typography>
     </Box>
   );
 };

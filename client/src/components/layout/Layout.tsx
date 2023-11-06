@@ -4,11 +4,13 @@ import { Header } from "@components/header/Header";
 
 export const Layout = (): React.ReactElement => {
   return (
-    <div>
+    <>
       <Header />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
       <ScrollRestoration />
-    </div>
+    </>
   );
 };

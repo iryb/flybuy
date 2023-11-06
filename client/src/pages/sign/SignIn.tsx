@@ -1,27 +1,13 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Grid,
-  Alert,
-} from "@mui/material";
+import { Box, Container, Typography, Grid, Alert } from "@mui/material";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { ApiPath, ROOT } from "@/common/enums/apiPath";
-import { Formik } from "formik";
-import {
-  signInInitialValues,
-  signInSchema,
-} from "@/common/validationSchemas/schemas";
 import { SignInSchemaValues } from "@/common/types/types";
 import { useAppDispatch } from "@store/hooks";
 import { getToken, setTemporaryToken, setToken } from "@helpers/helpers";
 import { setUser } from "@/store/user/slice";
 import { useTranslation } from "react-i18next";
+import { SignInForm } from "@/components/sign/SignInForm";
 
 import styles from "./styles.module.scss";
 
@@ -91,63 +77,7 @@ export const SignIn = (): React.ReactElement => {
             {error}
           </Alert>
         )}
-        <Formik
-          onSubmit={handleFormSubmit}
-          initialValues={signInInitialValues}
-          validationSchema={signInSchema}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                label={t("email")}
-                name="email"
-                value={values.email}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email && t(errors.email)}
-                sx={{ marginBottom: "15px" }}
-              />
-              <TextField
-                fullWidth
-                name="password"
-                label={t("password")}
-                type="password"
-                value={values.password}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.password && Boolean(errors.password)}
-                helperText={
-                  touched.password && errors.password && t(errors.password)
-                }
-                sx={{ marginBottom: "15px" }}
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="rememberMe"
-                    color="primary"
-                    value={values.rememberMe}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                  />
-                }
-                label={t("rememberUser")}
-              />
-              <Button className={styles.button} type="submit">
-                {t("signIn")}
-              </Button>
-            </form>
-          )}
-        </Formik>
+        <SignInForm handleFormSubmit={handleFormSubmit} />
         <Grid container className={styles.linksContainer}>
           <Grid item xs>
             <Link to={ApiPath.FORGOTPASSWORD} className={styles.link}>
