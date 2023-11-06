@@ -29,7 +29,7 @@ export const Footer = (): React.ReactElement => {
   ];
 
   return (
-    <Box className={styles.footer}>
+    <footer className={styles.footer}>
       <Container>
         <Grid container className={styles.footerInner}>
           <Grid item sm={5} xs={12}>
@@ -93,6 +93,6 @@ export const Footer = (): React.ReactElement => {
           <Typography>{`© ${new Date().getFullYear()} FlyBuy`}</Typography>
         </Box>
       </Container>
-    </Box>
+    </footer>
   );
 };

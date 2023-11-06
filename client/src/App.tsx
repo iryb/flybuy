@@ -92,9 +92,9 @@ const router = createBrowserRouter([
 
 function App(): React.ReactElement {
   return (
-    <div className="App">
+    <>
       <RouterProvider router={router} />
-    </div>
+    </>
   );
 }
 
