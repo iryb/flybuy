@@ -3,6 +3,11 @@ E-commerce app built with React and Strapi.
 ![main](https://github.com/iryb/flybuy/assets/44324806/2087db98-3a77-4b2d-afc5-4888d6c8675d)
 
 ## Demo
+https://zesty-gnome-cf3a01.netlify.app/
+
+### Demo user credentials:
+Email: test@test.com
+Password: simpleuser1
 
 ## Features
 - Filtering: by size, price, category
