@@ -166,6 +166,11 @@ export const Category = (): React.ReactElement => {
               ) : (
                 <Loader />
               )}
+              {data?.length === 0 ? (
+                <Typography className={styles.notFound}>
+                  Nothing found.
+                </Typography>
+              ) : null}
             </Grid>
             {pageCount > 1 && (
               <Grid container mt={4} className={styles.paginationContainer}>
