@@ -99,6 +99,8 @@ export const Filters = (): React.ReactElement => {
     }
   };
 
+  // console.log(priceFilter);
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(fetchSubcategories());
@@ -109,6 +111,12 @@ export const Filters = (): React.ReactElement => {
     if (queryMaxPrice) setPriceFilter(parseInt(queryMaxPrice));
     if (querySubcategories) setSubcategoryFilter(querySubcategories);
   }, [searchParams]);
+
+  useEffect(() => {
+    setSizeFilter([]);
+    setPriceFilter(0);
+    setSubcategoryFilter([]);
+  }, [slug]);
 
   return (
     <>
