@@ -24,7 +24,7 @@ export const OrderItem = ({ item }: OrderItemProps): React.ReactElement => {
   const language = useAppSelector((state) => state.settings.language);
 
   const fetchProduct = async (sku: string): Promise<ProductPreview[]> => {
-    let query = `${ROOT}${ApiPath.ITEMSAPI}?filters[sku][$eq]=${sku}`;
+    let query = `${ROOT}${ApiPath.ITEMSAPI}&filters[sku][$eq]=${sku}`;
     if (language) {
       query += `&locale=${language}`;
     }
