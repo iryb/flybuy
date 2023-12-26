@@ -1,32 +1,37 @@
 {
   "name": "server",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "description": "A Strapi application",
-  "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
-  },
-  "dependencies": {
-    "@strapi/plugin-i18n": "4.8.2",
-    "@strapi/plugin-users-permissions": "4.8.2",
-    "@strapi/provider-email-nodemailer": "^4.13.7",
-    "@strapi/provider-upload-cloudinary": "^4.14.0",
-    "@strapi/strapi": "4.8.2",
-    "better-sqlite3": "8.0.1",
-    "stripe": "^11.16.0"
-  },
+  "license": "MIT",
   "author": {
     "name": "A Strapi developer"
   },
-  "strapi": {
-    "uuid": "99385e5d-cf8f-4c83-b2ca-a80c9783780c"
+  "scripts": {
+    "build": "strapi build",
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.16.2",
+    "@strapi/plugin-users-permissions": "4.16.2",
+    "@strapi/provider-email-nodemailer": "^4.13.7",
+    "@strapi/provider-upload-cloudinary": "^4.14.0",
+    "@strapi/strapi": "4.16.0",
+    "better-sqlite3": "8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "strapi-plugin-import-export-entries": "^1.23.0",
+    "stripe": "^11.16.0",
+    "styled-components": "^5.3.11"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "strapi": {
+    "uuid": "99385e5d-cf8f-4c83-b2ca-a80c9783780c"
+  }
 }
